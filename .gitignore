@@ -1,23 +1,12 @@
 # Folder view configuration files
-.DS_Store
 Desktop.ini
 
-# Thumbnail cache files
-._*
-Thumbs.db
-
-# Files that might appear on external disks
-.Spotlight-V100
-.Trashes
-LOST.DIR
-Android
-System Volume Information
-
-# Compiled Python files
-*.pyc
+# Byte-compiled / optimized / DLL Python files
+__pycache__/
+*.py[cod]
 
 # rustc artifacts
-/target/
+/target
 
 # NPM crap
 node_modules
