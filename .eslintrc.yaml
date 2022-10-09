@@ -2,13 +2,10 @@ env:
     browser: true
     es2021: true
 
-extends: eslint:recommended
-
-overrides: []
+extends: airbnb
 
 parserOptions:
     ecmaVersion: latest
-    sourceType: script
 
 rules:
     indent:
@@ -22,5 +19,5 @@ rules:
         - warn
         - single
     semi:
-        - error
+        - warn
         - never
