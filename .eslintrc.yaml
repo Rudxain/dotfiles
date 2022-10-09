@@ -20,6 +20,8 @@ rules:
     quotes:
         - warn
         - single
+        - allowTemplateLiterals: true
     semi:
         - warn
         - never
+    no-constant-binary-expression: warn
