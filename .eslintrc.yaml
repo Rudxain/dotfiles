@@ -18,7 +18,7 @@ rules:
         - error
         - unix
     quotes:
-        - warn
+        - error
         - single
         - allowTemplateLiterals: true
     semi:
