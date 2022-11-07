@@ -22,4 +22,5 @@ rules:
         - never
     no-self-compare: warn
     no-constant-binary-expression: warn
+    no-unreachable-loop: error
     no-constructor-return: warn
