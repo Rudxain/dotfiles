@@ -24,5 +24,6 @@ rules:
     semi:
         - warn
         - never
+    no-self-compare: warn
     no-constant-binary-expression: warn
     no-constructor-return: warn
