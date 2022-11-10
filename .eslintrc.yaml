@@ -20,8 +20,11 @@ rules:
     semi:
         - warn
         - never
-    no-self-compare: warn
-    no-constant-binary-expression: warn
+    no-self-compare: error
+    no-constant-binary-expression: error
     no-unreachable-loop: error
-    no-unused-private-class-members: warn
-    no-constructor-return: warn
+    no-unused-vars:
+        - error
+        - varsIgnorePattern: "^_$"
+    no-unused-private-class-members: error
+    no-constructor-return: error
