@@ -27,4 +27,7 @@ rules:
         - error
         - varsIgnorePattern: "^_$"
     no-unused-private-class-members: error
+    no-shadow:
+        - error
+        - builtinGlobals: true
     no-constructor-return: error
