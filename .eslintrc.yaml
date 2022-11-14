@@ -20,6 +20,7 @@ rules:
     semi:
         - warn
         - never
+    no-plusplus: error
     no-self-compare: error
     no-constant-binary-expression: error
     no-unreachable-loop: error
