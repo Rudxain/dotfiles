@@ -1,6 +1,8 @@
 # Rudxain’s .files
 
-![Screenshot of shell prompt](https://i.imgur.com/EkEtphC.png)
+<div align=center>
+<img src=icon.svg width=50% height=50%>
+</div>
 
 ## Installation
 
@@ -10,20 +12,20 @@
 
 You can clone the repository wherever you want. The bootstrapper script will pull in the latest version and copy the files to your home folder.
 
-```bash
-git clone https://github.com/mathiasbynens/dotfiles.git && cd dotfiles && source bootstrap.sh
+```sh
+git clone https://github.com/mathiasbynens/dotfiles.git && cd dotfiles && . bootstrap.sh
 ```
 
 To update, `cd` into your local `dotfiles` repository and then:
 
-```bash
-source bootstrap.sh
+```sh
+. bootstrap.sh
 ```
 
 Alternatively, to update while avoiding the confirmation prompt:
 
-```bash
-set -- -f; source bootstrap.sh
+```sh
+set -- -f; . bootstrap.sh
 ```
 
 ### Git-free install
@@ -42,7 +44,7 @@ If `~/.path` exists, it will be sourced along with the other files, before any f
 
 Here’s an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
 
-```bash
+```sh
 export PATH="/usr/local/bin:$PATH"
 ```
 
@@ -52,7 +54,7 @@ If `~/.extra` exists, it will be sourced along with the other files. You can use
 
 My `~/.extra` looks something like this:
 
-```bash
+```sh
 # Git credentials
 # Not in the repository, to prevent people from accidentally committing under my name
 GIT_AUTHOR_NAME="Mathias Bynens"
