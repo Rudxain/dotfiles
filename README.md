@@ -35,7 +35,7 @@ To install these dotfiles without Git:
 ```bash
 cd
 curl -#L https://github.com/Rudxain/dotfiles/tarball/main |\ 
-tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
+tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE}
 ```
 
 To update later on, just run that command again.
