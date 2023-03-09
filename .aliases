@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-# Easier navigation: .., ..., ...., ....., ~ and -
-alias ..="cd .."
-alias ...="cd ../.."
-alias ~="cd ~" # `cd` is probably faster to type though
+# easier navigation
+alias cd...="cd ../.."
+alias ~="cd ~"
 alias -- -="cd -"
 
 # Shortcuts
 alias dl="cd ~/Downloads"
-alias dt="cd ~/Desktop"
-alias g=""
+alias dex="cd ~/Desktop"
+alias docs="cd ~/Documents"
+alias ghd="cd ~/GitHub" # my GH-Desktop default dir
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
