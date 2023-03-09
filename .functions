@@ -6,8 +6,8 @@ function mkd() {
 }
 
 # Go to dir and list contents
-function cdls () {
-    cd "$@" && ls
+function cdls() {
+    cd "$@" && ls;
 }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
