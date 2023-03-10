@@ -1,8 +1,6 @@
 # Rudxain’s .files
 
-<div align=center>
-<img src=icon.svg width=50% height=50%>
-</div>
+<div align=center><img src=icon.svg width=50% height=50%></div>
 
 ## Installation
 
@@ -10,7 +8,7 @@
 
 ### Using Git and the bootstrap script
 
-You can clone the repository wherever you want. The bootstrapper script will pull in the latest version and copy the files to your home folder.
+You can clone the repository however-&-wherever you want. The bootstrapper script will pull in the latest version and copy the files to your home folder.
 
 ```sh
 git clone https://github.com/Rudxain/dotfiles.git && cd dotfiles && . bootstrap.sh
@@ -28,9 +26,9 @@ Alternatively, to update while avoiding the confirmation prompt:
 set -- -f; . bootstrap.sh
 ```
 
-### Git-free install
+### Git-less install
 
-To install these dotfiles without Git:
+To install these dotfiles without `git`:
 
 ```bash
 cd
@@ -42,7 +40,7 @@ To update later on, just run that command again.
 
 ### Specify the `$PATH`
 
-If `~/.path` exists, it will be sourced along with the other files, before any feature testing (such as [detecting which version of `ls` is being used](https://github.com/mathiasbynens/dotfiles/blob/aff769fd75225d8f2e481185a71d5e05b76002dc/.aliases#L21-L26)) takes place.
+If `~/.path` exists, it will be sourced along with the other files, before any feature-testing takes place.
 
 Here’s an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
 
@@ -50,7 +48,7 @@ Here’s an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
 export PATH="/usr/local/bin:$PATH"
 ```
 
-### Add custom commands without creating a new fork
+### Add custom commands without forking
 
 If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands without the need to fork this entire repository, or to add commands you don’t want to commit to a public repository.
 
