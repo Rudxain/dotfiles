@@ -8,6 +8,7 @@ function do_it() {
 	rsync --exclude '.git/' \
 		--exclude 'bootstrap.sh' \
 		--exclude 'README.md' \
+		--exclude 'icon.svg' \
 		--exclude 'LICENSE' \
 		-avh --no-perms . ~;
 	source ~/.bash_profile;
