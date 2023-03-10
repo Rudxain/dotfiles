@@ -1,27 +1,24 @@
-# Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
 
-# List all matches in case multiple possible completions are possible
 set show-all-if-ambiguous on
 
-# Immediately add a trailing slash when autocompleting symlinks to directories
+# append slash when autocompleting symlinks to dirs
 set mark-symlinked-directories on
 
-# Use the text that has already been typed as the prefix for searching through
+# uses the text that has already been typed as prefix for searching through
 # commands (i.e. more intelligent Up/Down behavior)
 "\e[B": history-search-forward
 "\e[A": history-search-backward
 
-# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+# match hidden files if pattern starts with dot
 set match-hidden-files off
 
-# Show all autocomplete results at once
+# show all autocomplete results at once
 set page-completions off
 
-# If there are more than 128 possible completions for a word, ask to show them all
+# ask before showing 128+ completions
 set completion-query-items 128
 
-# Show extra file information when completing, like `ls -F` does
 set visible-stats on
 
 # Be more intelligent when autocompleting by also looking at the text after
@@ -31,7 +28,7 @@ set visible-stats on
 # Readline used by Bash 4.)
 set skip-completed-text on
 
-# Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
+# allow UTF-8 IO, instead of showing escape sequences
 set input-meta on
 set output-meta on
 set convert-meta off
