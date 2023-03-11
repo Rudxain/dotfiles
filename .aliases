@@ -21,24 +21,24 @@ export LS_COLORS='no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 
 # --------------------------------------------------------------
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls="ls $colorflag"
-    alias dir="dir $colorflag"
-    alias vdir="vdir $colorflag"
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	alias ls="ls $colorflag"
+	alias dir="dir $colorflag"
+	alias vdir="vdir $colorflag"
 
-    # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
-    alias grep="grep $colorflag"
-    alias fgrep="fgrep $colorflag"
-    alias egrep="egrep $colorflag"
+	# Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
+	alias grep="grep $colorflag"
+	alias fgrep="fgrep $colorflag"
+	alias egrep="egrep $colorflag"
 fi
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 alias ll='ls -alF'
 alias la='ls -A'
-alias la="ls -lAF"
+alias la='ls -lAF'
 alias l='ls -CF'
-alias l="ls -lF"
+alias l='ls -lF'
 # list only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
