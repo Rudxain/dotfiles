@@ -7,7 +7,6 @@ case $- in
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
 HISTCONTROL=ignoreboth
 
 shopt -s histappend
@@ -88,9 +87,10 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-
-. "$HOME/.cargo/env"
-PATH="$PATH:/home/rudxain/.local/bin"
+if [ -f "$HOME/.cargo/env" ]; then
+	. "$HOME/.cargo/env"
+fi
+PATH="$PATH:$HOME/.local/bin"
 
 
 # ---------------------
@@ -110,9 +110,6 @@ unset file;
 
 # case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
-
-# append to history, no overwrite
-shopt -s histappend;
 
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
