@@ -4,7 +4,7 @@
 alias log="printf '%s\n'"
 
 # easier navigation
-alias cd...='cd ../..'
+alias ...='cd ../..'
 alias ~='cd ~'
 alias -- -='cd -'
 
