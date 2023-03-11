@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# invokes as login shell
-alias reload="exec ${SHELL} -l"
+# reload the shell that's currently running on the terminal
+alias reload='exec ${SHELL} -l'
 
 # the only thing Windows did right /j
 alias cls=clear
