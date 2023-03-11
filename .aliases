@@ -8,14 +8,14 @@ alias ...='cd ../..'
 alias ~='cd ~'
 alias -- -='cd -'
 
-# Shortcuts
+# shortcuts
 alias dl='cd ~/Downloads'
 # I hate Samsung, but dex is a good short name
 alias dex='cd ~/Desktop'
 alias docs='cd ~/Documents'
 alias ghd='cd ~/GitHub' # my GH-Desktop default dir
 
-# assume GNU `ls` flavor
+# assume GNU flavor
 colorflag='--color=auto'
 export LS_COLORS='no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
 
@@ -36,13 +36,13 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 alias ll='ls -alF'
 alias la='ls -A'
+alias la="ls -lAF"
 alias l='ls -CF'
-alias l="ls -lF $colorflag"
-alias la="ls -lAF $colorflag"
+alias l="ls -lF"
 # list only directories
-alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
+alias lsd="ls -lF | grep --color=never '^d'"
 
-# Add an "alert" alias for long running commands.  Use like so:
+# add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
@@ -53,17 +53,14 @@ alias update='apt-get upgrade; rustup update' # future: https://github.com/pypa/
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
+alias localip='ipconfig getifaddr en0'
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
-# Show active network interfaces
+# show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
-# Flush Directory Service cache
-alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
-
-# Canonical hex dump; some systems have this symlinked
-command -v hd > /dev/null || alias hd="hexdump -C"
+# canonical hex dump; some systems have this symlinked
+command -v hd > /dev/null || alias hd='hexdump -C'
 
 alias md5=md5sum
 alias sha=sha1sum
@@ -79,9 +76,9 @@ alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.ar
 # Intuitive map function
 # For example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
-alias map="xargs -n1"
+alias map='xargs -n1'
 
-# One of @janmoesen’s ProTip™s
+# one of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "${method}"="lwp-request -m '${method}'"
 done
@@ -89,7 +86,7 @@ done
 # invokes as login shell
 alias reload="exec ${SHELL} -l"
 
-# Print each PATH entry on a separate line
+# print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
 
 alias cls=clear # the only thing Windows did right /j
