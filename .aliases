@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
+# invokes as login shell
+alias reload="exec ${SHELL} -l"
+
+# the only thing Windows did right /j
+alias cls=clear
+
 # prints raw text strings, unlike `echo`
 alias log="printf '%s\n'"
 
-# easier navigation
 alias ...='cd ../..'
 alias ~='cd ~'
 alias -- -='cd -'
@@ -82,12 +87,8 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "${method}"="lwp-request -m '${method}'"
 done
 
-# invokes as login shell
-alias reload="exec ${SHELL} -l"
-
 # print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
 
-alias cls=clear # the only thing Windows did right /j
 alias python=python3 # this is probably a bad idea
 alias py=python
