@@ -89,6 +89,3 @@ done
 
 # print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
-
-alias python=python3 # this is probably a bad idea
-alias py=python
