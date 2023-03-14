@@ -89,3 +89,5 @@ done
 
 # print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
+
+alias sizeof="stat -c '%s'"
