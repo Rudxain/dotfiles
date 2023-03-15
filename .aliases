@@ -77,8 +77,8 @@ alias sha8=sha256sum # 8bit = 256 states
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
-# Intuitive map function
-# For example, to list all directories that contain a certain file:
+# intuitive map function.
+# for example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
 alias map='xargs -n1'
 
