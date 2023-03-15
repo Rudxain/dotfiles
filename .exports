@@ -3,7 +3,7 @@ export HISTSIZE=1024
 export HISTFILESIZE="$((HISTSIZE * 2))"
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-HISTCONTROL
-export HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth:erasedups
 
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
