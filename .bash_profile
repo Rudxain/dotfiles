@@ -69,15 +69,6 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-if [ -f "$HOME/.cargo/env" ]; then
-	. "$HOME/.cargo/env"
-fi
-PATH="$PATH:$HOME/.local/bin"
-
-
-# ---------------------
-
-
 if [ -f "$HOME/bin" ]; then
 	export PATH="$HOME/bin:$PATH";
 fi

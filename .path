@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ -f "$HOME/.cargo/env" ]; then
+	. "$HOME/.cargo/env"
+fi
+PATH="$PATH:$HOME/.local/bin"
