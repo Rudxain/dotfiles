@@ -95,19 +95,15 @@ for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
 done;
 unset file;
 
-# if set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob;
-
-# autocorrect typos in path names when using `cd`
-shopt -s cdspell;
+# - case-insensitive globbing (used in pathname expansion)
+# - autocorrect typos in path names when using `cd`
+for option in nocaseglob cdspell; do
+	shopt -s "$option";
+done;
 
 # enable some Bash 4 features when possible:
-# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
-# * recursive globbing, e.g. `echo **/*.txt`
+# - `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# - recursive globbing, e.g. `echo **/*.txt`
 for option in autocd globstar; do
 	shopt -s "$option" 2> /dev/null;
 done;
