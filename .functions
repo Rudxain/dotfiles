@@ -76,15 +76,6 @@ function server() {
 	python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor k, v in map.items():\n\tmap[k] = v + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
 }
 
-# Compare original and gzipped file size
-function gz() {
-	local origsize=$(wc -c < "$1");
-	local gzipsize=$(gzip -c "$1" | wc -c);
-	local ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l);
-	printf "orig: %d bytes\n" "$origsize";
-	printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio";
-}
-
 # Run `dig` and display the most useful info
 function digga() {
 	dig +nocmd "$1" any +multiline +noall +answer;
@@ -119,24 +110,11 @@ function getcertnames() {
 			| sed -e "2s/DNS://g" -e "s/ //g" | tr "," "\n" | tail -n +2;
 		return 0;
 	else
-		echo "ERROR: Certificate not found.";
+		echo 'ERROR: Certificate not found.';
 		return 1;
 	fi;
 }
 
-# Normalize `open` across Linux, macOS, and Windows.
-# This is needed to make the `o` function (see below) cross-platform.
-if [ ! $(uname -s) = 'Darwin' ]; then
-	if grep -q Microsoft /proc/version; then
-		# Ubuntu on Windows using the Linux subsystem
-		alias open='explorer.exe';
-	else
-		alias open='xdg-open';
-	fi
-fi
-
-# `o` with no arguments opens the current directory, otherwise opens the given
-# location
 function o() {
 	if [ $# -eq 0 ]; then
 		open .;
