@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# see /usr/share/doc/bash-doc/examples in the bash-doc package
 
 # reload the shell that's currently running on the terminal
 alias reload='exec ${SHELL} -l'
