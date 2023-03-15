@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# Create a new directory and enter it
-function mkd() {
+# create directory and enter it
+function mkcd() {
 	mkdir -p "$@" && cd "$_";
 }
 
-# Go to dir and list contents
+# enter dir and list contents
 function cdls() {
 	cd "$@" && ls;
 }
