@@ -5,14 +5,14 @@ export HISTFILESIZE="$((HISTSIZE * 2))"
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-HISTCONTROL
 export HISTCONTROL=ignoreboth
 
-export LANG='en_US.UTF-8';
-export LC_ALL='en_US.UTF-8';
-export PYTHONIOENCODING='UTF-8';
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+export PYTHONIOENCODING='UTF-8'
 
-export EDITOR='vim';
+export EDITOR=vim
 
-# Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}";
+# highlight section titles in manual pages
+export LESS_TERMCAP_md="${yellow}"
 
-# Don’t clear the screen after quitting a manual page.
+# don’t clear screen after quitting a manual page
 export MANPAGER='less -X';
