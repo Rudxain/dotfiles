@@ -6,7 +6,6 @@ case $- in
 		*) return;;
 esac
 
-
 shopt -s histappend
 
 # check the window size after each command and, if necessary,
@@ -31,9 +30,9 @@ if [ -f "$HOME/bin" ]; then
 	export PATH="$HOME/bin:$PATH";
 fi
 
-# Load the shell dotfiles, and then some:
-# * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don’t want to commit.
+# load the shell dotfiles, and then some:
+# - ~/.path can be used to extend `$PATH`.
+# - ~/.extra can be used for other settings you don’t want to commit.
 for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
@@ -45,7 +44,7 @@ for option in nocaseglob cdspell; do
 	shopt -s "$option";
 done;
 
-# enable some Bash 4 features when possible:
+# enable some Bash4 features when possible:
 # - `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # - recursive globbing, e.g. `echo **/*.txt`
 for option in autocd globstar; do
