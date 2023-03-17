@@ -39,7 +39,8 @@ fi
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-alias llaf='ls -alF'
+# v = verbose
+alias lalfv='ls -alF'
 alias lalf='ls -AlF'
 alias la='ls -A'
 alias lcf='ls -CF'
