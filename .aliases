@@ -55,8 +55,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # allow aliases to be sudo'ed
 alias sudo='sudo '
 
-alias update='apt-get upgrade; rustup update' # future: https://github.com/pypa/pip/issues/4551
-
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip='ipconfig getifaddr en0'
