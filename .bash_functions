@@ -15,7 +15,7 @@ function update() {
 	# future: https://github.com/pypa/pip/issues/4551
 	rustup update
 	local crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
-	if [ -n "$crates" ]; then
+	if [[ -n "$crates" ]]; then
 		cargo install $crates
 	fi
 }
@@ -25,10 +25,7 @@ function targz() {
 	local tmpFile="${@%/}.tar";
 	tar -cvf "${tmpFile}" "${@}" || return 1;
 
-	size=$(
-		stat -f"%z" "${tmpFile}" 2> /dev/null; # macOS `stat`
-		stat -c"%s" "${tmpFile}" 2> /dev/null; # GNU `stat`
-	);
+	size=$(stat -c"%s" "${tmpFile}" 2> /dev/null);
 
 	local cmd="";
 	if (( size < 52428800 )) && hash zopfli 2> /dev/null; then
@@ -46,10 +43,7 @@ function targz() {
 	"${cmd}" -v "${tmpFile}" || return 1;
 	[ -f "${tmpFile}" ] && rm "${tmpFile}";
 
-	zippedSize=$(
-		stat -f"%z" "${tmpFile}.gz" 2> /dev/null; # macOS `stat`
-		stat -c"%s" "${tmpFile}.gz" 2> /dev/null; # GNU `stat`
-	);
+	zippedSize=$(stat -c"%s" "${tmpFile}.gz" 2> /dev/null);
 
 	echo "${tmpFile}.gz ($((zippedSize / 1000)) kB) created successfully.";
 }
