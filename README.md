@@ -1,10 +1,10 @@
-# Rudxain’s .files
+# Rudxain's .files
 
 <div align=center><img src=icon.svg width=50% height=50%></div>
 
 ## Installation
 
-**Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own risk!
+**Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don't want or need. Don't blindly use my settings unless you know what that entails. Use at your own risk!
 
 ### Using Git and the bootstrap script
 
@@ -32,7 +32,7 @@ To install these dotfiles without `git`:
 
 ```bash
 cd
-curl -#L https://github.com/Rudxain/dotfiles/tarball/main |\ 
+curl -#L https://github.com/Rudxain/dotfiles/tarball/main |\
 tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE}
 ```
 
@@ -42,7 +42,7 @@ To update later on, just run that command again.
 
 If `~/.path` exists, it will be sourced along with the other files, before any feature-testing takes place.
 
-Here’s an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
+Here's an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
 
 ```sh
 export PATH="/usr/local/bin:$PATH"
@@ -50,9 +50,9 @@ export PATH="/usr/local/bin:$PATH"
 
 ### Add custom commands without forking
 
-If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands without the need to fork this entire repository, or to add commands you don’t want to commit to a public repository.
+If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands without the need to fork this entire repository, or to add commands you don't want to commit to a public repository.
 
-You could also use `~/.extra` to override settings, functions, and aliases from my dotfiles repository. It’s probably better to [fork this repository](https://github.com/Rudxain/dotfiles/fork) instead, though.
+You could also use `~/.extra` to override settings, functions, and aliases from my dotfiles repository. It's probably better to [fork this repository](https://github.com/Rudxain/dotfiles/fork) instead, though.
 
 ## Author
 
@@ -66,7 +66,7 @@ You could also use `~/.extra` to override settings, functions, and aliases from 
 * [Cătălin Mariș](https://github.com/alrra) and his [dotfiles repository](https://github.com/alrra/dotfiles)
 * [Gianni Chiappetta](https://butt.zone/) for sharing his [amazing collection of dotfiles](https://github.com/gf3/dotfiles)
 * [Jan Moesen](http://jan.moesen.nu/) and his [ancient `.bash_profile`](https://gist.github.com/1156154) + [shiny _tilde_ repository](https://github.com/janmoesen/tilde)
-* Lauri ‘Lri’ Ranta for sharing [loads of hidden preferences](https://web.archive.org/web/20161104144204/http://osxnotes.net/defaults.html)
+* Lauri ‘Lri' Ranta for sharing [loads of hidden preferences](https://web.archive.org/web/20161104144204/http://osxnotes.net/defaults.html)
 * [Matijs Brinkhuis](https://matijs.brinkhu.is/) and his [dotfiles repository](https://github.com/matijs/dotfiles)
 * [Nicolas Gallagher](http://nicolasgallagher.com/) and his [dotfiles repository](https://github.com/necolas/dotfiles)
 * [Sindre Sorhus](https://sindresorhus.com/)

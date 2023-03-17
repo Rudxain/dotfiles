@@ -16,5 +16,5 @@ export EDITOR=vim
 # highlight section titles in manual pages
 export LESS_TERMCAP_md="${yellow}"
 
-# don’t clear screen after quitting a manual page
+# don't clear screen after quitting a manual page
 export MANPAGER='less -X';
