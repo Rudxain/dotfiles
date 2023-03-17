@@ -39,11 +39,11 @@ fi
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-alias ll='ls -alF'
+alias llaf='ls -alF'
+alias lalf='ls -AlF'
 alias la='ls -A'
-alias laf='ls -lAF'
-alias lc='ls -CF'
-alias l='ls -lF'
+alias lcf='ls -CF'
+alias llf='ls -lF'
 # list only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
@@ -51,7 +51,7 @@ alias lsd="ls -lF | grep --color=never '^d'"
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# allow aliases to be sudo’ed
+# allow aliases to be sudo'ed
 alias sudo='sudo '
 
 alias update='apt-get upgrade; rustup update' # future: https://github.com/pypa/pip/issues/4551
@@ -80,7 +80,7 @@ alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.ar
 # find . -name .gitattributes | map dirname
 alias map='xargs -n1'
 
-# one of @janmoesen’s ProTip™s
+# one of @janmoesen's ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "${method}"="lwp-request -m '${method}'"
 done
@@ -89,4 +89,4 @@ done
 alias paths='echo -e ${PATH//:/\\n}'
 
 # is `fs` fn better?
-alias sizeof="stat -c '%s'"
+alias sizeof="stat -Lc'%s'"
