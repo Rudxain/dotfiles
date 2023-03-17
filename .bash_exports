@@ -18,4 +18,4 @@ export VISUAL=nano
 export LESS_TERMCAP_md="${yellow}"
 
 # don't clear screen after quitting a manual page
-export MANPAGER='less -X';
+export MANPAGER='less -X'

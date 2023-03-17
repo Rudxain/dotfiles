@@ -1,6 +1,6 @@
 #!/bin/sh
-if [ -f "$HOME/bin" ]; then
-	export PATH="$HOME/bin:$PATH";
+if [ -d "$HOME/bin" ]; then
+	export PATH="$HOME/bin:$PATH"
 fi
 
 if [ -f "$HOME/.cargo/env" ]; then
