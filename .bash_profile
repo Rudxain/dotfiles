@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
 
 # If not running interactively, don't do anything
@@ -46,6 +47,8 @@ done;
 for option in autocd globstar; do
 	shopt -s "$option" 2> /dev/null;
 done;
+
+shopt -s failglob
 
 # add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
