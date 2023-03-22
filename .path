@@ -6,4 +6,4 @@ fi
 if [ -f "$HOME/.cargo/env" ]; then
 	. "$HOME/.cargo/env"
 fi
-PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:$HOME/.local/bin:/system/bin"
