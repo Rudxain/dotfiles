@@ -12,7 +12,7 @@
 ```bash
 cd
 curl -#L https://github.com/Rudxain/dotfiles/tarball/main |\
-tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE}
+tar -xzv --strip-components 1 --exclude={README.md,icon.svg,LICENSE}
 ```
 
 To update later on, just run that command again.
