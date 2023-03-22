@@ -11,7 +11,7 @@
 
 ```bash
 cd
-curl -#L https://github.com/Rudxain/dotfiles/tarball/main |\
+curl -#L https://github.com/Rudxain/dotfiles/tarball/termux |\
 tar -xzv --strip-components 1 --exclude={README.md,icon.svg,LICENSE}
 ```
 
