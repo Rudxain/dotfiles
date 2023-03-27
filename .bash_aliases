@@ -87,5 +87,7 @@ done
 # print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
 
-# is `fs` fn better?
 alias sizeof="stat -Lc'%s'"
+
+# safer
+alias rm='rm -Iv'
