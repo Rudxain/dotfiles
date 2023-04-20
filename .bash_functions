@@ -124,7 +124,11 @@ function tre() {
 
 function b16_rng() {
 	local len="$1"
-	head "-c$len" /dev/urandom | xxd -p -c256 # I wish there was a c0 (unlimited) option
+	# neither hexdump nor toybox xxd are appropiate for this.
+	# funny enough, toybox xxd ignores "-c" when "-p" is used,
+	# despite explicitly printing "-p" in its help-text
+	# (unlike GNU xxd, which has the "-p" as a hidden feature, despite working perfectly)
+	head "-c$len" /dev/urandom | basenc --base16 -w0
 }
 
 function b64_rng() {
