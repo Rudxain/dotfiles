@@ -51,12 +51,17 @@ alias llf='ls -lF'
 # list only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
+alias sizeof="stat -Lc'%s'"
+
+# safer
+alias rm='rm -Iv'
+
 # add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # IP addresses
-alias dip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias dip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ipconfig getifaddr en0'
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
@@ -67,28 +72,11 @@ alias md5=md5sum
 alias sha=sha1sum
 alias sha8=sha256sum # 8bit = 256 states
 
-# hide/show desktop files (useful when presenting).
-# to-do: this should be implemented by moving all files to a tmp desktop,
-# for portability
-
-# URL-encode strings
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
-
 # intuitive map function.
 # for example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
 alias map='xargs -n1'
 
-# one of @janmoesen's ProTip™s
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	alias "${method}"="lwp-request -m '${method}'"
-done
 
 # print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
-
-# is `fs` fn better?
-alias sizeof="stat -Lc'%s'"
-
-# safer
-alias rm='rm -Iv'
