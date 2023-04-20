@@ -2,6 +2,10 @@
 set -euf
 shopt -s expand_aliases
 
+# This script is VERY implementation-dependent.
+# It's specifically designed for my SM-A315G.
+# DON'T RUN IT on a device that doesn't support these settings!
+
 # "density" is inversely proportional to "min width".
 # lower "min width" = bigger zoom.
 DEFAULT_DPI=480
