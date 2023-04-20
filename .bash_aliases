@@ -3,6 +3,9 @@
 
 # reload the shell that's currently running on the terminal
 alias reload='exec ${SHELL} -l'
+# for some reason, this dupes `/system/bin` in $PATH
+
+alias adbsh='adb shell'
 
 # the only thing Windows did right /j
 alias cls=clear
@@ -16,6 +19,7 @@ alias -- -='cd -'
 
 # shortcuts
 alias dl='cd ~/downloads'
+alias dexdl='cd /storage/emulated/0/Download'
 # I hate Samsung, but dex is a good short name
 alias dex='cd /storage/emulated/0'
 
@@ -52,7 +56,7 @@ alias lsd="ls -lF | grep --color=never '^d'"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias dip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip='ipconfig getifaddr en0'
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
