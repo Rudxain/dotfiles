@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # see /usr/share/doc/bash-doc/examples in the bash-doc package
 
+alias open=xdg-open
+
 # reload the shell that's currently running on the terminal
 alias reload='exec ${SHELL} -l'
 # for some reason, this dupes `/system/bin` in $PATH
@@ -76,7 +78,6 @@ alias sha8=sha256sum # 8bit = 256 states
 # for example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
 alias map='xargs -n1'
-
 
 # print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
