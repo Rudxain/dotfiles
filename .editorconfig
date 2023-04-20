@@ -7,6 +7,3 @@ indent_style = tab
 indent_size = 4
 insert_final_newline = true # POSIX compliance
 trim_trailing_whitespace = true
-
-[*.{yaml,yml}]
-indent_style = space  # I hate this, lol
