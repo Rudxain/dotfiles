@@ -12,12 +12,17 @@ function cdls() {
 
 function update() {
 	apt-get upgrade
-	# future: https://github.com/pypa/pip/issues/4551
-	rustup update
-	local crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
-	if [[ -n "$crates" ]]; then
-		cargo install $crates
-	fi
+	pkg upgrade
+}
+
+function adbpc() {
+	local main_port="$1"
+	local pair_port="$2"
+	local key="$3" # pairing code
+	adb devices # verbose debug
+	adb pair "localhost:$pair_port" "$key" && \
+	adb connect "localhost:$main_port"
+	adb devices # verbose debug
 }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
@@ -68,15 +73,6 @@ function dataurl() {
 		mimeType="${mimeType};charset=utf-8";
 	fi
 	echo "data:${mimeType};base64,$(base64 "$1" | tr -d '\n')";
-}
-
-# start an HTTP server from a directory, optionally specifying the port
-function server() {
-	local port="${1:-8000}";
-	sleep 1 && open "http://localhost:${port}/" &
-	# Set the default Content-Type to `text/plain` instead of `application/octet-stream`
-	# And serve everything as UTF-8 (although not technically correct, this doesn't break anything for binary files)
-	python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor k, v in map.items():\n\tmap[k] = v + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
 }
 
 # Run `dig` and display the most useful info
@@ -132,4 +128,33 @@ function o() {
 # small enough for one screen.
 function tre() {
 	tree -aC -I '.cache|tmp|.git|target|__pycache__|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}
+
+function b16_rng() {
+	local len="$1"
+	head "-c$len" /dev/urandom | xxd -p -c256 # I wish there was a c0 (unlimited) option
+}
+
+function b64_rng() {
+	local len="$1"
+	head "-c$len" /dev/urandom | base64
+}
+
+function keygen() {
+	local len="$1"
+	if [[ "$len" == wpa ]]
+	then
+		b16_rng 32 # max PSK size is 256b
+		return
+	fi
+	if [[ "$len" == wpa_guest ]]
+	then
+		b16_rng 16 # guests need fast-to-type passwords
+		return
+	fi
+	if [[ -z "$len" ]]
+	then
+		len=12 # good enough entropy for most cases
+	fi
+	b64_rng "$len"
 }
