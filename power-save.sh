@@ -6,6 +6,7 @@ shopt -s expand_aliases
 # lower "min width" = bigger zoom.
 DEFAULT_DPI=480
 
+alias adbsh='adb shell'
 alias sett='adbsh settings put global'
 
 power_save_on="$(adbsh settings get global low_power)"
