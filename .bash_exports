@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export HISTSIZE=1024
+export HISTSIZE=64
 export HISTFILESIZE="$((HISTSIZE * 2))"
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-HISTCONTROL
