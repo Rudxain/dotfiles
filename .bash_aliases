@@ -2,6 +2,7 @@
 # see /usr/share/doc/bash-doc/examples in the bash-doc package
 
 alias open=xdg-open
+alias files='am start --user 0 -n com.google.android.documentsui/com.android.documentsui.files.FilesActivity'
 
 # reload the shell that's currently running on the terminal
 alias reload='exec ${SHELL} -l'
@@ -19,7 +20,6 @@ alias ...='cd ../..'
 alias ~='cd ~'
 alias -- -='cd -'
 
-# shortcuts
 alias dl='cd ~/downloads'
 alias dexdl="cd $EXTERNAL_STORAGE/Download"
 # I hate Samsung, but dex is a good short name
