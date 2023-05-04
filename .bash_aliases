@@ -9,6 +9,7 @@ alias reload='exec ${SHELL} -l'
 # for some reason, this dupes `/system/bin` in $PATH
 
 alias adbsh='adb shell'
+alias bc='rlwrap -a bc'
 
 # the only thing Windows did right /j
 alias cls=clear
