@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # see /usr/share/doc/bash-doc/examples in the bash-doc package
 
 alias open=xdg-open
