@@ -10,11 +10,6 @@ function cdls() {
 	cd "$@" && ls
 }
 
-function update() {
-	apt-get upgrade
-	pkg upgrade
-}
-
 function adbpc() {
 	local main_port="$1"
 	local pair_port="$2"
@@ -73,11 +68,6 @@ function dataurl() {
 		mimeType="${mimeType};charset=utf-8";
 	fi
 	echo "data:${mimeType};base64,$(base64 "$1" | tr -d '\n')";
-}
-
-# Run `dig` and display the most useful info
-function digga() {
-	dig +nocmd "$1" any +multiline +noall +answer;
 }
 
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
