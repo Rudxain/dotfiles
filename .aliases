@@ -1,6 +1,8 @@
 #!/bin/sh
 # see /usr/share/doc/bash-doc/examples in the bash-doc package
 
+alias update='pkg upgrade'
+
 alias open=xdg-open
 alias files='am start --user 0 -n com.google.android.documentsui/com.android.documentsui.files.FilesActivity'
 
