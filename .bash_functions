@@ -10,16 +10,6 @@ function cdls() {
 	cd "$@" && ls
 }
 
-function adbpc() {
-	local main_port="$1"
-	local pair_port="$2"
-	local key="$3" # pairing code
-	adb devices # verbose debug
-	adb pair "localhost:$pair_port" "$key" && \
-	adb connect "localhost:$main_port"
-	adb devices # verbose debug
-}
-
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 function targz() {
 	local tmpFile="${@%/}.tar";
