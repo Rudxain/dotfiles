@@ -12,6 +12,7 @@ alias reload='exec ${SHELL} -l'
 
 alias adbsh='adb shell'
 alias bc='rlwrap -a bc'
+alias factor='rlwrap -a factor'
 
 # the only thing Windows did right /j
 alias cls=clear
