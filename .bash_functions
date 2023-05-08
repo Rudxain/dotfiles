@@ -10,6 +10,8 @@ function cdls() {
 	cd "$@" && ls
 }
 
+# https://github.com/termux/termux-packages/discussions/8292#discussioncomment-5102555
+# TLDR: hack to get some `adb shell` privileges 
 function pm() {
 	printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
 }
