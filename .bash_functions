@@ -10,6 +10,10 @@ function cdls() {
 	cd "$@" && ls
 }
 
+function pm() {
+	printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
+}
+
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 function targz() {
 	local tmpFile="${@%/}.tar";
