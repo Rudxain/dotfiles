@@ -1,12 +1,10 @@
-set completion-ignore-case on
-
 set show-all-if-ambiguous on
 
 # append slash when autocompleting symlinks to dirs
 set mark-symlinked-directories on
 
 # uses the text that has already been typed as prefix for searching through
-# commands (i.e. more intelligent Up/Down behavior)
+# commands (i.e. smarter Up/Down behavior)
 "\e[B": history-search-forward
 "\e[A": history-search-backward
 

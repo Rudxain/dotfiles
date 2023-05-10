@@ -35,11 +35,8 @@ for file in ~/.{path,exports,aliases,bash_functions,extra}; do
 done;
 unset file;
 
-# - case-insensitive globbing (used in pathname expansion)
 # - autocorrect typos in path names when using `cd`
-for option in nocaseglob cdspell; do
-	shopt -s "$option";
-done;
+shopt -s cdspell
 
 # enable some Bash4 features when possible:
 # - `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
