@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # see /usr/share/doc/bash-doc/examples in the bash-doc package
 
 # reload the shell that's currently running on the terminal
@@ -18,7 +18,6 @@ alias -- -='cd -'
 alias dl='cd ~/Downloads'
 # I hate Samsung, but dex is a good short name
 alias dex='cd ~/Desktop'
-alias docs='cd ~/Documents'
 alias ghd='cd ~/GitHub' # my GH-Desktop default dir
 
 # assume GNU flavor
