@@ -1,25 +1,31 @@
 #!/usr/bin/env bash
 
-function mkcd() {
+mkcd() {
 	mkdir -p "$@" && cd "$_"
 }
 
-function cdls() {
+cdls() {
 	cd "$@" && ls
 }
 
-function update() {
+# https://github.com/termux/termux-packages/discussions/8292#discussioncomment-5102555
+# TLDR: hack to get some `adb shell` privileges
+pm() {
+	printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
+}
+
+update() {
 	pkg upgrade
 	# future: https://github.com/pypa/pip/issues/4551
 	rustup upgrade
 	local crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
-	if [[ -n "$crates" ]]; then
+	if [ -n "$crates" ]; then
 		cargo install $crates
 	fi
 }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
-function targz() {
+targz() {
 	local tmpFile="${@%/}.tar";
 	tar -cvf "${tmpFile}" "${@}" || return 1;
 
@@ -47,7 +53,7 @@ function targz() {
 }
 
 # Determine size of a file or total size of a directory
-function fs() {
+fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
 		local arg=-sbh;
 	else
@@ -60,7 +66,7 @@ function fs() {
 	fi;
 }
 
-function dataurl() {
+dataurl() {
 	local mimeType=$(file -b --mime-type "$1");
 	if [[ $mimeType == text/* ]]; then
 		mimeType="${mimeType};charset=utf-8";
@@ -68,66 +74,43 @@ function dataurl() {
 	echo "data:${mimeType};base64,$(base64 "$1" | tr -d '\n')";
 }
 
-# start an HTTP server from a directory, optionally specifying the port
-function server() {
-	local port="${1:-8000}";
-	sleep 1 && open "http://localhost:${port}/" &
-	# Set the default Content-Type to `text/plain` instead of `application/octet-stream`
-	# And serve everything as UTF-8 (although not technically correct, this doesn't break anything for binary files)
-	python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor k, v in map.items():\n\tmap[k] = v + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
-}
-
-# Run `dig` and display the most useful info
-function digga() {
-	dig +nocmd "$1" any +multiline +noall +answer;
-}
-
-# Show all the names (CNs and SANs) listed in the SSL certificate
-# for a given domain
-function getcertnames() {
-	if [ -z "${1}" ]; then
-		echo "ERROR: No domain specified.";
-		return 1;
-	fi;
-
-	local domain="${1}";
-	echo "Testing ${domain}…";
-	echo ""; # newline
-
-	local tmp=$(echo -e "GET / HTTP/1.0\nEOT" \
-		| openssl s_client -connect "${domain}:443" -servername "${domain}" 2>&1);
-
-	if [[ "${tmp}" = *"-----BEGIN CERTIFICATE-----"* ]]; then
-		local certText=$(echo "${tmp}" \
-			| openssl x509 -text -certopt "no_aux, no_header, no_issuer, no_pubkey, \
-			no_serial, no_sigdump, no_signame, no_validity, no_version");
-		echo "Common Name:";
-		echo ""; # newline
-		echo "${certText}" | grep "Subject:" | sed -e "s/^.*CN=//" | sed -e "s/\/emailAddress=.*//";
-		echo ""; # newline
-		echo "Subject Alternative Name(s):";
-		echo ""; # newline
-		echo "${certText}" | grep -A 1 "Subject Alternative Name:" \
-			| sed -e "2s/DNS://g" -e "s/ //g" | tr "," "\n" | tail -n +2;
-		return 0;
-	else
-		echo 'ERROR: Certificate not found.';
-		return 1;
-	fi;
-}
-
-function o() {
-	if [ $# -eq 0 ]; then
-		open .;
-	else
-		open "$@";
-	fi;
-}
-
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
 # the `.git` directory, listing directories first. The output gets piped into
 # `less` with options to preserve color and line numbers, unless the output is
 # small enough for one screen.
-function tre() {
-	tree -aC -I '.cache|tmp|.git|target|__pycache__|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+tre() {
+	tree -aC -I '.cache|tmp|.git|target|__pycache__|node_modules' --dirsfirst "$@" | less -FRNX;
+}
+
+b16_rng() {
+	local len="$1"
+	# Neither `hexdump` nor `toybox xxd` are appropiate for this.
+	# Funnily enough, `toybox xxd` ignores "-c" when "-p" is used,
+	# despite explicitly printing "-p" in its help-text;
+	# unlike GNU-`xxd` which has the "-p" as a hidden feature, despite working perfectly
+	head "-c$len" /dev/urandom | basenc --base16 -w0
+}
+
+b64_rng() {
+	local len="$1"
+	head "-c$len" /dev/urandom | base64
+}
+
+keygen() {
+	local len="$1"
+	if [ "$len" = wpa ]
+	then
+		b16_rng 32 # max PSK size is 256b
+		return
+	fi
+	if [ "$len" = wpa_guest ]
+	then
+		b16_rng 16 # guests need fast-to-type passwords
+		return
+	fi
+	if [ -z "$len" ]
+	then
+		len=12 # good-enough entropy for most cases
+	fi
+	b64_rng "$len"
 }
