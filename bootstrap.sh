@@ -1,26 +1,28 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "${BASH_SOURCE}")";
+cd "$(dirname "${BASH_SOURCE}")"
 
-git pull origin main;
+git pull origin main
 
-function do_it() {
-	rsync --exclude '.git/' \
+do_it() {
+	rsync \
+		--exclude '.git/' \
+		--exclude '.gitattributes' \
 		--exclude 'bootstrap.sh' \
 		--exclude 'README.md' \
 		--exclude 'icon.svg' \
 		--exclude 'LICENSE' \
-		-avh --no-perms . ~;
-	source ~/.bash_profile;
+		-avh --no-perms . ~
+	. ~/.bash_profile
 }
 
-if [ "$1" == '--force' -o "$1" == '-f' ]; then
-	do_it;
+if [ "$1" = '--force' ] || [ "$1" = '-f' ]; then
+	do_it
 else
-	read -p 'This may overwrite existing files in your home directory. Are you sure? (y/n) ' -n 1;
-	echo;
+	read -p 'This may overwrite existing files in your home directory. Are you sure? (y/n) ' -n 1
+	echo
 	if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-		do_it;
-	fi;
-fi;
-unset do_it;
+		do_it
+	fi
+fi
+unset do_it
