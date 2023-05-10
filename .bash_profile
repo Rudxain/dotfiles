@@ -30,7 +30,7 @@ fi
 # load the shell dotfiles, and then some:
 # - ~/.path can be used to extend `$PATH`.
 # - ~/.extra can be used for other settings you don't want to commit.
-for file in ~/.{path,bash_exports,aliases,bash_functions,extra}; do
+for file in ~/.{path,exports,aliases,bash_functions,extra}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
@@ -47,6 +47,7 @@ done;
 for option in autocd globstar; do
 	shopt -s "$option" 2> /dev/null;
 done;
+unset option;
 
 shopt -s failglob
 
