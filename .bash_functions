@@ -71,7 +71,7 @@ function dataurl() {
 # `less` with options to preserve color and line numbers, unless the output is
 # small enough for one screen.
 function tre() {
-	tree -aC -I '.cache|tmp|.git|target|__pycache__|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
+	tree -aC -I '.cache|tmp|.git|target|__pycache__|node_modules' --dirsfirst "$@" | less -FRNX
 }
 
 function b16_rng() {
