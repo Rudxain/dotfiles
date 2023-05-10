@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/sh
 export HISTSIZE=64
 export HISTFILESIZE="$((HISTSIZE * 2))"
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-HISTCONTROL
-export HISTCONTROL=ignoreboth:erasedups
+export HISTCONTROL=ignoreboth:erasedups # is this POSIX-compliant?
 
 #PROMPT_COMMAND="history -foobar; $PROMPT_COMMAND"
 
@@ -12,9 +12,3 @@ export LC_ALL=en_US.UTF-8
 
 export EDITOR=nano
 export VISUAL=nano
-
-# highlight section titles in manual pages
-export LESS_TERMCAP_md="${yellow}"
-
-# don't clear screen after quitting a manual page
-export MANPAGER='less -X'
