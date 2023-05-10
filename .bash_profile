@@ -42,10 +42,10 @@ shopt -s failglob
 # enable some Bash4 features when possible:
 # - `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # - recursive globbing, e.g. `echo **/*.txt`
-for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null
+for opt in autocd globstar; do
+	shopt -s "$opt" 2> /dev/null
 done
-unset option
+unset opt
 
 # add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh
