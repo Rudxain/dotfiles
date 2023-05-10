@@ -95,8 +95,6 @@ if [ -z "$TERMUX_VERSION" ]; then
 
 else
 
-	alias update='pkg upgrade'
-
 	alias files='am start --user 0 -n com.google.android.documentsui/com.android.documentsui.files.FilesActivity'
 
 	# user home

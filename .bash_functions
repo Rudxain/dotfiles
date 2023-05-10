@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 
-# create directory and enter it
 function mkcd() {
 	mkdir -p "$@" && cd "$_"
 }
 
-# enter dir and list contents
 function cdls() {
 	cd "$@" && ls
 }
 
 function update() {
-	apt-get upgrade
+	pkg upgrade
 	# future: https://github.com/pypa/pip/issues/4551
-	rustup update
+	rustup upgrade
 	local crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
 	if [[ -n "$crates" ]]; then
 		cargo install $crates
