@@ -31,24 +31,22 @@ fi
 # - ~/.path can be used to extend `$PATH`.
 # - ~/.extra can be used for other settings you don't want to commit.
 for file in ~/.{path,bash_prompt,exports,aliases,bash_functions,extra}; do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file";
-done;
-unset file;
+	[ -r "$file" ] && [ -f "$file" ] && source "$file"
+done
+unset file
 
-# - case-insensitive globbing (used in pathname expansion)
-# - autocorrect typos in path names when using `cd`
-for option in nocaseglob cdspell; do
-	shopt -s "$option";
-done;
+# autocorrect typos in path names when using `cd`.
+# ?
+for option in cdspell failglob; do
+	shopt -s "$option"
+done
 
 # enable some Bash4 features when possible:
 # - `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # - recursive globbing, e.g. `echo **/*.txt`
 for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null;
-done;
-
-shopt -s failglob
+	shopt -s "$option" 2> /dev/null
+done
 
 # add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh
