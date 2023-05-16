@@ -75,7 +75,7 @@ fs() {
 
 dataurl() {
 	local mimeType=$(file -b --mime-type "$1")
-	if [[ $mimeType == text/* ]]; then
+	if [[ $mimeType = text/* ]]; then
 		mimeType="${mimeType};charset=utf-8"
 	fi
 	echo "data:${mimeType};base64,$(base64 "$1" | tr -d '\n')"
@@ -90,31 +90,31 @@ tre() {
 }
 
 b16_rng() {
-	local len="$1"
 	# Neither `hexdump` nor `toybox xxd` are appropiate for this.
 	# Funnily enough, `toybox xxd` ignores "-c" when "-p" is used,
-	# despite explicitly printing "-p" in its help-text
+	# despite explicitly printing "-p" in its help-text,
 	# unlike GNU-`xxd` which has the "-p" as a hidden feature, despite working perfectly
-	head "-c$len" /dev/urandom | basenc --base16 -w0
+	head "-c$1" /dev/urandom | basenc --base16 -w0
 }
 
 b64_rng() {
-	local len="$1"
-	head "-c$len" /dev/urandom | base64
+	head "-c$1" /dev/urandom | base64
 }
 
+# password generator. usually meant for wifi A.P.s
 keygen() {
-	local len="$1"
-	if [[ "$len" == wpa ]]
+	if [[ "$1" = wpa_main ]]
 	then
 		b16_rng 32 # max PSK size is 256b
 		return
 	fi
-	if [[ "$len" == wpa_guest ]]
+	if [[ "$1" = wpa_guest ]]
 	then
 		b16_rng 16 # guests need fast-to-type passwords
 		return
 	fi
+
+	local len="$1"
 	if [ -z "$len" ]
 	then
 		len=12 # good-enough entropy for most cases
