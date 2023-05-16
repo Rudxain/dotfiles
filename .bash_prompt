@@ -2,33 +2,38 @@
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-	xterm-color|*-256color) color_prompt=yes;;
+	xterm-color|*-256color) color_prompt=1;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+# the focus in a terminal window should be on cmd output, not on the prompt
+force_color_prompt=no
 
-if [ -n "$force_color_prompt" ]; then
-	if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+if [ "$force_color_prompt" = 1 ]; then
+	if [ -z "$PREFIX" ]; then
+		PREFIX=/usr # non-Termux
+	fi
+
+	if [ -x "$PREFIX/bin/tput" ] && tput setaf 1 >&/dev/null; then
+		# we have color support; assume it's compliant with Ecma-48 (ISO/IEC-6429).
+		# (Lack of such support is extremely rare, and such
+		# a case would tend to support setf rather than setaf)
+		color_prompt=1
 	else
-	color_prompt=
+		color_prompt=0
+	fi
+
+	if [ "$PREFIX" = /usr ]; then
+		unset PREFIX
 	fi
 fi
 
-if [ "$color_prompt" = yes ]; then
+if [ "$color_prompt" = 1 ]; then
 	PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
 	PS1='\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
 	PS1="\[\e]0;\u@\h: \w\a\]$PS1"
@@ -37,12 +42,8 @@ xterm*|rxvt*)
 	;;
 esac
 
-# Shell prompt based on the Solarized Dark theme.
-# Screenshot: http://i.imgur.com/EkEtphC.png
-# Heavily inspired by @necolas's prompt: https://github.com/necolas/dotfiles
-# iTerm → Profiles → Text → use 13pt Monaco with 1.1 vertical spacing.
-
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] \
+&& infocmp gnome-256color >/dev/null 2>&1; then
 	export TERM='gnome-256color'
 elif infocmp xterm-256color >/dev/null 2>&1; then
 	export TERM='xterm-256color'
@@ -50,7 +51,7 @@ fi
 
 prompt_git() {
 	local s=''
-	local branchName=''
+	local branch_name=''
 
 	# Check if the current directory is in a Git repository.
 	git rev-parse --is-inside-work-tree &>/dev/null || return
@@ -59,11 +60,12 @@ prompt_git() {
 	# Get the short symbolic ref. If HEAD isn't a symbolic ref, get a
 	# tracking remote branch or tag. Otherwise, get the
 	# short SHA for the latest commit, or give up.
-	branchName="$(\
+	branch_name="$(\
 		git symbolic-ref --quiet --short HEAD 2> /dev/null || \
 		git describe --all --exact-match HEAD 2> /dev/null || \
 		git rev-parse --short HEAD 2> /dev/null || \
-		echo '(unknown)')"
+		echo '(unknown)'\
+	)"
 
 	# Check for uncommitted changes in the index.
 	if ! $(git diff --quiet --ignore-submodules --cached); then
@@ -84,14 +86,14 @@ prompt_git() {
 
 	[ -n "${s}" ] && s=" [${s}]"
 
-	echo -e "${1}${branchName}${2}${s}"
+	echo -e "${1}${branch_name}${2}${s}"
 }
 
 if tput setaf 1 &> /dev/null; then
-	tput sgr0 # reset colors
+	tput sgr0
 	bold=$(tput bold)
 	reset=$(tput sgr0)
-	# Solarized colors, taken from http://git.io/solarized-colors.
+	# http://git.io/solarized-colors
 	black=$(tput setaf 0)
 	blue=$(tput setaf 33)
 	cyan=$(tput setaf 37)
@@ -119,29 +121,29 @@ fi
 
 # Highlight the user name when logged in as root.
 if [[ "${USER}" == "root" ]]; then
-	userStyle="${red}"
+	user_style="${red}"
 else
-	userStyle="${orange}"
+	user_style="${orange}"
 fi
 
 # Highlight the hostname when connected via SSH.
 if [[ "$SSH_TTY" ]]; then
-	hostStyle="${bold}${red}"
+	host_style="${bold}${red}"
 else
-	hostStyle="${yellow}"
+	host_style="${yellow}"
 fi
 
 # Set the terminal title and prompt.
 PS1="\[\033]0;\W\007\]" # working directory base name
-PS1+="\[${bold}\]\n" # newline
-PS1+="\[${userStyle}\]\u" # username
+PS1+="\[${bold}\]\n"
+PS1+="\[${user_style}\]\u"
 PS1+="\[${white}\] at "
-PS1+="\[${hostStyle}\]\h" # host
+PS1+="\[${host_style}\]\h"
 PS1+="\[${white}\] in "
-PS1+="\[${green}\]\w" # working directory full path
-PS1+="\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")" # Git repository details
+PS1+="\[${green}\]\w"
+PS1+="\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")"
 PS1+="\n"
-PS1+="\[${white}\]\$ \[${reset}\]" # `$` (and reset color)
+PS1+="\[${white}\]\$ \[${reset}\]"
 export PS1
 
 PS2="\[${yellow}\]→ \[${reset}\]"
