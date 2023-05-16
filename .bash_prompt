@@ -6,7 +6,7 @@ case "$TERM" in
 esac
 
 # the focus in a terminal window should be on cmd output, not on the prompt
-force_color_prompt=no
+force_color_prompt=0
 
 if [ "$force_color_prompt" = 1 ]; then
 	if [ -z "$PREFIX" ]; then
