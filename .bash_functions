@@ -14,15 +14,22 @@ pm() {
 	printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
 }
 
-update() {
-	pkg upgrade
-	# future: https://github.com/pypa/pip/issues/4551
-	rustup upgrade
-	local crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
-	if [ -n "$crates" ]; then
-		cargo install $crates
-	fi
-}
+if [[ -x "$PREFIX/bin/pkg" ]]
+then # Termux
+	update() {
+		pkg upgrade
+	}
+else #
+	update() {
+		# for security reasons, I'm not a sudoer, so can't use `apt upgrade`
+		# future: https://github.com/pypa/pip/issues/4551
+		rustup upgrade
+		local crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
+		if [[ -n "$crates" ]]; then
+			cargo install $crates
+		fi
+	}
+fi
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 targz() {
@@ -98,12 +105,12 @@ b64_rng() {
 
 keygen() {
 	local len="$1"
-	if [ "$len" = wpa ]
+	if [[ "$len" == wpa ]]
 	then
 		b16_rng 32 # max PSK size is 256b
 		return
 	fi
-	if [ "$len" = wpa_guest ]
+	if [[ "$len" == wpa_guest ]]
 	then
 		b16_rng 16 # guests need fast-to-type passwords
 		return
