@@ -12,8 +12,17 @@ function cdls() {
 
 # https://github.com/termux/termux-packages/discussions/8292#discussioncomment-5102555
 # TLDR: hack to get some `adb shell` privileges
+function cmd() {
+	printf '%s\n' "$(command cmd "$@" 2>&1 < /dev/null)"
+}
+function settings() {
+	printf '%s\n' "$(command settings "$@" 2>&1 < /dev/null)"
+}
 function pm() {
-	printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
+	printf '%s\n' "$(command pm "$@" 2>&1 < /dev/null)"
+}
+function appops() {
+	printf '%s\n' "$(command appops "$@" 2>&1 < /dev/null)"
 }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
