@@ -15,9 +15,6 @@ function cdls() {
 function cmd() {
 	printf '%s\n' "$(command cmd "$@" 2>&1 < /dev/null)"
 }
-function settings() {
-	printf '%s\n' "$(command settings "$@" 2>&1 < /dev/null)"
-}
 function pm() {
 	printf '%s\n' "$(command pm "$@" 2>&1 < /dev/null)"
 }
