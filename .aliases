@@ -28,6 +28,12 @@ colorflag='--color=auto'
 
 if [ -z "$PREFIX" ]; then
 	PREFIX=/usr
+
+	alias cbg='xclip -out'
+	alias cbs='xclip -selection c'
+else
+	alias cbg=termux-clipboard-get
+	alias cbs=termux-clipboard-set
 fi
 if [ -x "$PREFIX/bin/dircolors" ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
