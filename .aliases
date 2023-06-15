@@ -9,6 +9,8 @@ alias reload='exec ${SHELL} -l'
 # for some reason, this dupes some `PATH` entries
 
 alias adbsh='adb shell'
+alias sh='rlwrap -a sh'
+alias dash='rlwrap -a dash'
 alias bc='rlwrap -a bc'
 alias factor='rlwrap -a factor'
 
