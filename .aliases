@@ -8,11 +8,9 @@ alias open=xdg-open
 alias reload='exec ${SHELL} -l'
 # for some reason, this dupes some `PATH` entries
 
-alias adbsh='adb shell'
 alias sh='rlwrap -a sh'
 alias dash='rlwrap -a dash'
 alias bc='rlwrap -a bc'
-alias factor='rlwrap -a factor'
 
 # the only thing Windows did right /j
 alias cls=clear
@@ -36,6 +34,7 @@ if [ -z "$PREFIX" ]; then
 else
 	alias cbg=termux-clipboard-get
 	alias cbs=termux-clipboard-set
+	alias cbtts='termux-clipboard-get | termux-tts-speak'
 fi
 if [ -x "$PREFIX/bin/dircolors" ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
