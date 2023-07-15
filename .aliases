@@ -75,8 +75,6 @@ command -v hd > /dev/null || alias hd='hexdump -C'
 # to-do: this should be implemented by moving all files to a tmp desktop,
 # for portability
 
-alias urlencode='python3 -c "from sys import argv; from urllib.parse import quote_plus as q; print(q(argv[1]))"'
-
 # intuitive map function.
 # for example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
@@ -88,8 +86,8 @@ alias paths='echo -e ${PATH//:/\\n}'
 
 # env-specific stuff
 
-if [ -z "$TERMUX_VERSION" ]; then
-
+if [ -z "$TERMUX_VERSION" ]
+then
 	# I hate Samsung, but dex is a good short name
 	alias cdex='cd ~/Desktop'
 	alias cdl='cd ~/Downloads'
@@ -99,14 +97,9 @@ if [ -z "$TERMUX_VERSION" ]; then
 	for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 		alias "${method}"="lwp-request -m '${method}'"
 	done
-
 else
-
-	alias files='am start --user 0 -n com.google.android.documentsui/com.android.documentsui.files.FilesActivity'
-
 	# user home
 	alias ~u="cd $EXTERNAL_STORAGE"
 	alias cdl='cd ~/downloads'
 	alias cdlu="cd $EXTERNAL_STORAGE/Download"
-
 fi
