@@ -73,14 +73,6 @@ fs() {
 	fi
 }
 
-dataurl() {
-	local mimeType=$(file -b --mime-type "$1")
-	if [[ $mimeType = text/* ]]; then
-		mimeType="${mimeType};charset=utf-8"
-	fi
-	echo "data:${mimeType};base64,$(base64 "$1" | tr -d '\n')"
-}
-
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
 # the `.git` directory, listing directories first. The output gets piped into
 # `less` with options to preserve color and line numbers, unless the output is
