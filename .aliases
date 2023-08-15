@@ -68,6 +68,8 @@ alias mv='mv -i'
 alias ln='ln -i'
 alias rm='rm -i'
 
+alias nuke_path_now='rm -rf'
+
 # canonical hex dump; some systems have this symlinked
 command -v hd > /dev/null || alias hd='hexdump -C'
 
