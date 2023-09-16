@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -eu
+
+for hist_path in ~/.*_history
+do
+	mapfile orig_lns < "$hist_path"
+	uniq_lns=()
+	declare -A seen
+
+	# dedupe
+	for ((i=${#orig_lns[@]}-1; i>=0; i--))
+	do
+		ln="${orig_lns[$i]}"
+		if [[ -z "${seen["$ln"]-}" ]]
+		then
+			seen["$ln"]=1
+			uniq_lns+=("$ln")
+		fi
+	done
+	unset orig_lns seen ln # cleanup, just in case
+
+	# rev in-place
+	min=0
+	max="$(( ${#uniq_lns[@]} - 1 ))"
+	while [[ min -lt max ]]
+	do
+		tmp="${uniq_lns[min]}"
+		uniq_lns[min]="${uniq_lns[max]}"
+		uniq_lns[max]="$tmp"
+		((min++,max--))
+	done
+
+	printf '%s' "${uniq_lns[@]}" > "$hist_path"
+done
