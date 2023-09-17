@@ -1,9 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euf
 
-readonly SCRIPTNAME=termux-brightness-2
-usage="Usage: $SCRIPTNAME brightness"
-usage+=$'\nSet the screen brightness between 0 and 8'
+usage=$'Usage: termux-brightness-2 brightness\n'
+usage+='Set the screen brightness between 0 and 8'
 
 if [[ $# -ne 1 ]]; then
 	echo "$usage"
