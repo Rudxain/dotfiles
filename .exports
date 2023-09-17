@@ -1,6 +1,6 @@
 #!/bin/sh
-export HISTSIZE=2048
-export HISTFILESIZE="$((HISTSIZE << 2))"
+export HISTSIZE="$((1 << 12))"
+export HISTFILESIZE="$((HISTSIZE << 4))"
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-HISTCONTROL
 export HISTCONTROL=ignoreboth:erasedups # is this POSIX-compliant?
