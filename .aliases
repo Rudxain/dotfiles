@@ -94,7 +94,6 @@ then
 	# I hate Samsung, but dex is a good short name
 	alias cdex='cd ~/Desktop'
 	alias cdl='cd ~/Downloads'
-	alias cdgh='cd ~/GitHub' # my GH-Desktop default dir
 
 	# one of @janmoesen's ProTip™s
 	for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
