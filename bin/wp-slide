@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -e
+readonly DEF_T=15
+
+if [[ -d "$1" ]]
+then
+	readonly dir="$1"
+else
+	echo 'no such dir. using default...'
+	readonly dir="$EXTERNAL_STORAGE/Pictures/wallpapers"
+fi
+if [[ -n "$2" ]]
+then
+	readonly period="$2"
+else
+	echo 'using default period ${DEF_T}m'
+	readonly period="$DEF_T"
+fi
+set -u
+
+shopt -s nullglob
+slide=("$dir"/*)
+shopt -u nullglob
+
+while true
+do
+	mapfile -t slide < <(shuf -e -- "${slide[@]}")
+	for f in "${slide[@]}"
+	do
+		termux-wallpaper-dual "$f"
+		sleep "${period}m"
+	done
+done
