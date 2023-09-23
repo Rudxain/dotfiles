@@ -13,7 +13,7 @@ if [[ -n "$2" ]]
 then
 	readonly period="$2"
 else
-	echo 'using default period ${DEF_T}m'
+	echo "using default period ${DEF_T}m"
 	readonly period="$DEF_T"
 fi
 set -u
@@ -27,7 +27,7 @@ do
 	mapfile -t slide < <(shuf -e -- "${slide[@]}")
 	for f in "${slide[@]}"
 	do
-		termux-wallpaper-dual "$f"
+		termux-wallpaper-dual "$f" > /dev/null
 		sleep "${period}m"
 	done
 done
