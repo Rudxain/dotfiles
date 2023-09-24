@@ -27,7 +27,7 @@ do
 	mapfile -t slide < <(shuf -e -- "${slide[@]}")
 	for f in "${slide[@]}"
 	do
-		termux-wallpaper-dual "$f" > /dev/null
+		termux-wallpaper-hl "$f" > /dev/null
 		sleep "${period}m"
 	done
 done
