@@ -19,7 +19,7 @@ then # Termux
 	update() {
 		pkg upgrade
 	}
-else #
+else
 	update() {
 		# for security reasons, I'm not a sudoer, so can't use `apt upgrade`
 		# future: https://github.com/pypa/pip/issues/4551
@@ -62,9 +62,9 @@ targz() {
 # Determine size of a file or total size of a directory
 fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
-		local arg=-sbh
+		local -r arg=-sbh
 	else
-		local arg=-sh
+		local -r arg=-sh
 	fi
 	if [[ -n "$@" ]]; then
 		du $arg -- "$@"
