@@ -1,33 +1,42 @@
 #!/usr/bin/env bash
-set -e
-readonly DEF_T=15
+set -eu
+shopt -s nullglob
 
-if [[ -d "$1" ]]
+readonly DEF_T=15
+if [[ $# -gt 0 ]]
 then
-	readonly dir="$1"
-else
-	echo 'no such dir. using default...'
-	readonly dir="$EXTERNAL_STORAGE/Pictures/wallpapers"
-fi
-if [[ -n "$2" ]]
-then
-	readonly period="$2"
+	readonly period="$1"
 else
 	echo "using default period ${DEF_T}m"
 	readonly period="$DEF_T"
 fi
-set -u
 
-shopt -s nullglob
-slide=("$dir"/*)
-shopt -u nullglob
+declare -a slide
+update_slide ()
+{
+	if [[ $1 -eq 0 ]]
+	then local -r mode=dark
+	else local -r mode=light
+	fi
+	slide=("$EXTERNAL_STORAGE/Pictures/Wallpapers/$mode/"*)
+	mapfile -t slide < <(shuf -e -- "${slide[@]}")
+}
 
+state_0=''
+i=0
 while true
 do
-	mapfile -t slide < <(shuf -e -- "${slide[@]}")
-	for f in "${slide[@]}"
-	do
-		termux-wallpaper-hl "$f" > /dev/null
-		sleep "${period}m"
-	done
+	if termux-is-light-mode
+	then state_1=1
+	else state_1=0
+	fi
+	if [[ $state_0 != $state_1 ]]
+	then
+		state_0="$state_1"
+		update_slide "$state_1"
+		i=0
+	fi
+	termux-wallpaper-hl "${slide[i]}" > /dev/null
+	sleep "${period}m"
+	((i++))
 done
