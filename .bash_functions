@@ -59,6 +59,10 @@ targz() {
 	echo "${tmpFile}.gz ($((zippedSize / 1000)) kB) created successfully."
 }
 
+sizeof () {
+	stat -Lc'%s' -- "$1"
+}
+
 # Determine size of a file or total size of a directory
 fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
