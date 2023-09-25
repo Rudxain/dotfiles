@@ -60,8 +60,6 @@ alias llf='ls -lF'
 # list only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
-alias sizeof="stat -Lc'%s'"
-
 # safer
 alias cp='cp -i'
 alias mv='mv -i'
