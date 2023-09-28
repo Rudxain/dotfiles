@@ -5,5 +5,4 @@ fi
 
 PATH="$PATH:$HOME/.local/bin"
 
-# SM-A315G's default `adb shell` `PATH`
-PATH="$PATH:/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin:/vendor/xbin"
+PATH="$PATH:/system/bin:/system/xbin:/system_ext/bin"
