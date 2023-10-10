@@ -10,6 +10,9 @@ cdls() {
 
 # https://github.com/termux/termux-packages/discussions/8292#discussioncomment-5102555
 # TLDR: hack to get some `adb shell` privileges
+cmd() {
+	printf '%s' "$(command cmd "$@" 2>&1 < /dev/null)"
+}
 pm() {
 	printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
 }
@@ -24,7 +27,7 @@ else
 		# for security reasons, I'm not a sudoer, so can't use `apt upgrade`
 		# future: https://github.com/pypa/pip/issues/4551
 		rustup upgrade
-		local crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
+		local -r crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
 		if [[ -n "$crates" ]]; then
 			cargo install $crates
 		fi
