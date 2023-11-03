@@ -16,7 +16,7 @@ alias bc='rlwrap -a bc'
 alias cls=clear
 
 # prints raw text strings, unlike `echo`
-alias log="printf '%s\n'"
+alias say="printf '%s\n'"
 
 alias ..='cd ..'
 alias ...='cd ../..'
