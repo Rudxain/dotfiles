@@ -1,4 +1,6 @@
+# auto light/dark
 theme = "base16_default"
 
 [editor.gutters]
+# line-numbers are redundant
 layout = ["diagnostics", "spacer", "diff"]
