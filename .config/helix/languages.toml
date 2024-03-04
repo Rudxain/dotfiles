@@ -1,0 +1,44 @@
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+[language-server.eslint.config]
+validate = "on"
+experimental = { useFlatConfig = false }
+rulesCustomizations = []
+run = "onType" # is there `onSave`?
+problems = { shortenToSingleLine = false }
+nodePath = ""
+[language-server.eslint.config.codeAction]
+[language-server.eslint.config.codeAction.disableRuleComment]
+enable = true
+location = "separateLine"
+[language-server.eslint.config.codeAction.showDocumentation]
+enable = true
+[language-server.eslint.config.codeActionOnSave]
+enable = true
+mode = "fixAll"
+[language-server.eslint.config.workingDirectory]
+mode = "location"
+
+[[language]]
+name = "html"
+indent = { tab-width = 4, unit = "\t" }
+
+[[language]]
+name = "css"
+indent = { tab-width = 4, unit = "\t" }
+
+[[language]]
+name = "javascript"
+language-servers = ["typescript-language-server", "eslint"]
+indent = { tab-width = 4, unit = "\t" }
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server", "eslint"]
+indent = { tab-width = 4, unit = "\t" }
+auto-format = true
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
