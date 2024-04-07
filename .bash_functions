@@ -20,7 +20,7 @@ pm() {
 if [[ -x "$PREFIX/bin/pkg" ]]
 then # Termux
 	update() {
-		pkg upgrade
+		pkg upgrade && apt autoclean
 	}
 else
 	update() {
