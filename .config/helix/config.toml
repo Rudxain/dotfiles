@@ -1,5 +1,5 @@
 # auto light/dark
-theme = "base16_default"
+theme = "base16_terminal"
 
 [editor.gutters]
 # line-numbers are redundant
