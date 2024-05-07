@@ -1,14 +1,13 @@
 # Rudxain's .files
 
-<div align=center><img src=icon.svg width=50% height=50%></div>
-
 ## Installation
 
-**Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don't want or need. Don't blindly use my settings unless you know what that entails. Use at your own risk!
+> [!warning]
+> If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don't want or need. Don't blindly use my settings unless you know what that entails. Use at your own risk!
 
 ### Using Git and the bootstrap script
 
-You can clone the repository however-&-wherever you want. The bootstrapper script will pull in the latest version and copy the files to your home folder.
+You can clone the repository however-&-wherever you want. The bootstrapper script will pull in the latest version and copy the files to your `HOME`.
 
 ```sh
 git clone https://github.com/Rudxain/dotfiles.git && cd dotfiles && . bootstrap.sh
@@ -73,4 +72,3 @@ You could also use `~/.extra` to override settings, functions, and aliases from 
 * [Tom Ryder](https://sanctum.geek.nz/) and his [dotfiles repository](https://sanctum.geek.nz/cgit/dotfiles.git/about)
 * [Kevin Suttle](http://kevinsuttle.com/) and his [dotfiles repository](https://github.com/kevinSuttle/dotfiles)
 * [Haralan Dobrev](https://hkdobrev.com/)
-* Anyone who [contributed a patch](https://github.com/mathiasbynens/dotfiles/contributors) or [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
