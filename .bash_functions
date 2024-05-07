@@ -3,28 +3,27 @@
 mkcd() {
 	mkdir -p "$@" && cd "$_"
 }
-
 cdls() {
 	cd "$@" && ls
 }
 
-# https://github.com/termux/termux-packages/discussions/8292#discussioncomment-5102555
-# TLDR: hack to get some `adb shell` privileges
-cmd() {
-	printf '%s' "$(command cmd "$@" 2>&1 < /dev/null)"
-}
-pm() {
-	printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
-}
-
 if [[ -x "$PREFIX/bin/pkg" ]]
 then # Termux
+	# https://github.com/termux/termux-packages/discussions/8292#discussioncomment-5102555
+	# TLDR: hack to get some `adb shell` privileges
+	cmd() {
+		printf '%s' "$(command cmd "$@" 2>&1 < /dev/null)"
+	}
+	pm() {
+		printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
+	}
 	update() {
-		pkg upgrade && apt autoclean
+		pkg upgrade && apt autoclean \
+		&& npm update -g # for LSPs
 	}
 else
 	update() {
-		# for security reasons, I'm not a sudoer, so can't use `apt upgrade`
+		# for security reasons, I'm not a sudoer
 		# future: https://github.com/pypa/pip/issues/4551
 		rustup upgrade
 		local -r crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
@@ -34,35 +33,7 @@ else
 	}
 fi
 
-# Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
-targz() {
-	local tmpFile="${@%/}.tar"
-	tar -cvf "${tmpFile}" "${@}" || return 1
-
-	size=$(stat -c"%s" "${tmpFile}" 2> /dev/null)
-
-	local cmd=""
-	if (( size < 52428800 )) && hash zopfli 2> /dev/null; then
-		# the .tar file is smaller than 50 MB and Zopfli is available; use it
-		cmd="zopfli"
-	else
-		if hash pigz 2> /dev/null; then
-			cmd="pigz"
-		else
-			cmd="gzip"
-		fi
-	fi
-
-	echo "Compressing .tar ($((size / 1000)) kB) using \`${cmd}\`…"
-	"${cmd}" -v "${tmpFile}" || return 1
-	[ -f "${tmpFile}" ] && rm "${tmpFile}"
-
-	zippedSize=$(stat -c"%s" "${tmpFile}.gz" 2> /dev/null)
-
-	echo "${tmpFile}.gz ($((zippedSize / 1000)) kB) created successfully."
-}
-
-sizeof () {
+sizeof() {
 	stat -Lc'%s' -- "$1"
 }
 
