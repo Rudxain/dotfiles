@@ -1,24 +1,20 @@
 #!/bin/sh
-# see /usr/share/doc/bash-doc/examples in the bash-doc package
 
 alias update='pkg upgrade'
 
 alias open=xdg-open
-alias files='am start --user 0 -n com.google.android.documentsui/com.android.documentsui.files.FilesActivity'
 
 # reload the shell that's currently running on the terminal
 alias reload='exec ${SHELL} -l'
 # for some reason, this dupes `/system/bin` in $PATH
 
-alias adbsh='adb shell'
 alias bc='rlwrap -a bc'
-alias factor='rlwrap -a factor'
 
 # the only thing Windows did right /j
 alias cls=clear
 
 # prints raw text strings, unlike `echo`
-alias log="printf '%s\n'"
+alias say="printf '%s\n'"
 
 alias ...='cd ../..'
 alias ~='cd ~'
@@ -62,10 +58,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias ln='ln -i'
 alias rm='rm -i'
-
-# add an "alert" alias for long running commands.  Use like so:
-#  sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # canonical hex dump; some systems have this symlinked
 command -v hd > /dev/null || alias hd='hexdump -C'
