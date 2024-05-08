@@ -1,9 +1,22 @@
 #!/bin/sh
-if [ -d "$HOME/bin" ]; then
-	export PATH="$HOME/bin:$PATH"
+# Android
+if [ -d /system/bin ]; then
+	PATH="$PATH:/system/bin"
 fi
 
+if [ -d "$HOME/bin" ]; then
+	PATH="$HOME/bin:$PATH"
+fi
+PATH="$PATH:$HOME/.local/bin"
+
+# Rust
 if [ -f "$HOME/.cargo/env" ]; then
 	. "$HOME/.cargo/env"
 fi
-PATH="$PATH:$HOME/.local/bin"
+
+# Golang
+if [ -d "$HOME/go/bin" ]; then
+	PATH="$PATH:$HOME/go/bin"
+fi
+
+export PATH
