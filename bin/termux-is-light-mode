@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-set -f
-[[ "$(cmd uimode night 2>&1 < /dev/null)" == *no ]]
