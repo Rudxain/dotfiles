@@ -32,10 +32,10 @@ do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 
-for option in cdspell failglob; do
-	shopt -s "$option"
+for o in cdspell failglob; do
+	shopt -s "$o"
 done
 
-for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null
+for o in autocd globstar; do
+	shopt -s "$o" 2> /dev/null
 done
