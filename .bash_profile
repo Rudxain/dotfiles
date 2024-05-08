@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -u
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
 
 # if not interactive, do nothing
@@ -39,3 +38,4 @@ done
 for o in autocd globstar; do
 	shopt -s "$o" 2> /dev/null
 done
+set -u
