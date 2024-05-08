@@ -23,9 +23,6 @@ alias ...='cd ../..'
 alias ~='cd ~'
 alias -- -='cd -'
 
-# assume GNU flavor
-colorflag='--color=auto'
-
 if [ -z "$PREFIX" ]; then
 	PREFIX=/usr
 
@@ -36,6 +33,10 @@ else
 	alias cbs=termux-clipboard-set
 	alias cbtts='termux-clipboard-get | termux-tts-speak'
 fi
+
+# assume GNU flavor
+colorflag='--color=auto'
+
 if [ -x "$PREFIX/bin/dircolors" ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 	alias ls="ls $colorflag"
@@ -51,9 +52,7 @@ if [ "$PREFIX" = /usr ]; then
 	unset PREFIX
 fi
 
-# v = verbose
-alias lalfv='ls -alF'
-alias lalf='ls -AlF'
+alias lal='ls -AlF'
 alias la='ls -A'
 alias lcf='ls -CF'
 alias llf='ls -lF'
@@ -66,15 +65,8 @@ alias mv='mv -i'
 alias ln='ln -i'
 alias rm='rm -i'
 
-alias nuke_path_now='rm -rf'
-alias 69=nice
-
 # canonical hex dump; some systems have this symlinked
 command -v hd > /dev/null || alias hd='hexdump -C'
-
-# hide/show desktop files (useful when presenting).
-# to-do: this should be implemented by moving all files to a tmp desktop,
-# for portability
 
 # intuitive map function.
 # for example, to list all directories that contain a certain file:
@@ -84,19 +76,12 @@ alias map='xargs -n1'
 # print each PATH entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
 
-
 # env-specific stuff
-
 if [ -z "$TERMUX_VERSION" ]
 then
 	# I hate Samsung, but dex is a good short name
 	alias cdex='cd ~/Desktop'
 	alias cdl='cd ~/Downloads'
-
-	# one of @janmoesen's ProTip™s
-	for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-		alias "${method}"="lwp-request -m '${method}'"
-	done
 else
 	# user home
 	alias ~u="cd $EXTERNAL_STORAGE"
