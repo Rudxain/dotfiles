@@ -27,7 +27,8 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-for file in ~/.{path,bash_prompt,exports,aliases,bash_functions,extra}; do
+for file in ~/.{path,exports,bash_fns,aliases,bash_prompt,extra}
+do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 
