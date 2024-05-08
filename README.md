@@ -7,10 +7,10 @@ You could also use `~/.extra` to override settings, fns, aliases, etc..., essent
 
 ## Install
 > [!warning]
-> If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don't want or need. Don't blindly use my settings unless you know what that entails. Use at your own risk!
+> If you want to give these dotfiles a try, you should first fork this repo, review the code, and remove things you don't want or need. Don't blindly use my settings unless you know what that entails. Use at your own risk!
 
 ### Bootstrap
-You can clone the repository however-&-wherever you want. The bootstrapper script will pull in the latest version and copy the files to your `HOME`.
+You can clone the repo however-&-wherever you want. The bootstrapper script will pull in the latest version and copy the files to your `HOME`.
 
 ```sh
 git clone https://github.com/Rudxain/dotfiles.git \
@@ -18,7 +18,7 @@ git clone https://github.com/Rudxain/dotfiles.git \
 && . bootstrap.sh
 ```
 
-To update, `cd` into your local `dotfiles` repository and then:
+To update, `cd` into your local `dotfiles` repo and then:
 ```sh
 # safer
 . bootstrap.sh
