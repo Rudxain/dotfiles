@@ -1,7 +1,7 @@
 #!/bin/sh
 # see /usr/share/doc/bash-doc/examples in the bash-doc package
 
-# Termux doesn't have the symlink, LMC does
+# Termux doesn't have the symlink
 alias open=xdg-open
 
 # reload the shell that's currently running on the terminal
