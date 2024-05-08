@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eu
 
 cd "$(dirname "${BASH_SOURCE}")"
 
@@ -10,7 +11,6 @@ do_it() {
 		--exclude '.gitattributes' \
 		--exclude 'bootstrap.sh' \
 		--exclude 'README.md' \
-		--exclude 'icon.svg' \
 		--exclude 'LICENSE' \
 		-avh --no-perms . ~
 	. ~/.bash_profile
