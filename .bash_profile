@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -u
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
 
 # if not interactive, do nothing
