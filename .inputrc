@@ -2,36 +2,27 @@
 
 set show-all-if-ambiguous on
 
-# append slash when autocompleting symlinks to dirs
 set mark-symlinked-directories on
 
-# uses the text that has already been typed as prefix for searching through
-# commands (i.e. more intelligent Up/Down behavior)
+# more intelligent Up/Down behavior
 "\e[B": history-search-forward
 "\e[A": history-search-backward
 
-# match hidden files if pattern starts with dot
 set match-hidden-files off
 
-# show all autocomplete results at once
 set page-completions off
 
-# ask before showing 128+ completions
 set completion-query-items 128
 
 set visible-stats on
 
-# Be more intelligent when autocompleting by also looking at the text after
-# the cursor. For example, when the current line is "cd ~/src/mozil", and
-# the cursor is on the "z", pressing Tab will not autocomplete it to "cd
-# ~/src/mozillail", but to "cd ~/src/mozilla". (This is supported by the
-# Readline used by Bash 4.)
 set skip-completed-text on
 
-# allow UTF-8 IO, instead of showing escape sequences
+# UTF-8 support
 set input-meta on
 set output-meta on
 set convert-meta off
 
-# Use Alt/Meta + Delete to delete the preceding word
+# use Alt/Meta + Delete to delete the preceding word
+# I would prefer ctrl + backspace
 "\e[3;3~": kill-word
