@@ -7,7 +7,9 @@ You could also use `~/.extra` to override settings, fns, aliases, etc..., essent
 
 ## Install
 > [!warning]
-> If you want to give these dotfiles a try, you should first fork this repo, review the code, and remove things you don't want or need. Don't blindly use my settings unless you know what that entails. Use at your own risk!
+> Review the code and remove things you don't want or need.
+> 
+> My preferences and needs may not align with yours!
 
 ### Bootstrap
 You can clone the repo however-&-wherever you want. The bootstrapper script will pull in the latest version and copy the files to your `HOME`.
