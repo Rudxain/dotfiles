@@ -15,7 +15,7 @@ alias bc='rlwrap -a bc'
 # the only thing Windows did right /j
 alias cls=clear
 
-# prints raw text strings, unlike `echo`
+# prints raw text strings
 alias say="printf '%s\n'"
 
 alias ..='cd ..'
@@ -48,6 +48,7 @@ if [ -x "$PREFIX/bin/dircolors" ]; then
 	alias fgrep="fgrep $colorflag"
 	alias egrep="egrep $colorflag"
 fi
+unset colorflag
 if [ "$PREFIX" = /usr ]; then
 	unset PREFIX
 fi
