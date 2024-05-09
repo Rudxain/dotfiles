@@ -1,3 +1,9 @@
+## I should probably replace `const` by this
+#set minibar
+set constantshow
+unset indicator
+unset linenumbers
+
 ## this looks cleaner because of padding,
 ## but I prefer to use all space
 #set emptyline
@@ -13,40 +19,23 @@ set afterends
 ## what are these?
 #set rebindkeypad
 #set smarthome
+## page-up/down exists for a reason
+unset jumpyscrolling
 
 set backup
 #set backupdir "/tmp"
-
-set constantshow
-unset indicator
-unset linenumbers
-
-## page-up/down exists for a reason
-unset jumpyscrolling
+## this should be enabled by default
+#set locking
 
 ## I'm unsure 🤔
 #set casesensitive
 ## I don't care about hist
 unset historylog
+#set matchbrackets "(<[{)>]}"
 
+## what's this?
 #set cutfromcursor
 
-## Enable vim-style lock-files.  This is just to let a vim user know you
-## are editing a file [s]he is trying to edit and vice versa.  There are
-## no plans to implement vim-style undo state in these files.
-set locking
-
-## Fall back to slow libmagic to try and determine an applicable syntax.
-# set magic
-
-## The opening and closing brackets that are found by a matching-bracket
-## search.  This may not contain blank characters.  The opening brackets
-## must come before the closing ones, and they must be in the same order.
-# set matchbrackets "(<[{)>]}"
-
-## Suppress the title bar and show the filename plus a cursor-position
-## percentage in the space of the status bar.
-# set minibar
 
 ## Enable mouse support, if available for your system.  When enabled,
 ## mouse clicks can be used to place the cursor, set the mark (with a
@@ -288,6 +277,9 @@ include "/usr/share/nano/*.nanorc"
 #bind ^E execute main
 #bind ^Z undo main
 #bind ^Y redo main
+
+## I assume `libmagic` is unnecessary
+#set magic
 
 include "/usr/share/nano/markdown.nanorc"
 include "/usr/share/nano/rust.nanorc"
