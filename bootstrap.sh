@@ -17,10 +17,8 @@ do_it() {
 if [ "$1" = '--force' ] || [ "$1" = '-f' ]; then
 	do_it
 else
-	read -p 'This may overwrite existing files in your home directory. Are you sure? (y/n) ' -n 1
+	read -p 'This may overwrite existing files in your `$HOME` directory. Are you sure? (y/n) ' -n 1
 	echo
-	if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-		do_it
-	fi
+	[[ "$REPLY" =~ ^[Yy]$ ]] && do_it
 fi
 unset do_it
