@@ -6,5 +6,5 @@ if [ -n "$BASH_VERSION" ]; then
 	[ -f "$HOME/.bashrc" ] && \
 	. "$HOME/.bashrc"
 else
-	. ~/.sh/profile
+	. "$HOME/.sh/profile"
 fi
