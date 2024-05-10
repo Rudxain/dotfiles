@@ -7,4 +7,3 @@ if [ -n "$BASH_VERSION" ]; then
 		. "$HOME/.bashrc"
 	fi
 fi
-# to-do: `source` all shell-agnostic files here
