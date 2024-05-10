@@ -1,0 +1,4 @@
+#!/bin/sh
+# shell-agnostic rc;
+# equivalent to `.shrc`
+# (different name to avoid collision)
