@@ -23,7 +23,7 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-. ~/.sh_profile
+. ~/.sh/profile
 for f in ~/.bash_{fns,prompt,extra}
 do
 	[ -r "$f" ] && [ -f "$f" ] && source "$f"
