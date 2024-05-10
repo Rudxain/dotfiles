@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
 
-# if not interactive, do nothing
+# if not interactive, do nothing.
+#[ -n "$PS1" ] || exit 0
 case $- in
 	*i*) ;;
 		*) return;;
