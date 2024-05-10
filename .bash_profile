@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
+# /usr/share/doc/bash/examples/startup-files
 
 # if not interactive, do nothing
 case $- in
