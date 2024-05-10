@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # the default umask is set in /etc/profile
 #umask 022
 
