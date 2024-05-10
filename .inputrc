@@ -4,7 +4,7 @@ set show-all-if-ambiguous on
 
 set mark-symlinked-directories on
 
-# more intelligent Up/Down behavior
+# smart up/down
 "\e[B": history-search-forward
 "\e[A": history-search-backward
 
@@ -23,6 +23,6 @@ set input-meta on
 set output-meta on
 set convert-meta off
 
-# use Alt/Meta + Delete to delete the preceding word
-# I would prefer ctrl + backspace
+# Alt/Meta + Del deletes next word
 "\e[3;3~": kill-word
+# I would prefer ctrl+del
