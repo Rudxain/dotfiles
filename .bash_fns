@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ -x "$PREFIX/bin/pkg" ]]
-then # Termux
+then
 	# https://github.com/termux/termux-packages/discussions/8292#discussioncomment-5102555
 	# TLDR: hack to get some `adb shell` privileges
 	cmd() {
@@ -9,20 +9,6 @@ then # Termux
 	}
 	pm() {
 		printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
-	}
-	update() {
-		pkg upgrade && apt autoclean \
-		&& npm update -g # for LSPs
-	}
-else
-	update() {
-		# for security reasons, I'm not a sudoer
-		# future: https://github.com/pypa/pip/issues/4551
-		rustup upgrade
-		local -r crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
-		if [[ -n "$crates" ]]; then
-			cargo install $crates
-		fi
 	}
 fi
 
