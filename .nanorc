@@ -4,11 +4,13 @@ set constantshow
 set quickblank
 unset indicator
 unset linenumbers
+## I haven't got used to it
 #set nohelp
 
 ## this looks cleaner because of padding,
 ## but I prefer to use all space
 #set emptyline
+
 ## only useful for `*.txt` and `*.md`
 #set softwrap
 #set breaklonglines
