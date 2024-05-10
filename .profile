@@ -1,11 +1,10 @@
 #!/bin/sh
-# the default umask is set in /etc/profile
+# default umask set in /etc/profile
 #umask 022
 
 if [ -n "$BASH_VERSION" ]; then
-	if [ -f "$HOME/.bashrc" ]; then
-		. "$HOME/.bashrc"
-	fi
+	[ -f "$HOME/.bashrc" ] && \
+	. "$HOME/.bashrc"
 else
-	. ~/.sh_profile
+	. ~/.sh/profile
 fi
