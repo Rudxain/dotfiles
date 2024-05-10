@@ -1,18 +1,14 @@
 #!/bin/sh
-# see /usr/share/doc/bash-doc/examples in the bash-doc package
 
 # Termux doesn't have the symlink
 alias open=xdg-open
 
-# reload the shell that's currently running on the terminal
 alias reload='exec ${SHELL} -l'
-# for some reason, this dupes some `PATH` entries
-
 alias sh='rlwrap -a sh'
 alias dash='rlwrap -a dash'
 alias bc='rlwrap -a bc'
 
-# the only thing Windows did right /j
+# the only thing MS did right /j
 alias cls=clear
 
 # prints raw text strings
@@ -20,7 +16,7 @@ alias say="printf '%s\n'"
 
 alias ..='cd ..'
 alias ...='cd ../..'
-alias ~='cd ~'
+alias ~='cd ~' # same as `cd` (0 args)?
 alias -- -='cd -'
 
 if [ -z "$PREFIX" ]; then
@@ -36,8 +32,8 @@ fi
 
 # assume GNU flavor
 colorflag='--color=auto'
-
-if [ -x "$PREFIX/bin/dircolors" ]; then
+if [ -x "$PREFIX/bin/dircolors" ]
+then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 	alias ls="ls $colorflag"
 	alias dir="dir $colorflag"
@@ -60,7 +56,7 @@ alias llf='ls -lF'
 # list only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
-# safer
+# safety
 alias cp='cp -i'
 alias mv='mv -i'
 alias ln='ln -i'
@@ -68,18 +64,18 @@ alias rm='rm -i'
 
 alias nuke='rm -rf --'
 
-# canonical hex dump; some systems have this symlinked
+# canonicalize
 command -v hd > /dev/null || alias hd='hexdump -C'
+# some systems have this symlinked
 
-# intuitive map function.
-# for example, to list all directories that contain a certain file:
-# find . -name .gitattributes | map dirname
+# intuitive map fn
 alias map='xargs -n1'
+# is `grep` equivalent to `filter`?
+# what about `fold`/`reduce`?
 
-# print each PATH entry on a separate line
+# print each `$PATH` entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
 
-# env-specific stuff
 if [ -z "$TERMUX_VERSION" ]
 then
 	# I hate Samsung, but dex is a good short name
