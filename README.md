@@ -11,33 +11,45 @@ You could also use `~/.extra` to override settings, fns, aliases, etc..., essent
 > 
 > My preferences and needs may not align with yours!
 
-### Bootstrap
-You can clone the repo however-&-wherever you want. `bootstrap.sh` will pull `main` then copy the files to your `HOME`.
-
+### Script
 > [!note]
-> `bootstrap.sh` depends on `rsync`
+> `install` depends on `rsync`
 
-```sh
+`install` will pull the `main` branch, then copy the files to your `HOME`:
+```bash
 git clone https://github.com/Rudxain/dotfiles.git \
 && cd dotfiles \
-&& . bootstrap.sh
+&& source install
 ```
 
-To update, `cd` into your local `dotfiles` repo and then:
-```sh
+To do a [differential update](https://en.wikipedia.org/wiki/Incremental_backup), `cd` into your local `dotfiles` repo and then:
+```bash
 # safer
-. bootstrap.sh
+source install
 ```
 alt:
-```sh
+```bash
 # avoid confirmation prompt
-set -- -f; . bootstrap.sh
+set -- -f; source install
 ```
 
-### Git-less
+### Min-deps
+Portable to almost any environment. See [progress on `wget`](https://github.com/Rudxain/dotfiles/issues/7).
+
+Non-Termux:
 ```sh
 cd
-curl -#L https://github.com/Rudxain/dotfiles/tarball/main |\
-tar -xzv --strip-components 1 --exclude={bootstrap.sh,README.md,LICENSE}
+curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
+tar -xzv --strip-components 1 --exclude={.termux,bin/termux-\*,.gitattributes,install,README.md,LICENSE} \
+&& . .profile
 ```
-To update, just run that cmd again
+
+Termux:
+```sh
+cd
+curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
+tar -xzv --strip-components 1 --exclude={.bash_prompt,.gitattributes,install,README.md,LICENSE} \
+&& . .profile
+```
+
+To update, just run the corresponding cmd again. The downside is that it always downloads the full contents of the this repo, even if no files have changed
