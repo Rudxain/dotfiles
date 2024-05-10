@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euf
+
+#pkg upgrade
+apt update
+apt upgrade
+
+apt autopurge
+apt autoclean
+
+# for LSPs
+npm update -g
+
+# future: https://github.com/pypa/pip/issues/4551
+
+rustup upgrade
+readonly crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
+[[ -n "$crates" ]] && cargo install $crates
