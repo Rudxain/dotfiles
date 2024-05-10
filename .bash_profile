@@ -9,7 +9,6 @@ esac
 
 shopt -s histappend
 
-# this may update `$LINES` and `$COLUMNS`
 shopt -s checkwinsize
 
 # no need to enable,
@@ -23,7 +22,7 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-. ~/.sh/profile
+source ~/.sh/profile
 for f in ~/.bash_{fns,prompt,extra}
 do
 	[ -r "$f" ] && [ -f "$f" ] && source "$f"
