@@ -12,7 +12,10 @@ You could also use `~/.extra` to override settings, fns, aliases, etc..., essent
 > My preferences and needs may not align with yours!
 
 ### Bootstrap
-You can clone the repo however-&-wherever you want. The bootstrapper script will pull in the latest version and copy the files to your `HOME`.
+You can clone the repo however-&-wherever you want. `bootstrap.sh` will pull `main` then copy the files to your `HOME`.
+
+> [!note]
+> `bootstrap.sh` depends on `rsync`
 
 ```sh
 git clone https://github.com/Rudxain/dotfiles.git \
