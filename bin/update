@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 set -euf
 
-#pkg upgrade
+#pkg upgrade # Termux
 apt update
 apt upgrade
 
-apt autopurge
 apt autoclean
+apt autopurge
+
+# if `apt` fails,
+# it's very likely `npm` will also fail
 
 # for LSPs
-npm update -g
+npm update -g || true
 
-# future: https://github.com/pypa/pip/issues/4551
+# Rust shouldn't care about `npm` failing
 
 rustup upgrade
 readonly crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
 [[ -n "$crates" ]] && cargo install $crates
+
+# future: https://github.com/pypa/pip/issues/4551
