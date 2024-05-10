@@ -1,4 +1,10 @@
 #!/bin/sh
-# shell-agnostic rc;
-# equivalent to `.shrc`
-# (different name to avoid collision)
+set -u # **very** intentional
+
+# friendlier for non-text input files
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+for f in ~/.{path,exports,fns,aliases,extra}
+do
+	[ -r "$f" ] && [ -f "$f" ] && . "$f"
+done
