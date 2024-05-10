@@ -12,9 +12,6 @@ shopt -s histappend
 # this may update `$LINES` and `$COLUMNS`
 shopt -s checkwinsize
 
-# more friendly for non-text input files
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 # no need to enable,
 # if it's already enabled in /etc/bash.bashrc
 # and /etc/profile sources /etc/bash.bashrc
@@ -26,9 +23,10 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-for file in ~/.{path,exports,bash_fns,aliases,bash_prompt,extra}
+. ~/.sh_profile
+for f in ~/.bash_{fns,prompt,extra}
 do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file"
+	[ -r "$f" ] && [ -f "$f" ] && source "$f"
 done
 
 for o in cdspell failglob; do
@@ -38,4 +36,3 @@ done
 for o in autocd globstar; do
 	shopt -s "$o" 2> /dev/null
 done
-set -u
