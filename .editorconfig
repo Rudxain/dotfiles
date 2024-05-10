@@ -3,18 +3,21 @@ root = true
 [*]
 charset = UTF-8
 end_of_line = lf
-insert_final_newline = false
 indent_style = tab
 indent_size = 4
 trim_trailing_whitespace = true
+insert_final_newline = false
 
 # POSIX compliance
-[*.{,ba,b,c,da,k,mk}sh]
+[.{bashrc,profile,aliases,fns,path,exports}]
 insert_final_newline = true
-# is it possible to merge these globs?
-[.bash{rc,_*}]
+
+[*.{,ba,b,da,k,mk}sh]
 insert_final_newline = true
-[.{profile,aliases,fns,path,exports}]
+
+[.bash_*]
 insert_final_newline = true
+
+# `**` recursion is undesirable
 [bin/*]
 insert_final_newline = true
