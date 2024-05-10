@@ -1,10 +1,10 @@
 #!/bin/sh
-set -u # **very** intentional
+set -u # intentional
 
 # friendlier for non-text input files
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-for f in ~/.{path,exports,fns,aliases,extra}
+for f in ~/.sh/*
 do
 	[ -r "$f" ] && [ -f "$f" ] && . "$f"
 done
