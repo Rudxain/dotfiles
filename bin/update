@@ -1,26 +1,28 @@
-#!/usr/bin/env bash
-set -euf -o pipefail
+#!/bin/sh
+set -euf
 
+# should it be uncommented?
 #pkg upgrade # Termux
+
 # should I use apt-get?
-# it doesn't seem like "unstable API" matters here
-apt update
-apt upgrade
+# "unstable API" doesn't seem to matter here
+if apt update && apt upgrade
+then
+	apt autoclean || true
+	apt autopurge || true
 
-apt autoclean
-apt autopurge
+	# https://github.com/pypa/pip/issues/4551
 
-# if `apt` fails,
-# it's very likely `npm` will also fail
-
-# for LSPs
-npm update -g || true
-
-# Rust shouldn't care about `npm` failing
+	# if `apt` fails,
+	# it's likely `npm` will also fail
+	npm update -g || true # for LSPs
+fi
 
 rustup upgrade
-# the regex assumes the Cargo API is stable
-readonly crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
-[[ -n "$crates" ]] && cargo install $crates
-
-# future: https://github.com/pypa/pip/issues/4551
+# regex assumes stable Cargo API
+crates="$(\
+	cargo install --list |\
+	grep -E '^[a-z0-9_-]+ v[0-9.]+:$' |\
+	cut -f1 -d' ' \
+)"
+[ -n "$crates" ] && cargo install $crates
