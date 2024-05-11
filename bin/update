@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-set -euf
+set -euf -o pipefail
 
 #pkg upgrade # Termux
+# should I use apt-get?
+# it doesn't seem like "unstable API" matters here
 apt update
 apt upgrade
 
@@ -17,6 +19,7 @@ npm update -g || true
 # Rust shouldn't care about `npm` failing
 
 rustup upgrade
+# the regex assumes the Cargo API is stable
 readonly crates="$(cargo install --list | grep -E '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
 [[ -n "$crates" ]] && cargo install $crates
 
