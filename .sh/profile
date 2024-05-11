@@ -4,8 +4,8 @@ set -u # intentional
 # friendlier for non-text input files
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-for f in ~/.sh/*; do
-	[ -r "$f" ] && [ -f "$f" ] && \
-	# guard against ♾️ recursive sourcing
-	[ "$f" != ~/.sh/profile ] && . "$f"
+for f in ~/.sh/{path,exports,aliases,fns,extra}
+do
+	[ -r "$f" ] && [ -f "$f" ] && . "$f"
 done
+unset f
