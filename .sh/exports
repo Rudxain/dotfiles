@@ -1,4 +1,8 @@
 #!/bin/sh
+if [ -z "$PREFIX" ]; then
+	export PREFIX=/usr # non-Termux
+fi
+
 export HISTSIZE="$((1 << 12))"
 export HISTFILESIZE="$((HISTSIZE << 4))"
 export HISTCONTROL=ignoreboth:erasedups
