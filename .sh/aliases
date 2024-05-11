@@ -4,10 +4,12 @@ alias sh='rlwrap -a sh'
 alias dash='rlwrap -a dash'
 alias bc='rlwrap -a bc'
 
+alias paths='echo -e ${PATH//:/\\n}'
+
 # the only thing MS did right /j
 alias cls=clear
 
-# prints raw text strings
+# raw strs
 alias say="printf '%s\n'"
 
 # Termux doesn't have the symlink
@@ -82,6 +84,3 @@ command -v hd > /dev/null || alias hd='hexdump -C'
 alias map='xargs -n1'
 # is `grep` equivalent to `filter`?
 # what about `fold`/`reduce`?
-
-# print each `$PATH` entry on a separate line
-alias paths='echo -e ${PATH//:/\\n}'
