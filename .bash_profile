@@ -20,7 +20,7 @@ if ! shopt -oq posix; then
 fi
 
 . ~/.sh/profile
-for f in ~/.bash_{fns,prompt,extra}
+for f in ~/.bash_{aliases,fns,prompt,extra}
 do
 	[ -r "$f" ] && [ -f "$f" ] && . "$f"
 done
