@@ -1,8 +1,4 @@
 #!/bin/sh
-
-# Termux doesn't have the symlink
-alias open=xdg-open
-
 alias reload='exec ${SHELL} -l'
 alias sh='rlwrap -a sh'
 alias dash='rlwrap -a dash'
@@ -14,6 +10,17 @@ alias cls=clear
 # prints raw text strings
 alias say="printf '%s\n'"
 
+# Termux doesn't have the symlink
+alias open=xdg-open
+
+# safety
+alias cp='cp -i'
+alias mv='mv -i'
+alias ln='ln -i'
+alias rm='rm -i'
+
+alias nuke='rm -rf --'
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ~='cd ~' # same as `cd` (0 args)?
@@ -22,9 +29,18 @@ alias -- -='cd -'
 if [ -z "$PREFIX" ]; then
 	PREFIX=/usr
 
+	# I hate Samsung, but dex is a good short name
+	alias cdex='cd ~/Desktop'
+	alias cdl='cd ~/Downloads'
+
 	alias cbg=wl-paste
 	alias cbs=wl-copy
 else
+	# user home
+	alias u~="cd $EXTERNAL_STORAGE"
+	alias cdl='cd ~/downloads'
+	alias cudl="cd $EXTERNAL_STORAGE/Download"
+
 	alias cbg=termux-clipboard-get
 	alias cbs=termux-clipboard-set
 	alias cbtts='termux-clipboard-get | termux-tts-speak'
@@ -56,13 +72,7 @@ alias llf='ls -lF'
 # list only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
-# safety
-alias cp='cp -i'
-alias mv='mv -i'
-alias ln='ln -i'
-alias rm='rm -i'
-
-alias nuke='rm -rf --'
+alias dusort='du -hd1 2>/dev/null | sort -h'
 
 # canonicalize
 command -v hd > /dev/null || alias hd='hexdump -C'
@@ -75,15 +85,3 @@ alias map='xargs -n1'
 
 # print each `$PATH` entry on a separate line
 alias paths='echo -e ${PATH//:/\\n}'
-
-if [ -z "$TERMUX_VERSION" ]
-then
-	# I hate Samsung, but dex is a good short name
-	alias cdex='cd ~/Desktop'
-	alias cdl='cd ~/Downloads'
-else
-	# user home
-	alias ~u="cd $EXTERNAL_STORAGE"
-	alias cdl='cd ~/downloads'
-	alias cdlu="cd $EXTERNAL_STORAGE/Download"
-fi
