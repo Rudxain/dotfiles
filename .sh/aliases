@@ -28,7 +28,7 @@ alias ...='cd ../..'
 alias ~='cd ~' # same as `cd` (0 args)?
 alias -- -='cd -'
 
-if [ -z "$TERMUX_VERSION" ]; then
+if [ -z "${TERMUX_VERSION:-}" ]; then
 	# I hate Samsung, but dex is a good short name
 	alias cdex='cd ~/Desktop'
 	alias cdl='cd ~/Downloads'
@@ -46,10 +46,15 @@ else
 	alias cbtts='termux-clipboard-get | termux-tts-speak'
 fi
 
-# assume GNU flavor
-flag='--color=auto'
+if [ -z "${PREFIX:-}" ]; then
+	pre_mut=y
+	PREFIX=/usr
+fi
 if [ -x "$PREFIX/bin/dircolors" ]
 then
+	# assume GNU flavor
+	flag='--color=auto'
+
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 	alias ls="ls $flag"
 	alias dir="dir $flag"
@@ -59,8 +64,10 @@ then
 	alias grep="grep $flag"
 	alias fgrep="fgrep $flag"
 	alias egrep="egrep $flag"
+
+	unset flag
 fi
-unset flag
+[ -n "${pre_mut:-}" ] && unset PREFIX
 
 alias lal='ls -AlF'
 alias la='ls -A'

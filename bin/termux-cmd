@@ -1,0 +1,6 @@
+#!/bin/sh
+set -euf
+
+# https://github.com/termux/termux-packages/discussions/8292#discussioncomment-5102555
+# TLDR: hack to get some `adb shell` privileges
+printf '%s' "$(cmd "$@" 2>&1 < /dev/null)"

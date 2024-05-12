@@ -17,6 +17,10 @@ case "$TERM" in
 	xterm-color|*-256color) color_support=y;;
 esac
 
+if [ -z "${PREFIX:-}" ]; then
+	pre_mut=y
+	PREFIX=/usr
+fi
 if [ -x "$PREFIX/bin/tput" ] && tput setaf 1 &>/dev/null
 then
 	color_support=y
@@ -41,6 +45,7 @@ elif [ -n "${color_support:-}" ]; then
 	CYAN="\e[1;36m"
 	WHITE="\e[1;37m"
 fi
+[ -n "${pre_mut:-}" ] && unset PREFIX
 
 # common prefix
 PS1='${debian_chroot:+($debian_chroot)}'
@@ -66,6 +71,7 @@ xterm*|rxvt*)
 	;;
 esac
 
+# this check saves energy if git isn't installed
 if git --version &>/dev/null; then
 	prompt_git() {
 		git rev-parse --is-inside-work-tree &>/dev/null || return

@@ -1,17 +1,5 @@
 #!/usr/bin/env bash
 
-if [[ -x "$PREFIX/bin/pkg" ]]
-then
-	# https://github.com/termux/termux-packages/discussions/8292#discussioncomment-5102555
-	# TLDR: hack to get some `adb shell` privileges
-	cmd() {
-		printf '%s' "$(command cmd "$@" 2>&1 < /dev/null)"
-	}
-	pm() {
-		printf '%s' "$(command pm "$@" 2>&1 < /dev/null)"
-	}
-fi
-
 fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
 		local -r arg=-sbh
@@ -23,11 +11,6 @@ fs() {
 	else
 		du $arg .[^.]* ./*
 	fi
-}
-
-# I rarely use this
-tre() {
-	tree -aC -I '.cache|tmp|.git|target|__pycache__|node_modules' --dirsfirst "$@" | less -FRNX
 }
 
 # password generator. usually meant for wifi A.P.s
