@@ -20,14 +20,16 @@ do
 done
 unset f
 
+# to-do: use `PREFIX`
 if [ -r "/etc/profile.d/bash_completion.sh" ]; then
-	export BASH_COMPLETION_COMPAT_DIR="/etc/bash_completion.d";
-	source "/etc/profile.d/bash_completion.sh";
+	export BASH_COMPLETION_COMPAT_DIR="/etc/bash_completion.d"
+	source "/etc/profile.d/bash_completion.sh"
 fi
 # just-in-case
 if ! shopt -oq posix; then
 	if [ -f $PREFIX/share/bash-completion/bash_completion ]; then
 		. $PREFIX/share/bash-completion/bash_completion
+	# to-do: use `PREFIX`
 	elif [ -f /etc/bash_completion ]; then
 		. /etc/bash_completion
 	fi
