@@ -57,11 +57,13 @@ if [ -n "${color_support:-}" ]; then
 	PS2+="\[${MAGENTA}\]"
 
 	print_exit_code() {
-		[[ $? -ne 0 ]] && PS1="\[${RED}\]$?|\[${RESET}\]$PS1"
+		local EXIT=$?
+		[[ $EXIT -ne 0 ]] && PS1="\[${RED}\]$EXIT|\[${RESET}\]$PS1"
 	}
 else
 	print_exit_code() {
-		[[ $? -ne 0 ]] && PS1="$?|$PS1"
+		local EXIT=$?
+		[[ $EXIT -ne 0 ]] && PS1="$EXIT|$PS1"
 	}
 fi
 
