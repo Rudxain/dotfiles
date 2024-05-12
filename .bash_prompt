@@ -17,6 +17,7 @@ case "$TERM" in
 	xterm-color|*-256color) color_prompt=y;;
 esac
 
+# https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit
 if [ -x $PREFIX/bin/tput ] && tput setaf 1 &>/dev/null
 then
 	tput sgr0
@@ -25,6 +26,7 @@ then
 	black=$(tput setaf 0)
 	blue=$(tput setaf 33)
 	cyan=$(tput setaf 37)
+	# to-do: use 4-bit color
 	green=$(tput setaf 64)
 	orange=$(tput setaf 166)
 	purple=$(tput setaf 125)
