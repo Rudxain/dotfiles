@@ -17,48 +17,45 @@ case "$TERM" in
 	xterm-color|*-256color) color_support=y;;
 esac
 
-# https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit
-if [ -x $PREFIX/bin/tput ] && tput setaf 1 &>/dev/null
+if [ -x "$PREFIX/bin/tput" ] && tput setaf 1 &>/dev/null
 then
 	color_support=y
-	tput sgr0
-	bold=$(tput bold)
-	reset=$(tput sgr0)
-	black=$(tput setaf 0)
-	blue=$(tput setaf 33)
-	cyan=$(tput setaf 37)
-	# to-do: use 4-bit color
-	green=$(tput setaf 64)
-	orange=$(tput setaf 166)
-	purple=$(tput setaf 125)
-	violet=$(tput setaf 61)
-	red=$(tput setaf 124)
-	white=$(tput setaf 15)
-	yellow=$(tput setaf 136)
+	tput sgr0 # is this necessary?
+	RESET=$(tput sgr0)
+	BLACK=$(tput setaf 0)
+	RED=$(tput setaf 101)
+	GREEN=$(tput setaf 102)
+	YELLOW=$(tput setaf 103)
+	BLUE=$(tput setaf 104)
+	MAGENTA=$(tput setaf 105)
+	CYAN=$(tput setaf 106)
+	WHITE=$(tput setaf 107)
 elif [ -n "${color_support:-}" ]; then
-	bold=''
-	reset="\e[0m"
-	black="\e[1;30m"
-	blue="\e[1;34m"
-	cyan="\e[1;36m"
-	green="\e[1;32m"
-	orange="\e[1;33m"
-	purple="\e[1;35m"
-	violet="\e[1;35m"
-	red="\e[1;31m"
-	white="\e[1;37m"
-	yellow="\e[1;33m"
+	RESET="\e[0m"
+	BLACK="\e[1;30m"
+	RED="\e[1;31m"
+	GREEN="\e[1;32m"
+	YELLOW="\e[1;33m"
+	BLUE="\e[1;34m"
+	MAGENTA="\e[1;35m"
+	CYAN="\e[1;36m"
+	WHITE="\e[1;37m"
 fi
 
 # common prefix
 PS1='${debian_chroot:+($debian_chroot)}'
 PS2=''
+
 if [ -n "${color_support:-}" ]; then
 	# to-do: try `rev`(7)
-	PS1+="\[${green}\]"
-	PS2+="\[${violet}\]"
+	PS1+="\[${GREEN}\]"
+	PS2+="\[${MAGENTA}\]"
 fi
-PS1+='\u:\w'
+
+if [ -z "${TERMUX_VERSION:-}" ]; then	
+	PS1+='\u:'
+fi
+PS1+='\w'
 PS2+='→ '
 
 case "$TERM" in
@@ -109,8 +106,8 @@ fi
 # common sufix (intentional typo)
 PS1+=" \$ "
 if [ -n "${color_support:-}" ]; then
-	PS1+="\[${reset}\]"
-	PS2+="\[${reset}\]"
+	PS1+="\[${RESET}\]"
+	PS2+="\[${RESET}\]"
 fi
 unset color_support
 export PS1
