@@ -48,7 +48,7 @@ Termux:
 ```sh
 cd
 curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
-tar -xzv --strip-components 1 --exclude={.bash_prompt,.gitattributes,install,README.md,LICENSE} \
+tar -xzv --strip-components 1 --exclude={.gitattributes,install,README.md,LICENSE} \
 && . .profile
 ```
 
