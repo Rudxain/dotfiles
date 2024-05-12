@@ -54,7 +54,7 @@ tar -xzv --strip-components 1 --exclude={.gitattributes,install,README.md,LICENS
 
 To update, just run the corresponding cmd again. The downside is that it always downloads the full contents of this repo, even if no files have changed
 
-## Update
+## Updates
 I reserve the right to edit this repo in **any way** I want (this includes mutating/deleting commits, so permalinks may not be so permanent). So don't complain about breaking-changes.
 
 After an update happens, you may have some left-over files that are no longer `source`d
