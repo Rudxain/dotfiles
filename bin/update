@@ -17,6 +17,7 @@ if [ -z "${TERMUX_VERSION:-}" ]; then
 	fi
 	
 	rustup upgrade
+	# https://github.com/rust-lang/cargo/issues/9527
 	crates="$(\
 		cargo install --list |\
 		# assume stable Cargo API
