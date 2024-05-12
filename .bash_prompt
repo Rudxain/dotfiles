@@ -14,12 +14,13 @@ then
 	export TERM='xterm-256color'
 fi
 case "$TERM" in
-	xterm-color|*-256color) color_prompt=y;;
+	xterm-color|*-256color) color_support=y;;
 esac
 
 # https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit
 if [ -x $PREFIX/bin/tput ] && tput setaf 1 &>/dev/null
 then
+	color_support=y
 	tput sgr0
 	bold=$(tput bold)
 	reset=$(tput sgr0)
@@ -34,7 +35,7 @@ then
 	red=$(tput setaf 124)
 	white=$(tput setaf 15)
 	yellow=$(tput setaf 136)
-elif [ -n "${color_prompt:-}" ]; then
+elif [ -n "${color_support:-}" ]; then
 	bold=''
 	reset="\e[0m"
 	black="\e[1;30m"
@@ -52,7 +53,7 @@ fi
 # common prefix
 PS1='${debian_chroot:+($debian_chroot)}'
 PS2=''
-if [ -n "${color_prompt:-}" ]; then
+if [ -n "${color_support:-}" ]; then
 	# to-do: try `rev`(7)
 	PS1+="\[${green}\]"
 	PS2+="\[${violet}\]"
@@ -107,10 +108,10 @@ fi
 
 # common sufix (intentional typo)
 PS1+=" \$ "
-if [ -n "${color_prompt:-}" ]; then
+if [ -n "${color_support:-}" ]; then
 	PS1+="\[${reset}\]"
 	PS2+="\[${reset}\]"
 fi
-unset color_prompt
+unset color_support
 export PS1
 export PS2
