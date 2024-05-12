@@ -21,10 +21,10 @@ done
 unset f
 
 # to-do: use `PREFIX`
-if [ -r "/etc/profile.d/bash_completion.sh" ]; then
-	export BASH_COMPLETION_COMPAT_DIR="/etc/bash_completion.d"
-	source "/etc/profile.d/bash_completion.sh"
-fi
+#if [ -r "/etc/profile.d/bash_completion.sh" ]; then
+	#export BASH_COMPLETION_COMPAT_DIR="/etc/bash_completion.d"
+	#source "/etc/profile.d/bash_completion.sh"
+#fi
 # just-in-case
 if ! shopt -oq posix; then
 	if [ -f $PREFIX/share/bash-completion/bash_completion ]; then
