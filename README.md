@@ -1,9 +1,9 @@
 # Rudxain's .files
-Prefer `.path` over `.exports` to specify `$PATH`.
-
-You can use `~/.extra` to add custom cmds without forking this entire repo, or to add private data.
-
-You could also use `~/.extra` to override settings, fns, aliases, etc..., essentially treating the repo as a default. It's probably better to [fork this repo](https://github.com/Rudxain/dotfiles/fork) instead
+You can use `~/.sh/extra` (POSIX) and `~/.bash_extra` to:
+- add custom cmds without forking this entire repo
+- add private data
+- override settings, fns, aliases, etc..., essentially treating the repo as a default.
+	- it's probably better to [fork this repo](https://github.com/Rudxain/dotfiles/fork) instead
 
 ## Install
 > [!warning]
@@ -52,4 +52,9 @@ tar -xzv --strip-components 1 --exclude={.gitattributes,install,README.md,LICENS
 && . .profile
 ```
 
-To update, just run the corresponding cmd again. The downside is that it always downloads the full contents of the this repo, even if no files have changed
+To update, just run the corresponding cmd again. The downside is that it always downloads the full contents of this repo, even if no files have changed
+
+## Update
+I reserve the right to edit this repo in **any way** I want (this includes mutating/deleting commits, so permalinks may not be so permanent). So don't complain about breaking-changes.
+
+After an update happens, you may have some left-over files that are no longer `source`d
