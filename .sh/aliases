@@ -1,4 +1,6 @@
 #!/bin/sh
+#shellcheck disable=SC2139
+
 alias reload='exec ${SHELL} -l'
 alias sh='rlwrap -a sh'
 alias dash='rlwrap -a dash'
@@ -54,7 +56,7 @@ if [ -x "$PREFIX/bin/dircolors" ]
 then
 	# assume GNU flavor
 	flag='--color=auto'
-
+	#shellcheck disable=SC2015
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 	alias ls="ls $flag"
 	alias dir="dir $flag"

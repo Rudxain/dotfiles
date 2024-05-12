@@ -1,8 +1,9 @@
 #!/bin/sh
 set -u # intentional
 
-for f in ~/.sh/{path,exports,aliases,fns,extra}
+for f in path exports aliases fns extra
 do
+	f="$HOME/.sh/$f"
 	[ -r "$f" ] && [ -f "$f" ] && . "$f"
 done
 unset f

@@ -24,6 +24,7 @@ if [ -z "${TERMUX_VERSION:-}" ]; then
 		grep -E '^[a-z0-9_-]+ v[0-9.]+:$' |\
 		cut -f1 -d' ' \
 	)"
+	# shellcheck disable=SC2086
 	[ -n "$crates" ] && cargo install $crates
 else
 	# https://wiki.termux.com/wiki/Package_Management
