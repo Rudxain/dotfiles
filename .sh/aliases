@@ -28,9 +28,7 @@ alias ...='cd ../..'
 alias ~='cd ~' # same as `cd` (0 args)?
 alias -- -='cd -'
 
-if [ -z "$PREFIX" ]; then
-	PREFIX=/usr
-
+if [ -z "$TERMUX_VERSION" ]; then
 	# I hate Samsung, but dex is a good short name
 	alias cdex='cd ~/Desktop'
 	alias cdl='cd ~/Downloads'
@@ -49,23 +47,20 @@ else
 fi
 
 # assume GNU flavor
-colorflag='--color=auto'
+flag='--color=auto'
 if [ -x "$PREFIX/bin/dircolors" ]
 then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	alias ls="ls $colorflag"
-	alias dir="dir $colorflag"
-	alias vdir="vdir $colorflag"
+	alias ls="ls $flag"
+	alias dir="dir $flag"
+	alias vdir="vdir $flag"
 
 	# `GREP_OPTIONS="--color=auto"` is deprecated, hence these
-	alias grep="grep $colorflag"
-	alias fgrep="fgrep $colorflag"
-	alias egrep="egrep $colorflag"
+	alias grep="grep $flag"
+	alias fgrep="fgrep $flag"
+	alias egrep="egrep $flag"
 fi
-unset colorflag
-if [ "$PREFIX" = /usr ]; then
-	unset PREFIX
-fi
+unset flag
 
 alias lal='ls -AlF'
 alias la='ls -A'
