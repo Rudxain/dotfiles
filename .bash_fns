@@ -13,8 +13,9 @@ fs() {
 	fi
 }
 
-# password generator. usually meant for wifi A.P.s
-keygen() {
+# password generator
+# designed for wifi APs
+keygen() { # depends on `.sh/fns`
 	if [[ "$1" = wpa_main ]]
 	then
 		b16_rng 32 # max PSK size is 256b
