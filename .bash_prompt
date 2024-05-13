@@ -56,12 +56,12 @@ if [ -n "${color_support:-}" ]; then
 	PS1+="\[${GREEN}\]"
 	PS2+="\[${MAGENTA}\]"
 
-	print_exit_code() {
+	last_exit() {
 		local EXIT=$?
 		[[ $EXIT -ne 0 ]] && PS1="\[${RED}\]$EXIT|\[${RESET}\]$PS1"
 	}
 else
-	print_exit_code() {
+	last_exit() {
 		local EXIT=$?
 		[[ $EXIT -ne 0 ]] && PS1="$EXIT|$PS1"
 	}
@@ -83,7 +83,7 @@ esac
 
 # this check saves energy if git isn't installed
 if git --version &>/dev/null; then
-	prompt_git() {
+	branch_stat() {
 		git rev-parse --is-inside-work-tree &>/dev/null || return
 		local s=''
 		local branch_name=''
@@ -116,7 +116,7 @@ if git --version &>/dev/null; then
 
 		echo -e " branch ${branch_name} ${s}"
 	}
-	PS1+="\$(prompt_git)"
+	PS1+="\$(branch_stat)"
 fi
 
 # common sufix (intentional typo)
@@ -129,4 +129,4 @@ unset color_support
 export PS1
 export PS2
 # to-do: add a `history` cmd
-PROMPT_COMMAND="print_exit_code; ${PROMPT_COMMAND:-}"
+PROMPT_COMMAND="last_exit; ${PROMPT_COMMAND:-}"
