@@ -6,7 +6,7 @@ fs() {
 	else
 		local -r arg=-sh
 	fi
-	if [[ -n "$@" ]]; then
+	if [[ -n "$*" ]]; then
 		du $arg -- "$@"
 	else
 		du $arg .[^.]* ./*
