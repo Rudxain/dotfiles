@@ -47,6 +47,14 @@ elif [ -n "${color_support:-}" ]; then
 fi
 [ -n "${pre_mut:-}" ] && unset PREFIX
 
+#set +o nohup
+#PS1='${|
+	#local e=$?
+	#(( e )) && REPLY+="$e|"
+	#return $e
+#}$HOSTNAME:${PWD:-?} '"$PS1 "
+
+
 # common prefix
 PS1='${debian_chroot:+($debian_chroot)}'
 PS2=''
