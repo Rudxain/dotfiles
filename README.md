@@ -1,9 +1,9 @@
 # Rudxain's .files
-Prefer `.path` over `.exports` to specify `$PATH`.
-
-You can use `~/.extra` to add custom cmds without forking this entire repo, or to add private data.
-
-You could also use `~/.extra` to override settings, fns, aliases, etc..., essentially treating the repo as a default. It's probably better to [fork this repo](https://github.com/Rudxain/dotfiles/fork) instead
+You can use `~/.sh/extra` (POSIX) and `~/.bash_extra` to:
+- add custom cmds without forking this entire repo
+- add private data
+- override settings, fns, aliases, etc..., essentially treating the repo as a default.
+	- it's probably better to [fork this repo](https://github.com/Rudxain/dotfiles/fork) instead
 
 ## Install
 > [!warning]
@@ -11,33 +11,50 @@ You could also use `~/.extra` to override settings, fns, aliases, etc..., essent
 > 
 > My preferences and needs may not align with yours!
 
-### Bootstrap
-You can clone the repo however-&-wherever you want. `bootstrap.sh` will pull `main` then copy the files to your `HOME`.
-
+### Script
 > [!note]
-> `bootstrap.sh` depends on `rsync`
+> `install` depends on `rsync`
 
-```sh
+`install` will pull the `main` branch, then copy the files to your `HOME`:
+```bash
 git clone https://github.com/Rudxain/dotfiles.git \
 && cd dotfiles \
-&& . bootstrap.sh
+&& source install
 ```
 
-To update, `cd` into your local `dotfiles` repo and then:
-```sh
+To do a [differential update](https://en.wikipedia.org/wiki/Incremental_backup), `cd` into your local `dotfiles` repo and then:
+```bash
 # safer
-. bootstrap.sh
+source install
 ```
 alt:
-```sh
+```bash
 # avoid confirmation prompt
-set -- -f; . bootstrap.sh
+set -- -f; source install
 ```
 
-### Git-less
+### Min-deps
+Portable to almost any environment. See [progress on `wget`](https://github.com/Rudxain/dotfiles/issues/7).
+
+Non-Termux:
 ```sh
 cd
-curl -#L https://github.com/Rudxain/dotfiles/tarball/main |\
-tar -xzv --strip-components 1 --exclude={bootstrap.sh,README.md,LICENSE}
+curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
+tar -xzv --strip-components 1 --exclude={.termux,bin/termux-\*,.gitattributes,install,README.md,LICENSE} \
+&& . .profile
 ```
-To update, just run that cmd again
+
+Termux:
+```sh
+cd
+curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
+tar -xzv --strip-components 1 --exclude={.gitattributes,install,README.md,LICENSE} \
+&& . .profile
+```
+
+To update, just run the corresponding cmd again. The downside is that it always downloads the full contents of this repo, even if no files have changed
+
+## Updates
+I reserve the right to edit this repo in **any way** I want (this includes mutating/deleting commits, so permalinks may not be so permanent). So don't complain about breaking-changes.
+
+After an update happens, you may have some left-over files that are no longer `source`d

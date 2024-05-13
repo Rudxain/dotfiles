@@ -1,0 +1,29 @@
+#!/bin/sh
+
+mkcd() {
+	mkdir -p "$@" && \
+	# https://stackoverflow.com/a/1853993
+	for last;do true;done && \
+	cd "$last" #"$_"
+	# is exit-code preserved?
+}
+cdls() {
+	for last;do true;done
+	cd "$last" && ls "$@"
+}
+
+sizeof() {
+	stat -Lc'%s' -- "$1"
+}
+
+b16_rng() {
+	# Neither `hexdump` nor `toybox xxd` are appropiate for this.
+	# Funnily enough, `toybox xxd` ignores "-c" when "-p" is used,
+	# despite explicitly printing "-p" in its help-text,
+	# unlike GNU-`xxd` which has the "-p" as a hidden feature, despite working perfectly
+	head "-c$1" /dev/urandom | basenc --base16 -w0
+}
+
+b64_rng() {
+	head "-c$1" /dev/urandom | base64
+}

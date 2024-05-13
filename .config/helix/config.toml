@@ -4,3 +4,6 @@ theme = "base16_terminal"
 [editor.gutters]
 # line-numbers are redundant
 layout = ["diagnostics", "spacer", "diff"]
+
+[editor.file-picker]
+hidden = false

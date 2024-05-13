@@ -1,41 +1,39 @@
 #!/usr/bin/env bash
-# /usr/share/doc/bash/examples/startup-files
-
 # if not interactive, do nothing
 case $- in
 	*i*) ;;
 		*) return;;
 esac
 
-shopt -s histappend
-
-# this may update `$LINES` and `$COLUMNS`
-shopt -s checkwinsize
-
-# more friendly for non-text input files
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# no need to enable,
-# if it's already enabled in /etc/bash.bashrc
-# and /etc/profile sources /etc/bash.bashrc
-if ! shopt -oq posix; then
-	if [ -f /usr/share/bash-completion/bash_completion ]; then
-		. /usr/share/bash-completion/bash_completion
-	elif [ -f /etc/bash_completion ]; then
-		. /etc/bash_completion
-	fi
-fi
-
-for file in ~/.{path,exports,bash_fns,aliases,bash_prompt,extra}
+# `checkwinsize` is default on Bash 5
+# https://lists.gnu.org/archive/html/bug-bash/2019-01/msg00063.html
+for o in histappend cdspell autocd failglob globstar #nocaseglob
 do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file"
-done
-
-for o in cdspell failglob; do
 	shopt -s "$o"
 done
+unset o
 
-for o in autocd globstar; do
-	shopt -s "$o" 2> /dev/null
+. ~/.sh/profile
+for f in ~/.bash_{aliases,fns,prompt,extra}
+do
+	[ -r "$f" ] && [ -f "$f" ] && . "$f"
 done
-set -u
+unset f
+
+# I'm unsure if this whole block is correct
+if [ -r "${PREFIX:-}/etc/profile.d/bash_completion.sh" ]; then
+	export BASH_COMPLETION_COMPAT_DIR="${PREFIX:-}/etc/bash_completion.d"
+	. "${PREFIX:-}/etc/profile.d/bash_completion.sh"
+elif ! shopt -oq posix; then
+	if [ -z "${PREFIX:-}" ]; then
+		pre_usr=/usr
+	else
+		pre_usr="$PREFIX"
+	fi
+	if [ -f "$pre_usr/share/bash-completion/bash_completion" ]; then
+		. "$pre_usr/share/bash-completion/bash_completion"
+	elif [ -f "${PREFIX:-}/etc/bash_completion" ]; then
+		. "${PREFIX:-}/etc/bash_completion"
+	fi
+	unset pre_usr
+fi
