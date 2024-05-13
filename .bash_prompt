@@ -122,7 +122,7 @@ if git --version &>/dev/null; then
 fi
 
 # common sufix (intentional typo)
-PS1+=" \$ "
+PS1+=' $ '
 if [ -n "${color_support:-}" ]; then
 	PS1+="\[${RESET}\]"
 	PS2+="\[${RESET}\]"
