@@ -8,8 +8,10 @@ mkcd() {
 	# is exit-code preserved?
 }
 cdls() {
-	for last;do true;done
-	cd "$last" && ls "$@"
+	# is there a way to
+	# pass all but last arg to `ls`?
+	# that way, we can pass only the last arg to cd
+	cd "$@" && ls
 }
 
 sizeof() {
