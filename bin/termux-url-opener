@@ -1,0 +1,5 @@
+#!/bin/sh
+# according to `curlrc`,
+# the filename should be inferred from URL,
+# so no need for `basename`
+curl -o "$HOME/downloads/$(basename -- "$1")" -- "$1"
