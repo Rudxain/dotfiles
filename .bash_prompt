@@ -27,13 +27,13 @@ then
 	tput sgr0 # is this necessary?
 	RESET=$(tput sgr0)
 	BLACK=$(tput setaf 0)
-	RED=$(tput setaf 101)
-	GREEN=$(tput setaf 102)
-	YELLOW=$(tput setaf 103)
-	BLUE=$(tput setaf 104)
-	MAGENTA=$(tput setaf 105)
-	CYAN=$(tput setaf 106)
-	WHITE=$(tput setaf 107)
+	RED=$(tput setaf 9)
+	GREEN=$(tput setaf 10)
+	YELLOW=$(tput setaf 11)
+	BLUE=$(tput setaf 12)
+	MAGENTA=$(tput setaf 13)
+	CYAN=$(tput setaf 14)
+	WHITE=$(tput setaf 15)
 elif [ -n "${color_support:-}" ]; then
 	RESET="\e[0m"
 	BLACK="\e[1;30m"
