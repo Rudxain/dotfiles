@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# I don't even use this, but I keep it just-in-case
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]
-then
-	debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1
 then
 	export TERM='gnome-256color'
@@ -54,9 +48,7 @@ fi
 	#return $e
 #}$HOSTNAME:${PWD:-?} '"$PS1 "
 
-
-# common prefix
-PS1='${debian_chroot:+($debian_chroot)}'
+PS1=''
 PS2=''
 
 if [ -n "${color_support:-}" ]; then
@@ -65,16 +57,18 @@ if [ -n "${color_support:-}" ]; then
 	PS2+="\[${MAGENTA}\]"
 
 	last_exit() {
-		local EXIT=$?
-		[[ $EXIT -ne 0 ]] && \
+		local e=$?
+		[[ $e -ne 0 ]] && \
 		# why this doesn't need braces?
-		printf '%s' "${RED}$EXIT|${RESET}"
+		echo -e "${RED}$e|$RESET"
+		return $e
 	}
 else
 	last_exit() {
-		local EXIT=$?
-		[[ $EXIT -ne 0 ]] && \
-		printf '%s' "$EXIT|"
+		local e=$?
+		[[ $e -ne 0 ]] && \
+		echo "$e|"
+		return $e
 	}
 fi
 
@@ -83,14 +77,6 @@ if [ -z "${TERMUX_VERSION:-}" ]; then
 fi
 PS1+='\w'
 PS2+='→ '
-
-case "$TERM" in
-xterm*|rxvt*)
-	PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u: \w\a\]$PS1"
-	;;
-*)
-	;;
-esac
 
 # this check saves energy if git isn't installed
 if git --version &>/dev/null; then
