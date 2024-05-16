@@ -41,6 +41,7 @@ apt -y autopurge
 apt -y upgrade
 
 mv path.sh "${PREFIX:-}/etc/profile.d/"
-
-
-
+mv apt-purge-retro "${PREFIX:-/usr}/local/bin/"
+# are these needed?
+#chmod 755 apt-purge-retro
+#chown root:root apt-purge-retro
