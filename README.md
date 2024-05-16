@@ -5,6 +5,11 @@ You can use `~/.sh/extra` (POSIX) and `~/.bash_extra` to:
 - override settings, fns, aliases, etc..., essentially treating the repo as a default.
 	- it's probably better to [fork this repo](https://github.com/Rudxain/dotfiles/fork) instead
 
+## Distro Setup
+`setup-env` script isn't necessary, but if you're setting-up a clean install of a Debian-based distro it'll be handy.
+
+I'm considering switching to NixOS, to make this process seamless
+
 ## Install
 > [!warning]
 > Review the code and remove things you don't want or need.
