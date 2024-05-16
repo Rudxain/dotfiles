@@ -1,8 +1,8 @@
 #!/bin/sh
 set -euf
+
 codec="$(ffprobe -loglevel error -select_streams v:0 -show_entries stream=codec_name -of default=nw=1:nk=1 -- "$1")"
-if [ $codec = hevc ]
-then exit 0
-fi
+[ "$codec" = hevc ] && exit 0
+
 ffmpeg -i "$1" -movflags use_metadata_tags -c:v libx265 -c:a copy -- "${1}.tmp.mp4" \
 && mv -- "${1}.tmp.mp4" "$1"
