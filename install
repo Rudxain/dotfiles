@@ -7,7 +7,7 @@ do_it() {
 	rsync \
 		--exclude '.git/' \
 		--exclude '.gitattributes' \
-		--exclude 'setup-env' \
+		--exclude 'setup-distro' \
 		--exclude 'install' \
 		--exclude 'README.md' \
 		--exclude 'LICENSE' \
