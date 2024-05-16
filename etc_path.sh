@@ -6,7 +6,7 @@ if [ -d /system/bin ]; then
 fi
 
 if [ -d "${PREFIX:-/usr}/local/bin" ]; then
-	PATH="$PATH:${PREFIX=/usr}/local/bin"
+	PATH="$PATH:${PREFIX:-/usr}/local/bin"
 fi
 
 export PATH
