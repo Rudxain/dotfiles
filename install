@@ -8,6 +8,7 @@ do_it() {
 		rsync \
 			--exclude .git/ \
 			--exclude .gitattributes \
+			--exclude 'setup-env' \
 			--exclude install \
 			--exclude 'README*' \
 			--exclude 'LICENSE*' \
@@ -18,6 +19,7 @@ do_it() {
 			--exclude 'bin/termux-*' \
 			--exclude .git/ \
 			--exclude .gitattributes \
+			--exclude 'setup-env' \
 			--exclude install \
 			--exclude 'README*' \
 			--exclude 'LICENSE*' \
