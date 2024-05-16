@@ -39,3 +39,8 @@ apt-mark -y minimize-manual
 apt -y autopurge
 
 apt -y upgrade
+
+mv etc_path.sh "${PREFIX:-}/etc/profile.d/"
+
+
+
