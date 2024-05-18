@@ -1,27 +1,25 @@
-#set completion-ignore-case on # this is sometimes useful
-
-set show-all-if-ambiguous on
-
-set mark-symlinked-directories on
-
-# smart up/down
-"\e[B": history-search-forward
-"\e[A": history-search-backward
-
-set match-hidden-files off
-
-set page-completions off
-
-set completion-query-items 128
-
-set visible-stats on
-
-set skip-completed-text on
+$include /etc/inputrc
 
 # UTF-8 support
 set input-meta on
 set output-meta on
 set convert-meta off
+
+# smart up/down
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+
+#set completion-ignore-case on # this is sometimes useful
+set completion-prefix-display-length 3
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set completion-query-items 128
+set colored-stats on
+set visible-stats on
+set mark-symlinked-directories on
+set match-hidden-files off
+set page-completions off
+set skip-completed-text on
 
 # Alt/Meta + Del deletes next word
 "\e[3;3~": kill-word
