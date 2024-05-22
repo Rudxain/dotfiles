@@ -1,4 +1,6 @@
-# ⚠ WARNING: this applies to all `release` builds!
+# https://doc.rust-lang.org/cargo/reference/config.html
+
+# ⚠ WARNING: this may apply to all `build`s!
 # not just `install`
 [build]
 rustflags = "-C target-cpu=native"
