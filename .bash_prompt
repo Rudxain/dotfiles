@@ -42,11 +42,6 @@ fi
 [ -n "${pre_mut:-}" ] && unset PREFIX
 
 #set +o nohup
-#PS1='${|
-	#local e=$?
-	#(( e )) && REPLY+="$e|"
-	#return $e
-#}$HOSTNAME:${PWD:-?} '"$PS1 "
 
 PS1=''
 PS2=''
@@ -59,21 +54,21 @@ if [ -n "${color_support:-}" ]; then
 	last_exit() {
 		local e=$?
 		[[ $e -ne 0 ]] && \
-		# why this doesn't need braces?
-		echo -e "${RED}$e|$RESET"
+		# why this doesn't need "[]"?
+		echo -e "${RED}${e}${RESET} "
 		return $e
 	}
 else
 	last_exit() {
 		local e=$?
 		[[ $e -ne 0 ]] && \
-		echo "$e|"
+		echo "$e "
 		return $e
 	}
 fi
 
 if [ -z "${TERMUX_VERSION:-}" ]; then	
-	PS1+='\u:'
+	PS1+='\u '
 fi
 PS1+='\w'
 PS2+='→ '
@@ -109,15 +104,15 @@ if git --version &>/dev/null; then
 			s+='$'
 		fi
 
-		[ -n "${s}" ] && s=" [${s}]"
+		[[ -n "$s" ]] && s=" $s"
 
-		printf '%s' " > ${branch_name}${s}"
+		printf '%s' " ${branch_name}${s}"
 	}
 	PS1+='$(branch_stat)'
 fi
 
 # common sufix (intentional typo)
-PS1+=' $ '
+PS1+=' > '
 if [ -n "${color_support:-}" ]; then
 	PS1+="\[${RESET}\]"
 	PS2+="\[${RESET}\]"
