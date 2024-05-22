@@ -1,0 +1,4 @@
+# ⚠ WARNING: this applies to all `release` builds!
+# not just `install`
+[build]
+rustflags = "-C target-cpu=native"
