@@ -20,7 +20,3 @@ set mark-symlinked-directories on
 set match-hidden-files off
 set page-completions off
 set skip-completed-text on
-
-# Alt/Meta + Del deletes next word
-"\e[3;3~": kill-word
-# I would prefer ctrl+del
