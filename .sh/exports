@@ -1,12 +1,15 @@
 #!/bin/sh
-export HISTSIZE="$((1 << 12))"
-export HISTFILESIZE="$((HISTSIZE << 4))"
-export HISTCONTROL=ignoreboth:erasedups
-
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export PYTHONIOENCODING=UTF-8
 
+export HISTSIZE="$((1 << 12))"
+export HISTFILESIZE="$((HISTSIZE << 4))"
+export HISTCONTROL=ignoreboth:erasedups
+
+export NODE_REPL_HISTORY_SIZE="$((HISTSIZE >> 2))"
+export NODE_REPL_MODE=strict
+
 # Helix
 export EDITOR=hx
-export VISUAL=hx
+#export VISUAL= # ???
