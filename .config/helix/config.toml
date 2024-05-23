@@ -1,5 +1,10 @@
 # auto light/dark
 theme = "base16_terminal"
+# There's something about Monokai
+# that brings me joy!
+# I've never understood why anyone
+# would prefer Solarized over this
+#theme = "monokai"
 
 [editor.gutters]
 # line-numbers are redundant
