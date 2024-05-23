@@ -21,6 +21,11 @@ mode = "fixAll"
 mode = "location"
 
 [[language]]
+name = "markdown"
+soft-wrap.enable = true
+indent = { tab-width = 4, unit = "\t" }
+
+[[language]]
 name = "html"
 indent = { tab-width = 4, unit = "\t" }
 
