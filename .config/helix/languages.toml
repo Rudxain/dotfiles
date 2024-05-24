@@ -47,3 +47,7 @@ auto-format = true
 
 [language-server.rust-analyzer.config.check]
 command = "clippy"
+
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["fmt", "-"] }
