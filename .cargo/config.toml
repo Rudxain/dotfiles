@@ -1,6 +1,8 @@
 # https://doc.rust-lang.org/cargo/reference/config.html
 
-# ⚠ WARNING: this may apply to all `build`s!
-# not just `install`
-[build]
-rustflags = "-C target-cpu=native"
+[alias]
+i = [
+  "install",
+  "--config",
+  "build.rustflags=\"-C target-cpu=native\""
+]
