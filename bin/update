@@ -1,38 +1,37 @@
 #!/bin/sh
-set -euf
+set -uf # `e` is counter-prod
 
-if [ -z "${TERMUX_VERSION:-}" ]; then	
+if [ -z "${TERMUX_VERSION:-}" ]
+then
 	# should I use apt-get?
 	# "unstable API" doesn't seem to matter here
 	if apt update && apt upgrade
 	then
-		apt autoclean || true
-		apt autopurge || true
-	
-		# https://github.com/pypa/pip/issues/4551
-	
-		# if `apt` fails,
-		# it's likely `npm` will also fail
-		npm update -g || true # for LSPs
+		apt autoclean
+		apt autopurge
+
+		npm update -g # for LSPs
+	else
+		rustup upgrade || exit $?
+
+		# https://github.com/rust-lang/cargo/issues/9527
+		crates="$(\
+			cargo install --list |\
+			# assume stable Cargo API
+			grep -E '^[a-z0-9_-]+ v[0-9.]+:$' |\
+			cut -f1 -d' ' \
+		)"
+		#shellcheck disable=SC2086
+		[ -n "$crates" ] && cargo i $crates
 	fi
-	
-	rustup upgrade
-	# https://github.com/rust-lang/cargo/issues/9527
-	crates="$(\
-		cargo install --list |\
-		# assume stable Cargo API
-		grep -E '^[a-z0-9_-]+ v[0-9.]+:$' |\
-		cut -f1 -d' ' \
-	)"
-	# shellcheck disable=SC2086
-	[ -n "$crates" ] && cargo install $crates
 else
 	# https://wiki.termux.com/wiki/Package_Management
-	if pkg upgrade; then
+	if pkg upgrade
+	then
 		# I have backups, no worries
-		pkg autoclean || true
-		apt autopurge || true
+		pkg autoclean
+		apt autopurge
 	
-		npm update -g || true # for LSPs
+		npm update -g # for LSPs
 	fi
 fi
