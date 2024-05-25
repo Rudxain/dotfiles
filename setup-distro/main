@@ -30,9 +30,7 @@ apt update
 # "--" for extra safety
 apt -y install -- $pack_ls
 
-# depends on:
-# https://gist.github.com/Rudxain/2c4ac0ce7702da82da04707339c46a9c
-apt-mark auto $(dpkg-list-essential)
+apt-mark auto $(./dpkg-list-essential)
 # more cleanup, just-in-case
 apt-mark -y minimize-manual
 
