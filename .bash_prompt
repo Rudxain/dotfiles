@@ -38,9 +38,12 @@ elif [ -n "${color_support:-}" ]; then
 fi
 
 last_exit() {
-	local e=$?
-	[[ $e -ne 0 ]] && \
-	echo -e "${1:-}${e}${2:-} "
+	local -r e=$?
+	if [[ $e -ne 0 ]]; then
+		local o="${1:-}"
+		o+="$(printf '%02x\n' $e)"
+		echo -e "${o}${2:-} "
+	fi
 	return $e
 }
 # https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
