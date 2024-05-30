@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#shellcheck disable=2317
+set -euf -o pipefail
+
+readonly RELEASE_URL='https://github.com/helix-editor/helix/releases/'
+wget "${RELEASE_URL}latest" -O - | \
+grep -E 'download/\d+\.\d+/helix-\d+\.\d+-x86_64\.AppImage'
+#to-do check version before download
+
+exit 0
+
+readonly ROOT_URL='https://raw.githubusercontent.com/helix-editor/helix/master/'
+readonly ROOT_DIR='/usr/share/'
+readonly ICO="${ROOT_DIR}icons/"
+
+wget "${ROOT_URL}contrib/helix.png" -P "$ICO"
+wget "${ROOT_URL}logo.svg" -O "${ICO}helix.svg"
+unset ICO
+
+wget "${ROOT_URL}contrib/Helix.desktop" -P "${ROOT_DIR}applications" || true
+
+wget "${ROOT_URL}contrib/completion/hx.bash" -P '/etc/bash_completion.d' || true
+
