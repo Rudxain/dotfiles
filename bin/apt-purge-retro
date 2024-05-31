@@ -1,0 +1,6 @@
+#!/bin/sh
+set -euf
+
+dpkg -l | \
+awk '/^rc/{print $2}' | \
+xargs apt-get purge
