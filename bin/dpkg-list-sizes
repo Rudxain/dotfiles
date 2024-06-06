@@ -1,0 +1,4 @@
+#!/bin/sh
+set -euf
+dpkg-query -Wf '${Installed-Size}\t${Package}\n' \
+| sort -n
