@@ -15,10 +15,7 @@ readonly pack_ls="$(cat -- "$1")"
 
 # to reduce time between auto-marking & installing,
 # we must config now
-echo \
-'APT::Install-Recommends "0";
-APT::Install-Suggests "0";' \
->> "${PREFIX:-}/etc/apt/apt.conf"
+cp apt.conf "${PREFIX:-}/etc/apt/apt.conf"
 # Termux compatibility
 
 # cleanup
