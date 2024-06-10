@@ -1,0 +1,44 @@
+#!/bin/bash
+set -euf
+
+readonly HELP='$1 must be a path to a file
+that contains old output from:
+`apt-mark showmanual`
+'
+
+if [[ $# -lt 1 ]]
+then
+	printf '%s' "$HELP"
+	exit 1
+fi
+readonly pack_ls="$(cat -- "$1")"
+
+# to reduce time between auto-marking & installing,
+# we must config now
+cp apt.conf "${PREFIX:-}/etc/apt/apt.conf"
+# Termux compatibility
+
+# cleanup
+apt-mark auto \*
+
+apt update
+
+# mark manual if existent.
+# "--" for extra safety
+apt -y install -- $pack_ls
+
+apt-mark auto $(./dpkg-list-essential)
+# more cleanup, just-in-case
+apt-mark -y minimize-manual
+
+apt -y autopurge
+
+apt -y upgrade
+
+mv path.sh "${PREFIX:-}/etc/profile.d/"
+mv apt-purge-retro "${PREFIX:-/usr}/local/bin/"
+# are these needed?
+#chmod 755 apt-purge-retro
+#chown root:root apt-purge-retro
+
+./Enable_AppArmor

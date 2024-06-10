@@ -1,0 +1,23 @@
+#!/bin/bash
+set -euf -o pipefail
+# https://wiki.debian.org/ReduceDebian#Use_busybox_built-ins_instead_of_full_packages
+
+# auto-marks packs that installed same cmds as busybox subcmds, then autopurges
+
+# to-do:
+# filter cmds that belong to "Essential" & "Required" packs,
+# for optimization.
+readonly bb="$(busybox --list)"
+
+readonly c="$(wc -l <<< "$bb")"
+i=0
+for cmd in $bb
+do
+	echo "$i / $c"
+	if pack="$(dpkg -S "$(type -P "$cmd")" 2> /dev/null)"
+	then
+		apt-mark auto "$(cut -d: -f1 <<< "$pack")" > /dev/null
+	fi
+	((i++))
+done
+apt -y autopurge

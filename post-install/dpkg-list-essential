@@ -1,0 +1,6 @@
+#!/bin/sh
+set -euf
+
+dpkg-query -Wf '${Package;-40}${Essential}\n' \
+| grep yes \
+| awk '{print $1}'
