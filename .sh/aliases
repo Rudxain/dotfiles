@@ -2,9 +2,6 @@
 #shellcheck disable=SC2139
 
 alias reload='exec ${SHELL} -l'
-alias sh='rlwrap -a sh'
-alias dash='rlwrap -a dash'
-alias bc='rlwrap -a bc'
 
 alias paths='echo -e ${PATH//:/\\n}'
 

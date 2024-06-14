@@ -1,17 +1,9 @@
 #!/bin/sh
-# Android
-if [ -d /system/bin ]; then
-	PATH="$PATH:/system/bin"
-fi
+[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
-if [ -d "$HOME/bin" ]; then
-	PATH="$HOME/bin:$PATH"
-fi
 PATH="$PATH:$HOME/.local/bin"
 
 # Rust
-if [ -d "$HOME/.cargo/bin" ]; then
-	PATH="$PATH:$HOME/.cargo/bin"
-fi
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 export PATH
