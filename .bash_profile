@@ -25,15 +25,9 @@ if [ -r "${PREFIX:-}/etc/profile.d/bash_completion.sh" ]; then
 	export BASH_COMPLETION_COMPAT_DIR="${PREFIX:-}/etc/bash_completion.d"
 	. "${PREFIX:-}/etc/profile.d/bash_completion.sh"
 elif ! shopt -oq posix; then
-	if [ -z "${PREFIX:-}" ]; then
-		pre_usr=/usr
-	else
-		pre_usr="$PREFIX"
-	fi
-	if [ -f "$pre_usr/share/bash-completion/bash_completion" ]; then
-		. "$pre_usr/share/bash-completion/bash_completion"
+	if [ -f "${PREFIX:-/usr}/share/bash-completion/bash_completion" ]; then
+		. "${PREFIX:-/usr}/share/bash-completion/bash_completion"
 	elif [ -f "${PREFIX:-}/etc/bash_completion" ]; then
 		. "${PREFIX:-}/etc/bash_completion"
 	fi
-	unset pre_usr
 fi

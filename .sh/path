@@ -10,13 +10,8 @@ fi
 PATH="$PATH:$HOME/.local/bin"
 
 # Rust
-if [ -f "$HOME/.cargo/env" ]; then
-	. "$HOME/.cargo/env"
-fi
-
-# Golang
-if [ -d "$HOME/go/bin" ]; then
-	PATH="$PATH:$HOME/go/bin"
+if [ -d "$HOME/.cargo/bin" ]; then
+	PATH="$PATH:$HOME/.cargo/bin"
 fi
 
 export PATH
