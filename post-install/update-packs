@@ -1,0 +1,21 @@
+#!/bin/sh
+set -uf
+
+if [ -n "${TERMUX_VERSION:-}" ]; then
+	# https://wiki.termux.com/wiki/Package_Management
+	if pkg upgrade; then
+		# I'm aware of the consequences
+		pkg autoclean
+		apt-get autopurge
+	
+		npm update -g # for LSPs
+	fi
+else
+	if apt-get update && apt-get upgrade
+	then
+		apt-get autoclean
+		apt-get autopurge
+
+		npm update -g # for LSPs
+	fi
+fi
