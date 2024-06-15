@@ -3,6 +3,10 @@ name = "bash" # and POSIX sh
 indent = { tab-width = 4, unit = "\t" }
 
 [[language]]
+name = "python"
+language-servers = [ "pyright" ]
+
+[[language]]
 name = "markdown"
 soft-wrap.enable = true
 indent = { tab-width = 4, unit = "\t" }
