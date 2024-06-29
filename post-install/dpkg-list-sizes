@@ -1,0 +1,8 @@
+#!/bin/sh
+set -euf
+
+n="${1-16}"
+
+dpkg-query -Wf '${Installed-size}\t${Package}\n' |
+  sort -rn |
+  head "-n$((n))"
