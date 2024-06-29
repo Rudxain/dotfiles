@@ -1,4 +1,0 @@
-#!/bin/sh
-mogrify -format heic -- "$1" \
-&& \
-rm -- "$1"
