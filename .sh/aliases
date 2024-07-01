@@ -20,58 +20,47 @@ alias mv='mv -i'
 alias ln='ln -i'
 alias rm='rm -i'
 
+# emulate Busybox
 alias nuke='rm -rf --'
 
+# this may look confusing,
+# as `.` sources files
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ~='cd ~' # same as `cd` (0 args)?
 alias -- -='cd -'
 
-if [ -z "${TERMUX_VERSION:-}" ]; then
+if [ -n "${TERMUX_VERSION:-}" ]; then
 	# I hate Samsung, but dex is a good short name
-	alias cdex='cd ~/Desktop'
-	alias cdl='cd ~/Downloads'
-
-	alias cbg=wl-paste
-	alias cbs=wl-copy
-else
-	# user home
-	alias u~="cd $EXTERNAL_STORAGE"
-	alias cdl='cd ~/downloads'
-	alias cudl="cd $EXTERNAL_STORAGE/Download"
+	alias cdex="cd $EXTERNAL_STORAGE"
 
 	alias cbg=termux-clipboard-get
 	alias cbs=termux-clipboard-set
-	alias cbtts='termux-clipboard-get | termux-tts-speak'
+else
+	alias cdex='cd ~/Desktop'
+
+	alias cbg=wl-paste
+	alias cbs=wl-copy
 fi
 
-if [ -z "${PREFIX:-}" ]; then
-	pre_mut=y
-	PREFIX=/usr
-fi
-if [ -x "$PREFIX/bin/dircolors" ]
+if [ -x "${PREFIX:-/usr}/bin/dircolors" ]
 then
 	# assume GNU flavor
-	flag='--color=auto'
+	f='--color=auto'
 	#shellcheck disable=SC2015
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	alias ls="ls $flag"
-	alias dir="dir $flag"
-	alias vdir="vdir $flag"
+	alias ls="ls $f"
+	alias dir="dir $f"
+	alias vdir="vdir $f"
 
 	# `GREP_OPTIONS="--color=auto"` is deprecated, hence these
-	alias grep="grep $flag"
-	alias fgrep="fgrep $flag"
-	alias egrep="egrep $flag"
-
-	unset flag
+	alias grep="grep $f"
+	unset f
 fi
-[ -n "${pre_mut:-}" ] && unset PREFIX
 
-alias lal='ls -AlF'
 alias la='ls -A'
-alias lcf='ls -CF'
-alias llf='ls -lF'
+alias ll='ls -lF'
+alias lal='ls -AlF'
 # list only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
