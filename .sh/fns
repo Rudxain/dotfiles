@@ -18,6 +18,11 @@ sizeof() {
 	stat -Lc'%s' -- "$1"
 }
 
+dusort() {
+	du "${1:-.}" -hd1 2>/dev/null | sort -h
+}
+
+
 b16_rng() {
 	# Neither `hexdump` nor `toybox xxd` are appropiate for this.
 	# Funnily enough, `toybox xxd` ignores "-c" when "-p" is used,
