@@ -62,7 +62,7 @@ alias la='ls -A'
 alias ll='ls -lF'
 alias lal='ls -AlF'
 # list only directories
-alias lsd="ls -lF | grep --color=never '^d'"
+alias lsd="ls -l | grep --color=never '^d'"
 
 alias dusort='du -hd1 2>/dev/null | sort -h'
 
