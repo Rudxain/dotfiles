@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euf
+set -euf -o pipefail
 
 readonly HELP='$1 must be a path to a file
 that contains old output from:
@@ -21,24 +21,27 @@ cp apt.conf "${PREFIX:-}/etc/apt/apt.conf"
 # cleanup
 apt-mark auto \*
 
-apt update
+apt-get update
 
 # mark manual if existent.
 # "--" for extra safety
-apt -y install -- $pack_ls
+apt-get -y install -- $pack_ls
 
 apt-mark auto $(./dpkg-list-essential)
 # more cleanup, just-in-case
-apt-mark -y minimize-manual
+apt-mark minimize-manual
 
-apt -y autopurge
+apt autopurge
 
-apt -y upgrade
+apt-get -y upgrade
 
 mv path.sh "${PREFIX:-}/etc/profile.d/"
+
 mv apt-purge-retro "${PREFIX:-/usr}/local/bin/"
-# are these needed?
-#chmod 755 apt-purge-retro
-#chown root:root apt-purge-retro
+chown root:root apt-purge-retro
+chmod 755 "${PREFIX:-/usr}/local/bin/"*
+
+# touchscreen support
+echo 'MOZ_USE_XINPUT2 DEFAULT=1' >>/etc/security/pam_env.conf
 
 ./Enable_AppArmor
