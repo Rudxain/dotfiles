@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#shellcheck disable=SC2155
 
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1
 then
@@ -16,34 +15,22 @@ if [ -x "${PREFIX:-/usr}/bin/tput" ] && tput setaf 1 &>/dev/null
 then
 	color_support=y
 	tput sgr0 # is this necessary?
-	export RESET=$(tput sgr0)
-	export BLACK=$(tput setaf 0)
-	export RED=$(tput setaf 9)
-	export GREEN=$(tput setaf 10)
-	export YELLOW=$(tput setaf 11)
-	export BLUE=$(tput setaf 12)
-	export MAGENTA=$(tput setaf 13)
-	export CYAN=$(tput setaf 14)
-	export WHITE=$(tput setaf 15)
+	#shellcheck disable=SC2155
+	readonly RESET=$(tput sgr0)
+	#shellcheck disable=SC2155
+	readonly BOLD=$(tput bold)
+	#shellcheck disable=SC2155
+	readonly RED=$(tput setaf 9)
 elif [ -n "${color_support:-}" ]; then
-	export RESET="\e[0m"
-	export BLACK="\e[1;30m"
-	export RED="\e[1;31m"
-	export GREEN="\e[1;32m"
-	export YELLOW="\e[1;33m"
-	export BLUE="\e[1;34m"
-	export MAGENTA="\e[1;35m"
-	export CYAN="\e[1;36m"
-	export WHITE="\e[1;37m"
+	readonly RESET="\e[0m"
+	readonly BOLD="\e[1m"
+	readonly RED="\e[31m"
 fi
 
 last_exit() {
 	local -r e=$?
-	if [[ $e -ne 0 ]]; then
-		local o="${1:-}"
-		o+="$(printf '%02x\n' $e)"
-		echo -e "${o}${2:-} "
-	fi
+	[[ $e -ne 0 ]] && \
+		echo -e "${1:-}$(printf '%02x\n' $e)${2:-} "
 	return $e
 }
 # https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
@@ -51,9 +38,8 @@ last_exit() {
 PS1=''
 PS2=''
 if [ -n "${color_support:-}" ]; then
-	PS1+="\$(last_exit \"\[${RED}\]\" \"\[${RESET}\]\")"
-	PS1+="\[${GREEN}\]"
-	PS2+="\[${MAGENTA}\]"
+	PS1+="\[${BOLD}\]"
+	PS1+="\$(last_exit \"\[${RED}\]\" \"\[${RESET}\]\[${BOLD}\]\")"
 else
 	PS1+="\$(last_exit)"
 fi
@@ -67,6 +53,7 @@ if git --version &>/dev/null; then
 	branch_stat() {
 		git rev-parse --is-inside-work-tree &>/dev/null || return
 		
+		#shellcheck disable=SC2155
 		local branch_name="$(\
 			git symbolic-ref --quiet --short HEAD 2> /dev/null || \
 			git describe --all --exact-match HEAD 2> /dev/null || \
