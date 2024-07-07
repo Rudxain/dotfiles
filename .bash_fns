@@ -16,21 +16,17 @@ fs() {
 # password generator
 # designed for wifi APs
 keygen() { # depends on `.sh/fns`
-	if [[ "$1" = wpa_main ]]
+	# octets/Bytes
+	local len="${1:-12}"
+	if [[ "$len" = wpa_main ]]
 	then
 		b16_rng 32 # max PSK size is 256b
 		return
 	fi
-	if [[ "$1" = wpa_guest ]]
+	if [[ "$len" = wpa_guest ]]
 	then
 		b16_rng 16 # guests need fast-to-type passwords
 		return
-	fi
-
-	local len="$1"
-	if [ -z "$len" ]
-	then
-		len=12 # good-enough entropy for most cases
 	fi
 	b64_rng "$len"
 }
