@@ -16,15 +16,15 @@ then
 	color_support=y
 	tput sgr0 # is this necessary?
 	#shellcheck disable=SC2155
-	readonly RESET=$(tput sgr0)
+	RESET=$(tput sgr0)
 	#shellcheck disable=SC2155
-	readonly BOLD=$(tput bold)
+	BOLD=$(tput bold)
 	#shellcheck disable=SC2155
-	readonly RED=$(tput setaf 9)
+	RED=$(tput setaf 9)
 elif [ -n "${color_support:-}" ]; then
-	readonly RESET="\e[0m"
-	readonly BOLD="\e[1m"
-	readonly RED="\e[31m"
+	RESET="\e[0m"
+	BOLD="\e[1m"
+	RED="\e[31m"
 fi
 
 last_exit() {
