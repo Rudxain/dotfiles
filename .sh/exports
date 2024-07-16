@@ -13,3 +13,5 @@ export NODE_REPL_MODE=strict
 # Helix
 export EDITOR=hx
 #export VISUAL= # ???
+
+export TAPLO_CONFIG="$HOME/.config/taplo.toml"
