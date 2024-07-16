@@ -4,13 +4,25 @@ cd "$(dirname "${BASH_SOURCE}")"
 git pull origin main
 
 do_it() {
-	rsync \
-		--exclude '.git/' \
-		--exclude '.gitattributes' \
-		--exclude 'bootstrap.sh' \
-		--exclude 'README.md' \
-		--exclude 'LICENSE' \
-		-avh --no-perms . ~
+	if [[ -n "${TERMUX_VERSION:-}" ]]; then
+		rsync \
+			--exclude .git/ \
+			--exclude .gitattributes \
+			--exclude bootstrap.sh \
+			--exclude 'README*' \
+			--exclude LICENSE \
+			-avh --no-perms . ~
+	else
+		rsync \
+			--exclude .termux \
+			--exclude 'bin/termux-*' \
+			--exclude .git/ \
+			--exclude .gitattributes \
+			--exclude bootstrap.sh \
+			--exclude 'README*' \
+			--exclude LICENSE \
+			-avh --no-perms . ~
+	fi
 	. ~/.bash_profile
 }
 
