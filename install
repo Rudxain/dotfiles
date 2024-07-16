@@ -23,10 +23,10 @@ do_it() {
 			--exclude LICENSE \
 			-avh --no-perms . ~
 	fi
-	. ~/.bash_profile
+	source ~/.bash_profile
 }
 
-if [ "$1" = '--force' ] || [ "$1" = '-f' ]; then
+if [[ "${1:-}" = '--force' || "${1:-}" = '-f' ]]; then
 	do_it
 else
 	read -rp 'This may overwrite existing files in your `$HOME` directory. Are you sure? (y/n) ' -n 1
