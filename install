@@ -8,9 +8,9 @@ do_it() {
 		rsync \
 			--exclude .git/ \
 			--exclude .gitattributes \
-			--exclude bootstrap.sh \
+			--exclude install \
 			--exclude 'README*' \
-			--exclude LICENSE \
+			--exclude 'LICENSE*' \
 			-avh --no-perms . ~
 	else
 		rsync \
@@ -18,9 +18,9 @@ do_it() {
 			--exclude 'bin/termux-*' \
 			--exclude .git/ \
 			--exclude .gitattributes \
-			--exclude bootstrap.sh \
+			--exclude install \
 			--exclude 'README*' \
-			--exclude LICENSE \
+			--exclude 'LICENSE*' \
 			-avh --no-perms . ~
 	fi
 	source ~/.bash_profile
