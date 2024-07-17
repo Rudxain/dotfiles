@@ -4,26 +4,26 @@ formatter = { command = "taplo", args = ["fmt", "-"] }
 auto-format = true
 
 [[language]]
-# um, actually 🤓,
-# I'd just like to interject for a moment.
-# What you're refering to as "Bash", is in fact, POSIX/Ksh/Dash/Bash/Zsh/Fish,
-# or as I've recently taken to calling it, *sh.
-# Bash is a shell, but it's just one of many shells supported by "Bash-LSP",
-#
-# Many computer users run a modified version of the POSIX shell (such as Dash)
-# every day, without realizing it.
-# Through a peculiar turn of events,
-# the version of POSIX-sh which is widely used today is often called "Bash",
-# and many of its users are not aware that it is basically the POSIX-sh.
-#
-# There really is a Bash, and some people are using it,
-# but it is just one shell among many.
-name = "bash"
-indent = { tab-width = 4, unit = "\t" }
+name = "json"
+indent = { tab-width = 3, unit = "\t" }
+auto-format = false
+
+[language-server.vscode-json-language-server.config]
+provideFormatter = true
+[language-server.vscode-json-language-server.config.json]
+validate.enable = true
+format.enable = true
+keepLines.enable = true
 
 [[language]]
-name = "python"
-language-servers = ["pyright"]
+name = "javascript"
+indent = { tab-width = 4, unit = "\t" }
+auto-format = true
+
+[[language]]
+name = "typescript"
+indent = { tab-width = 4, unit = "\t" }
+auto-format = true
 
 [[language]]
 name = "markdown"
@@ -39,38 +39,25 @@ name = "css"
 indent = { tab-width = 3, unit = "\t" }
 
 [[language]]
-name = "json"
-indent = { tab-width = 3, unit = "\t" }
-auto-format = false
-
-[language-server.vscode-json-language-server.config]
-provideFormatter = true
-[language-server.vscode-json-language-server.config.json]
-validate.enable = true
-format.enable = true
-keepLines.enable = true
+name = "python"
+language-servers = ["pyright"]
 
 [[language]]
-name = "javascript"
-language-servers = [
-  "typescript-language-server",
-  "vscode-eslint-language-server",
-]
+name = "bash" # um, actually 🤓,
+# I'd just like to interject for a moment.
+# What you're refering to as "Bash", is in fact, POSIX/Ksh/Dash/Bash/Zsh/Fish,
+# or as I've recently taken to calling it, *sh.
+# Bash is a shell, but it's just one of many shells supported by "Bash-LSP",
+#
+# Many computer users run a modified version of the POSIX shell (such as Dash)
+# every day, without realizing it.
+# Through a peculiar turn of events,
+# the version of POSIX-sh which is widely used today is often called "Bash",
+# and many of its users are not aware that it is basically the POSIX-sh.
+#
+# There really is a Bash, and some people are using it,
+# but it is just one shell among many.
 indent = { tab-width = 4, unit = "\t" }
-auto-format = true
-
-[[language]]
-name = "typescript"
-language-servers = [
-  "typescript-language-server",
-  "vscode-eslint-language-server",
-]
-indent = { tab-width = 4, unit = "\t" }
-auto-format = true
-
-[language-server.vscode-eslint-language-server.config.codeActionOnSave]
-enable = true
-mode = "fixAll"
 
 # `indent` controlled by `rustfmt`
 [language-server.rust-analyzer.config.check]
