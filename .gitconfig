@@ -47,7 +47,7 @@
 
 [alias]
 
-	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+	dm = "!git branch --merged | grep -v '\\*' | xargs -rn 1 git branch -d"
 
 	# is this a bad idea?
 	#push-all = !git add ':(exclude,attr:builtin_objectmode=160000)' && git commit -av && git push
