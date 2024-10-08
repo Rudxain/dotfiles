@@ -1,11 +1,14 @@
 [[language]]
 name = "toml"
+# https://github.com/tamasfe/taplo/issues/580#issuecomment-2004174721
+roots = ["."]
 formatter = { command = "taplo", args = ["fmt", "-"] }
 auto-format = true
 
 [[language]]
 name = "json"
 indent = { tab-width = 3, unit = "\t" }
+# I don't like redundant indent
 auto-format = false
 
 [language-server.vscode-json-language-server.config]
@@ -15,13 +18,24 @@ validate.enable = true
 format.enable = true
 keepLines.enable = true
 
+# why no ESL config?
+# https://github.com/helix-editor/helix/pull/11315
+
 [[language]]
 name = "javascript"
+language-servers = [
+  "typescript-language-server",
+  "vscode-eslint-language-server",
+]
 indent = { tab-width = 4, unit = "\t" }
 auto-format = true
 
 [[language]]
 name = "typescript"
+language-servers = [
+  "typescript-language-server",
+  "vscode-eslint-language-server",
+]
 indent = { tab-width = 4, unit = "\t" }
 auto-format = true
 
@@ -55,7 +69,7 @@ name = "bash" # um, actually 🤓,
 # the version of POSIX-sh which is widely used today is often called "Bash",
 # and many of its users are not aware that it is basically the POSIX-sh.
 #
-# There really is a Bash, and some people are using it,
+# There really is a Bash, and most people are using it,
 # but it is just one shell among many.
 indent = { tab-width = 4, unit = "\t" }
 
