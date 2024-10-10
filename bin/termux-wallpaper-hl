@@ -1,4 +1,0 @@
-#!/bin/sh
-termux-wallpaper -f "$1" \
-&& \
-termux-wallpaper -lf "$1"
