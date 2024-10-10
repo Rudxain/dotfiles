@@ -34,12 +34,12 @@ set -- -f; source install
 ```
 
 ### Min-deps
-Portable to almost any environment. See [progress on `wget`](https://github.com/Rudxain/dotfiles/issues/7).
+Minimum dependencies. Portable to almost any environment.
 
 Non-Termux:
 ```sh
 cd
-curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
+wget https://github.com/Rudxain/dotfiles/tarball/main | \
 tar -xzv --strip-components 1 --exclude={.termux,bin/termux-\*,.gitattributes,install,README.md,LICENSE} \
 && . .profile
 ```
@@ -47,7 +47,7 @@ tar -xzv --strip-components 1 --exclude={.termux,bin/termux-\*,.gitattributes,in
 Termux:
 ```sh
 cd
-curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
+wget https://github.com/Rudxain/dotfiles/tarball/main | \
 tar -xzv --strip-components 1 --exclude={.gitattributes,install,README.md,LICENSE} \
 && . .profile
 ```
@@ -55,6 +55,6 @@ tar -xzv --strip-components 1 --exclude={.gitattributes,install,README.md,LICENS
 To update, just run the corresponding cmd again. The downside is that it always downloads the full contents of this repo, even if no files have changed
 
 ## Updates
-I reserve the right to edit this repo in **any way** I want (this includes mutating/deleting commits, so permalinks may not be so permanent). So don't complain about breaking-changes.
+I reserve the right to edit this repo in **any way** I want. So don't complain about breaking-changes.
 
-After an update happens, you may have some left-over files that are no longer `source`d
+After an update happens, you may have some left-over files that are no longer `source`d. So you may need to do manual [GC](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)). I'm sorry :(
