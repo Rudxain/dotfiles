@@ -39,7 +39,7 @@ Minimum dependencies. Portable to almost any environment.
 Non-Termux:
 ```sh
 cd
-wget https://github.com/Rudxain/dotfiles/tarball/main | \
+wget -qO- https://github.com/Rudxain/dotfiles/tarball/main | \
 tar -xzv --strip-components 1 --exclude={.termux,bin/termux-\*,.gitattributes,install,README.md,LICENSE} \
 && . .profile
 ```
@@ -47,7 +47,7 @@ tar -xzv --strip-components 1 --exclude={.termux,bin/termux-\*,.gitattributes,in
 Termux:
 ```sh
 cd
-wget https://github.com/Rudxain/dotfiles/tarball/main | \
+wget -qO- https://github.com/Rudxain/dotfiles/tarball/main | \
 tar -xzv --strip-components 1 --exclude={.gitattributes,install,README.md,LICENSE} \
 && . .profile
 ```
