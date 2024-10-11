@@ -17,12 +17,9 @@
 [user]
 	name = Rudxain
 	email = 76864299+Rudxain@users.noreply.github.com
-	mail = 76864299+Rudxain@users.noreply.github.com
 #[commit]
 	# https://help.github.com/articles/signing-commits-using-gpg
 	#gpgsign = true
-	# sometimes, I use a "shared" device,
-	# so signing would be misleading
 
 [init]
 	# solves racism /s
@@ -44,6 +41,7 @@
 	frag = magenta bold # line info
 	old = red # deletions
 	new = green # additions
+
 
 [alias]
 
