@@ -47,7 +47,7 @@ tar -xzv --strip-components 1 --exclude={.termux,bin/termux-\*,.gitattributes,in
 Termux:
 ```sh
 cd
-wget -qO- https://github.com/Rudxain/dotfiles/tarball/main | \
+curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
 tar -xzv --strip-components 1 --exclude={.gitattributes,install,README.md,LICENSE} \
 && . .profile
 ```
