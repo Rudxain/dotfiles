@@ -33,5 +33,5 @@ b16_rng() {
 }
 
 b64_rng() {
-	head "-c$1" /dev/urandom | base64
+	head "-c$1" /dev/urandom | base64 -w0 && echo
 }
