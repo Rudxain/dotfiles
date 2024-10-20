@@ -8,10 +8,5 @@ do
 done
 unset f
 
-if [ -z "${PREFIX:-}" ]; then
-	pre_mut=y
-	PREFIX=/usr
-fi
 # friendlier for non-text input files
-[ -x "$PREFIX/bin/lesspipe" ] && eval "$(SHELL=/bin/sh lesspipe)"
-[ -n "${pre_mut:-}" ] && unset PREFIX
+[ -x "${PREFIX:-/usr}/bin/lesspipe" ] && eval "$(SHELL=/bin/sh lesspipe)"
