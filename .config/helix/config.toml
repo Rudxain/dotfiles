@@ -1,7 +1,7 @@
 # auto light/dark
 #theme = "base16_terminal"
 # https://github.com/helix-editor/helix/issues/10751
-theme = "monokai"
+theme = "dracula"
 
 [editor.gutters]
 # line-numbers are redundant
