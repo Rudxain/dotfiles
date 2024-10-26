@@ -2,6 +2,7 @@
 #shellcheck disable=2317
 set -euf -o pipefail
 
+# to-do: use official GH API rather than scraping
 readonly RELEASE_URL='https://github.com/helix-editor/helix/releases/'
 wget "${RELEASE_URL}latest" -O - | \
 grep -E 'download/\d+\.\d+/helix-\d+\.\d+-x86_64\.AppImage'
