@@ -41,7 +41,4 @@ mv apt-purge-retro "${PREFIX:-/usr}/local/bin/"
 chown root:root apt-purge-retro
 chmod 755 "${PREFIX:-/usr}/local/bin/"*
 
-# touchscreen support
-echo 'MOZ_USE_XINPUT2 DEFAULT=1' >>/etc/security/pam_env.conf
-
 ./Enable_AppArmor
