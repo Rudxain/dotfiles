@@ -10,6 +10,10 @@ export HISTCONTROL=ignoreboth:erasedups
 export NODE_REPL_HISTORY_SIZE="$((HISTSIZE >> 2))"
 export NODE_REPL_MODE=strict
 
+# GNU-PG docs and shellcheck agree on this
+GPG_TTY=$(tty)
+export GPG_TTY
+
 # Helix
 export EDITOR=hx
 #export VISUAL= # ???
