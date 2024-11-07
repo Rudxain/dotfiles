@@ -94,4 +94,3 @@ fi
 unset color_support
 export PS1
 export PS2
-#PROMPT_COMMAND="history; ${PROMPT_COMMAND:-}"
