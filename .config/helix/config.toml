@@ -3,9 +3,8 @@
 # https://github.com/helix-editor/helix/issues/10751
 theme = "dracula"
 
-[editor.gutters]
+[editor]
 # line-numbers are redundant
-layout = ["diagnostics", "spacer", "diff"]
-
-[editor.file-picker]
-hidden = false
+gutters.layout = ["diagnostics", "spacer", "diff"]
+lsp.display-inlay-hints = true
+file-picker.hidden = false
