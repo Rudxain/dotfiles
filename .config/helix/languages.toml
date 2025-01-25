@@ -5,6 +5,7 @@ roots = ["."]
 formatter = { command = "taplo", args = ["fmt", "-"] }
 auto-format = true
 
+
 [[language]]
 name = "json"
 indent = { tab-width = 3, unit = "\t" }
@@ -18,8 +19,6 @@ validate.enable = true
 format.enable = true
 keepLines.enable = true
 
-# why no ESL config?
-# https://github.com/helix-editor/helix/pull/11315
 
 [[language]]
 name = "javascript"
@@ -30,6 +29,19 @@ language-servers = [
 indent = { tab-width = 4, unit = "\t" }
 auto-format = true
 
+# it seems the mere presence of this table overrides *ALL* defaults,
+# so I have to copy all the defaults from here:
+# https://github.com/helix-editor/helix/blob/81708b70e685426716999e1278b7373292e797e9/languages.toml#L196-L203
+[language-server.typescript-language-server.config.javascript.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = false
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
+includeInlayVariableTypeHintsWhenTypeMatchesName = false
+
 [[language]]
 name = "typescript"
 language-servers = [
@@ -38,6 +50,19 @@ language-servers = [
 ]
 indent = { tab-width = 4, unit = "\t" }
 auto-format = true
+
+# https://github.com/typescript-language-server/typescript-language-server/blob/184c60de3308621380469d6632bdff2e10f672fd/docs/configuration.md?plain=1#L164-L172
+# https://github.com/helix-editor/helix/blob/81708b70e685426716999e1278b7373292e797e9/languages.toml#L187-L194
+[language-server.typescript-language-server.config.typescript.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = false
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
+includeInlayVariableTypeHintsWhenTypeMatchesName = false
+
 
 [[language]]
 name = "markdown"
