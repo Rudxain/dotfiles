@@ -31,3 +31,6 @@ elif ! shopt -oq posix; then
 		. "${PREFIX:-}/etc/bash_completion"
 	fi
 fi
+
+# NodeJS & NPM
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
