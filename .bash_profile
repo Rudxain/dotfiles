@@ -34,3 +34,5 @@ fi
 
 # NodeJS & NPM
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# force 0 exit-code, for the previous cmd
+true
