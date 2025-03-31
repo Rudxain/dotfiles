@@ -43,7 +43,7 @@ else
 	alias cbs=wl-copy
 fi
 
-if [ -x "${PREFIX:-/usr}/bin/dircolors" ]
+if [ -x "${TERMUX__PREFIX:-/usr}/bin/dircolors" ]
 then
 	# assume GNU flavor
 	f='--color=auto'

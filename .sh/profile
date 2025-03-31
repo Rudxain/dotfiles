@@ -9,4 +9,4 @@ done
 unset f
 
 # friendlier for non-text input files
-[ -x "${PREFIX:-/usr}/bin/lesspipe" ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x "${TERMUX__PREFIX:-/usr}/bin/lesspipe" ] && eval "$(SHELL=/bin/sh lesspipe)"

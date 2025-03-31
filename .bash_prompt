@@ -11,7 +11,7 @@ case "$TERM" in
 	xterm-color|*-256color) color_support=y;;
 esac
 
-if [ -x "${PREFIX:-/usr}/bin/tput" ] && tput setaf 1 &>/dev/null
+if [ -x "${TERMUX__PREFIX:-/usr}/bin/tput" ] && tput setaf 1 &>/dev/null
 then
 	color_support=y
 	tput sgr0 # is this necessary?
@@ -52,7 +52,7 @@ PS2+='→ '
 if git --version &>/dev/null; then
 	branch_stat() {
 		git rev-parse --is-inside-work-tree &>/dev/null || return
-		
+
 		#shellcheck disable=SC2155
 		local branch_name="$(\
 			git symbolic-ref --quiet --short HEAD 2> /dev/null || \
@@ -65,7 +65,7 @@ if git --version &>/dev/null; then
 
 		git diff --quiet --ignore-submodules --cached \
 		|| s+='+' # uncommitted
-	
+
 		git diff-files --quiet --ignore-submodules -- \
 		|| s+='!' # unstaged
 

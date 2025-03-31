@@ -21,14 +21,14 @@ done
 unset f
 
 # I'm unsure if this whole block is correct
-if [ -r "${PREFIX:-}/etc/profile.d/bash_completion.sh" ]; then
-	export BASH_COMPLETION_COMPAT_DIR="${PREFIX:-}/etc/bash_completion.d"
-	. "${PREFIX:-}/etc/profile.d/bash_completion.sh"
+if [ -r "${TERMUX__PREFIX:-}/etc/profile.d/bash_completion.sh" ]; then
+	export BASH_COMPLETION_COMPAT_DIR="${TERMUX__PREFIX:-}/etc/bash_completion.d"
+	. "${TERMUX__PREFIX:-}/etc/profile.d/bash_completion.sh"
 elif ! shopt -oq posix; then
-	if [ -f "${PREFIX:-/usr}/share/bash-completion/bash_completion" ]; then
-		. "${PREFIX:-/usr}/share/bash-completion/bash_completion"
-	elif [ -f "${PREFIX:-}/etc/bash_completion" ]; then
-		. "${PREFIX:-}/etc/bash_completion"
+	if [ -f "${TERMUX__PREFIX:-/usr}/share/bash-completion/bash_completion" ]; then
+		. "${TERMUX__PREFIX:-/usr}/share/bash-completion/bash_completion"
+	elif [ -f "${TERMUX__PREFIX:-}/etc/bash_completion" ]; then
+		. "${TERMUX__PREFIX:-}/etc/bash_completion"
 	fi
 fi
 
