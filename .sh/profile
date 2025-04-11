@@ -1,5 +1,4 @@
 #!/bin/sh
-set -u # intentional
 
 for f in path exports aliases fns extra
 do
