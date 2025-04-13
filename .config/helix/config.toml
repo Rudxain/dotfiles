@@ -7,3 +7,8 @@ theme = "everforest_dark"
 gutters.layout = ["diagnostics", "spacer", "diff"]
 lsp.display-inlay-hints = true
 file-picker.hidden = false
+
+[editor.statusline.mode]
+normal = "(0)"
+insert = " >_"
+select = "[v]"
