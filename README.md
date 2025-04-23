@@ -19,7 +19,7 @@ You can use `~/.sh/extra` (POSIX) and `~/.bash_extra` to:
 
 `install` will pull the `main` branch, then copy the files to your `HOME`:
 ```bash
-git clone https://github.com/Rudxain/dotfiles.git \
+git clone --depth=1 https://github.com/Rudxain/dotfiles.git \
 && cd dotfiles \
 && source install
 ```
