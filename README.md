@@ -1,4 +1,6 @@
 # Rudxain's .files
+Based on [this](https://github.com/mathiasbynens/dotfiles)
+
 You can use `~/.sh/extra` (POSIX) and `~/.bash_extra` to:
 - add custom cmds without forking this entire repo
 - add private data
@@ -8,7 +10,7 @@ You can use `~/.sh/extra` (POSIX) and `~/.bash_extra` to:
 ## Install
 > [!warning]
 > Review the code and remove things you don't want or need.
-> 
+>
 > My preferences and needs may not align with yours!
 
 ### Script
