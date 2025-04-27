@@ -6,6 +6,7 @@ theme = "everforest_dark"
 # line-numbers are redundant
 gutters.layout = ["diagnostics", "spacer", "diff"]
 lsp.display-inlay-hints = true
+lsp.display-progress-messages = true
 file-picker.hidden = false
 
 [editor.statusline.mode]
