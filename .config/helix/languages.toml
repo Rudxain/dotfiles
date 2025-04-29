@@ -68,6 +68,9 @@ language-servers = ["pyright"]
 # `indent` controlled by `rustfmt`
 [language-server.rust-analyzer.config.check]
 command = "clippy"
+workspace = false
+[language-server.rust-analyzer.config.cachePriming]
+enable = false
 
 [[language]]
 name = "go"
