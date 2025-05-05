@@ -14,10 +14,11 @@ cdls() {
 	cd "$@" && ls
 }
 
-sizeof() {
-	stat -Lc'%s' -- "$1"
-}
-
-dusort() {
-	du "${1:-.}" -hd1 2>/dev/null | sort -h
+fs() {
+	if [ "$#" -gt 0 ]; then
+		du -sbh -- "$@"
+	else
+		# `--` is a micro-optimization
+		du -sbh -- .[!.]* ./* | sort -h
+	fi
 }

@@ -7,14 +7,14 @@ esac
 
 # `checkwinsize` is default on Bash 5
 # https://lists.gnu.org/archive/html/bug-bash/2019-01/msg00063.html
-for o in histappend cdspell autocd failglob globstar #nocaseglob
+for o in histappend cdspell autocd globstar #nocaseglob
 do
 	shopt -s "$o"
 done
 unset o
 
 . ~/.sh/profile
-for f in ~/.bash_{aliases,fns,prompt,extra}
+for f in ~/.bash_{aliases,prompt,extra}
 do
 	[ -r "$f" ] && [ -f "$f" ] && . "$f"
 done
