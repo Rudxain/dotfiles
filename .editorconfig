@@ -1,0 +1,23 @@
+root = true
+
+[*]
+charset = UTF-8
+end_of_line = lf
+indent_style = tab
+indent_size = 4
+trim_trailing_whitespace = true
+
+# POSIX compliance
+[.sh/*]
+insert_final_newline = true
+
+[*.{,ba,b,da,k,mk,z}sh]
+insert_final_newline = true
+
+[.bashrc]
+insert_final_newline = true
+[.bash_*]
+insert_final_newline = true
+
+[bin/*]
+insert_final_newline = true

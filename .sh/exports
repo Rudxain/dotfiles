@@ -1,0 +1,38 @@
+#!/bin/sh
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+
+PATH="$HOME/bin:$PATH"
+
+# Rust
+[ -f "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
+
+# NodeJS & NPM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+export PNPM_HOME="$HOME/.local/share/pnpm"
+
+export PATH="$PNPM_HOME:$PATH"
+
+export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+
+export HISTSIZE="$((1 << 12))"
+export HISTFILESIZE="$HISTSIZE"
+export HISTCONTROL=ignoreboth:erasedups
+
+# NodeJS
+export NODE_REPL_HISTORY_SIZE="$((HISTSIZE >> 2))"
+export NODE_REPL_MODE=strict
+
+# GNU Privacy Guard
+if GPG_TTY=$(tty); then
+	export GPG_TTY
+else
+	unset GPG_TTY
+	echo '⚠️ GPG_TTY unset'
+fi
+
+# Helix
+export EDITOR=hx VISUAL=hx
+
+export TAPLO_CONFIG="$HOME/.config/taplo.toml"
