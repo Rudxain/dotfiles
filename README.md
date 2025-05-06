@@ -38,7 +38,7 @@ Non-Termux:
 ```sh
 cd
 wget -qO- https://github.com/Rudxain/dotfiles/tarball/main | \
-tar -xzv --strip-components 1 '--exclude={.termux,bin/termux-*,.gitattributes,install.sh,README*,LICENSE}' \
+tar -xzv --strip-components 1 '--exclude={.termux,bin/termux-*,.gitattributes,debian,install.sh,README*,LICENSE}' \
 && \. .profile
 ```
 
@@ -46,7 +46,7 @@ Termux:
 ```sh
 cd
 curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
-tar -xzv --strip-components 1 --exclude={.gitattributes,install.sh,README\*,LICENSE} \
+tar -xzv --strip-components 1 --exclude={.gitattributes,debian,install.sh,README\*,LICENSE} \
 && \. .profile
 ```
 
