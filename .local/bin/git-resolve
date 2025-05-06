@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -eufo pipefail
+
+# https://github.com/tj/git-extras/pull/1236
+
+IFS=' '
+#shellcheck disable=SC2046
+git diff --name-only --diff-filter=U --relative -z |
+	# `-d` is the only reason Bash is needed
+	while IFS= read -r -d '' f; do
+		if ! git diff --check -- "$f" 2>&1 >/dev/null; then
+			printf '%s\0' "$f"
+		fi
+	done |
+	xargs -0r $(git var GIT_EDITOR)
+
+# atomic "all or nothing" staging
+if git diff --check; then
+	git add -A
+fi
+# TO-DO: partial staging
+
+git continue

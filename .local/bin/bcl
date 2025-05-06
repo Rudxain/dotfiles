@@ -1,0 +1,6 @@
+#!/bin/sh
+set -euf
+IFS='
+'
+
+exec bc -l "$HOME/.config/bc-rc" "$@"

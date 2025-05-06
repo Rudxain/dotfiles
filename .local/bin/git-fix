@@ -1,0 +1,28 @@
+#!/bin/sh
+set -euf
+IFS='
+'
+
+# see also: https://git-scm.com/docs/git-history
+
+commitish="$1"
+
+# WARN: potentially multiple lines!
+root="$(git rev-list --max-parents=0 HEAD)"
+readonly root
+
+if [ "$commitish" = ROOT ] || [ "$commitish" = TAIL ]; then
+	c_hash="$root"
+else
+	c_hash="$(git rev-parse "$commitish^{commit}")"
+fi
+readonly c_hash
+
+# expect explicit `add`
+git commit --fixup="$c_hash"
+
+if [ "$c_hash" = "$root" ]; then
+	git -c commit.verbose=true rebase -i --root --autosquash
+else
+	git -c commit.verbose=true rebase -i "$c_hash~" --autosquash
+fi

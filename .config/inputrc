@@ -1,0 +1,22 @@
+$include /etc/inputrc
+
+# who needs zsh? ;)
+
+TAB: menu-complete
+# Shift-TAB
+"\e[Z": menu-complete-backward
+
+# smart up/down
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+
+set revert-all-at-newline on
+set skip-completed-text on
+set completion-prefix-display-length 3
+set show-all-if-ambiguous on
+set completion-query-items 64
+set page-completions off
+set colored-stats on
+set visible-stats on
+set mark-symlinked-directories on
+set match-hidden-files off

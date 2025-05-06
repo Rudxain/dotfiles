@@ -1,0 +1,14 @@
+# if no scope, rm parens. "!: " = breaking-change (MAJOR)
+type(scope (where/which)): title (what)
+# types:
+# feat (MINOR) fix (PATCH)
+# style refactor perf (PATCH)
+# docs (could be MAJOR, if contract changes)
+# build test ci ops
+# chore (misc)
+
+#optional description (why)
+
+# full spec: https://www.conventionalcommits.org/en/v1.0.0
+# cheat-sheet: https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13
+# see also: https://semver.org/
