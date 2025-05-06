@@ -1,0 +1,14 @@
+# https://github.com/helix-editor/helix/discussions/10281
+theme = "everforest_dark"
+#theme = "everforest_light"
+
+[editor]
+file-picker.hidden = false
+gutters.layout = ["diagnostics", "spacer", "diff"]
+lsp.display-inlay-hints = true
+lsp.display-progress-messages = true
+
+[editor.statusline.mode]
+normal = "(0)"
+insert = " >_"
+select = "[v]"

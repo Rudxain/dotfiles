@@ -1,0 +1,66 @@
+#!/bin/sh
+#shellcheck disable=SC2139
+
+alias reload='exec ${SHELL} -l'
+
+alias paths='echo -e ${PATH//:/\\n}'
+
+# the only thing MS did right /j
+alias cls=clear
+
+# raw strs
+alias say="printf '%s\n'"
+
+# safety
+alias cp='cp -i'
+alias mv='mv -i'
+alias ln='ln -i'
+alias rm='rm -i'
+
+# emulate Busybox
+alias nuke='rm -rf --'
+
+# extend `autocd`
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ~='cd ~'
+alias -- -='cd -'
+
+if [ -n "${TERMUX_VERSION:-}" ]; then
+	# I hate Samsung, but dex is a good short name
+	alias cdex="cd $EXTERNAL_STORAGE" #/sdcard
+
+	alias cbg=termux-clipboard-get
+	alias cbs=termux-clipboard-set
+else
+	alias cdex='cd ~/Desktop'
+
+	alias cbg=wl-paste
+	alias cbs=wl-copy
+fi
+
+if [ -x "${TERMUX__PREFIX:-/usr}/bin/dircolors" ]
+then
+	# assume GNU flavor
+	f='--color=auto'
+	#shellcheck disable=SC2015
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	alias ls="ls $f"
+	alias dir="dir $f"
+	alias vdir="vdir $f"
+
+	# `GREP_OPTIONS="--color=auto"` is deprecated
+	alias grep="grep $f"
+	unset f
+fi
+
+alias la='ls -A'
+alias ll='ls -lF'
+alias lal='ls -AlF'
+
+# canonicalize
+command -v hd >/dev/null || alias hd='hexdump -C'
+# some systems have this symlinked
+
+# intuitive map fn
+alias map='xargs -rn1'

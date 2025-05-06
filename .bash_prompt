@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1
+then
+	export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1
+then
+	export TERM=xterm-256color
+fi
+case "$TERM" in
+	xterm-color|*-256color) color_support=y;;
+esac
+
+if [[ -x ${TERMUX__PREFIX:-/usr}/bin/tput ]] && tput setaf 1 &>/dev/null
+then
+	color_support=y
+	tput sgr0
+	#shellcheck disable=SC2155
+	RESET=$(tput sgr0)
+	#shellcheck disable=SC2155
+	BOLD=$(tput bold)
+	#shellcheck disable=SC2155
+	RED=$(tput setaf 9)
+elif [ -n "${color_support:-}" ]; then
+	RESET="\e[0m"
+	BOLD="\e[1m"
+	RED="\e[31m"
+fi
+
+last_exit() {
+	local -r e=$?
+	[[ $e -ne 0 ]] && \
+		echo -e "${1:-}$(printf '%02x\n' $e)${2:-} "
+	return $e
+}
+# https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
+
+PS1=''
+PS2=''
+if [[ -n ${color_support:-} ]]; then
+	PS1+="\[${BOLD}\]"
+	PS1+="\$(last_exit \"\[${RED}\]\" \"\[${RESET}\]\[${BOLD}\]\")"
+else
+	PS1+="\$(last_exit)"
+fi
+
+PS1+='\w'
+PS2+='→ '
+
+if command -v git >/dev/null; then
+	branch_stat() {
+		git rev-parse --is-inside-work-tree &>/dev/null || return
+
+		#shellcheck disable=SC2155
+		local branch_name="$(\
+			git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+			git describe --all --exact-match HEAD 2> /dev/null || \
+			git rev-parse --short HEAD 2> /dev/null || \
+			echo '(?)' \
+		)"
+
+		local s=''
+
+		git diff --quiet --ignore-submodules --cached \
+		|| s+='+' # uncommitted
+
+		git diff-files --quiet --ignore-submodules -- \
+		|| s+='!' # unstaged
+
+		[[ -n "$(git ls-files --others --exclude-standard)" ]] \
+		&& s+='?' # untracked
+
+		git rev-parse --verify refs/stash &>/dev/null \
+		&& s+='$' # stashed
+
+		[[ -n $s ]] && s=" $s"
+
+		# "//" unambiguously delimits paths and branches,
+		# because it should never be a substr of either
+		echo " // ${branch_name}${s}"
+	}
+
+	PS1+='$(branch_stat)'
+fi
+
+# common suffix
+PS1+=' > '
+if [[ -n ${color_support:-} ]]; then
+	PS1+="\[${RESET}\]"
+	PS2+="\[${RESET}\]"
+fi
+unset color_support
+export PS1 PS2
