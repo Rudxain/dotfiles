@@ -1,0 +1,11 @@
+#!/bin/sh
+
+for f in path exports aliases fns extra
+do
+	f="$HOME/.sh/$f"
+	[ -r "$f" ] && [ -f "$f" ] && \. "$f"
+done
+unset f
+
+# friendlier for non-text input files
+[ -x "${TERMUX__PREFIX:-/usr}/bin/lesspipe" ] && eval "$(SHELL=/bin/sh lesspipe)"

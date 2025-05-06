@@ -1,0 +1,48 @@
+[core]
+	# speed
+	untrackedCache = true
+
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	name = Rudxain
+	email = 76864299+Rudxain@users.noreply.github.com
+	signingkey = 0DAC837DDEF8E96C
+[commit]
+	# https://docs.github.com/en/authentication/managing-commit-signature-verification
+	gpgsign = true
+
+[init]
+	# solves racism across the entirety of space-time (/s):
+	# https://sfconservancy.org/news/2020/jun/23/gitbranchname
+	defaultBranch = main
+
+[remote "origin"]
+	prune = true
+
+[branch]
+	# recent 1st
+	sort = -committerdate
+
+[diff]
+	renames = copies
+[diff "bin"]
+	textconv = hexdump -v -C
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold # line info
+	old = red # deletions
+	new = green # additions
+
+
+[alias]
+	aliases = config --get-regexp alias
+	statuses = branch -vv
+	branches = branch -a
+	tags = tag -l
+	contributors = shortlog --summary --numbered
+	dm = "!git branch --merged | grep -v '\\*' | xargs -rn1 git branch -d"
