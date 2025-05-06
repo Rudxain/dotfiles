@@ -1,0 +1,5 @@
+#!/bin/sh
+set -euf
+
+dpkg-query -Wf '${Installed-size}\t${Package}\n' |
+	sort -rn | pager

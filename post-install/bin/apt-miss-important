@@ -1,0 +1,3 @@
+#!/bin/sh
+set -f
+aptitude search '!~i ~pimportant ~rnative' --disable-columns -F%p

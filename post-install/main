@@ -1,0 +1,56 @@
+#!/bin/bash
+set -eu -o pipefail
+
+readonly HELP='$1 must be a path to a file
+that contains old output from:
+`apt-mark showmanual`
+'
+
+if [[ $# -lt 1 ]]
+then
+	printf %s "$HELP"
+	exit 1
+fi
+
+pack_ls="$(cat -- "$1")"
+readonly pack_ls
+
+# to reduce time between auto-marking & installing,
+# we must config now
+cp etc/apt.conf "${TERMUX__PREFIX:-}/etc/apt/apt.conf"
+
+# cleanup
+apt-mark auto \* &> /dev/null
+
+# https://wiki.termux.com/wiki/Package_Management#Using_the_package_manager
+if command -v pkg &> /dev/null; then
+	pkg i -y -- $pack_ls
+
+	apt-get autopurge
+
+	pkg upgrade -y
+else
+	apt-get update
+
+	apt-get install -y -- $pack_ls
+
+	apt-get autopurge
+
+	apt-get upgrade -y
+fi
+
+cp etc/path.sh "${TERMUX__PREFIX:-}/etc/profile.d/"
+
+mkdir -p "${TERMUX__PREFIX:-/usr}/local/sbin/"
+install -- sbin/* "${TERMUX__PREFIX:-/usr}/local/sbin/"
+mkdir -p "${TERMUX__PREFIX:-/usr}/local/bin/"
+install -- bin/* "${TERMUX__PREFIX:-/usr}/local/bin/"
+
+# AA is assumed to be already set-up
+# https://wiki.debian.org/AppArmor/HowToUse#Enable_AppArmor
+
+# https://wiki.debian.org/nftables#nftables_in_Debian_the_easy_way
+if dpkg -s nftables &>/dev/null; then
+	cp etc/nftables.conf /etc/nftables.conf
+	systemctl enable nftables.service
+fi

@@ -1,0 +1,10 @@
+#!/bin/sh
+#shellcheck disable=SC2046
+set -f
+# garbage-collect
+
+apt-get autoclean
+# rm orphaned configs
+apt-get -y purge $(dpkg -l | grep \^rc | awk '{print $2}')
+apt-mark minimize-manual
+apt-get autopurge
