@@ -1,0 +1,62 @@
+#!/bin/sh
+#shellcheck disable=SC2155
+
+color_support=n
+
+case "$TERM" in
+	xterm-color|*-256color) color_support=y;;
+esac
+
+_tput_b_path="${TERMUX__PREFIX:-/usr}/bin/tput"
+
+if "$_tput_b_path" setaf 1 >/dev/null 2>&1; then
+	color_support=y
+	"$_tput_b_path" sgr0
+	T_RESET=$("$_tput_b_path" sgr0)
+	T_BOLD=$("$_tput_b_path" bold)
+	_T_RED=$("$_tput_b_path" setaf 9)
+elif [ $color_support = y ]; then
+	T_RESET="\e[0m"
+	T_BOLD="\e[1m"
+	_T_RED="\e[31m"
+fi
+
+unset _tput_b_path
+
+last_exit() {
+	local e=$?
+	[ $e -ne 0 ] && \
+		printf "${1:-}%02x${2:-} " $e
+	return $e
+}
+
+# https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
+
+PS1=''
+if [ $color_support = y ]; then
+	PS1="$PS1\[${T_BOLD}\]"
+	PS1="$PS1\$(last_exit \"\[${_T_RED}\]\" \"\[${T_RESET}\]\[${T_BOLD}\]\")"
+else
+	PS1="$PS1\$(last_exit)"
+fi
+PS1="$PS1\w"
+
+if command -v git >/dev/null; then
+	git_b_name() {
+		git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
+		# "//" unambiguously delimits paths and branches,
+		# because it should never be a substr of either
+		echo " // $(\
+			git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+			git describe --all --exact-match HEAD 2> /dev/null || \
+			git rev-parse --short HEAD 2> /dev/null || \
+			echo '(?)' \
+		)"
+	}
+	PS1="$PS1\$(git_b_name)"
+fi
+
+# common suffix
+PS1="$PS1 Δ "
+[ $color_support = y ] && PS1="$PS1\[${T_RESET}\]"
+unset color_support
