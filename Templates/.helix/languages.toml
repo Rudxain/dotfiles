@@ -1,0 +1,5 @@
+[[language]]
+name = "markdown"
+# https://github.com/helix-editor/helix/issues/12594
+# https://github.com/helix-editor/helix/pull/9018
+soft-wrap.enable = true

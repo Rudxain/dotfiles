@@ -1,0 +1,269 @@
+/**
+Extended standard library for POSIX `bc`.
+Checked by GNU bc:
+```sh
+echo | bc --warn -l .config/bc-rc 2>&1 |
+	grep -v 'multiple letter name'
+```
+
+Works with any `ibase` and `scale`.
+
+See also:
+https://x-bc.sourceforge.net/extensions_bc.html
+*/
+
+/**
+ternary op: `c ? t : f`.
+WARN: not short-circuiting!
+all args are eagerly evaluated.
+*/
+define if3(c, t, f) {
+	if (c) return(t); return(f)
+}
+
+/** poor person's `throw`/`raise` */
+define err() {
+	"
+"
+	1/0
+}
+
+define min(a,b) {
+	if (a < b) return(a)
+	return(b)
+}
+define max(a,b) {
+	if (a < b) return(b)
+	return(a)
+}
+/*
+Gavin Howard's impl already has this,
+which triggers parse errs
+unless `-r abs`
+*/
+define abs(x) {
+	if (x < 0) return(-x)
+	return(x)
+}
+
+/** trunc remainder */
+define rem(n, d) {
+	auto s, r
+	s = scale
+	scale = 0
+	r = n % d
+	scale = s
+	return(r)
+}
+/** floor remainder, (standard math modulo) */
+define mod(n, d) {
+	return(rem(rem(n, d) + d, d))
+}
+
+/** truncates to current scale */
+define round_to_scale(x) {
+	return(x/1)
+}
+
+define trunc(x) {
+	auto s
+	s = scale
+	scale = 0
+	x = round_to_scale(x)
+	scale = s
+	return(x)
+}
+define floor(x) {
+	if (is_int(x)) return(x)
+	if (x < 0) return(trunc(x) - 1)
+	return(trunc(x))
+}
+define ceil(x) {
+	if (is_int(x)) return(x)
+	if (x < 0) return(trunc(x))
+	return(trunc(x) + 1)
+}
+/** half away from zero, as ISO C does */
+define round(x) {
+	if (x < 0) return(ceil(x - 0.5))
+	return(floor(x + 0.5))
+}
+
+/* ASK: faster than `rem(x, 1) == 0`? */
+define is_int(x) {
+	if (x == trunc(x)) return(1)
+	return(0)
+}
+
+/**
+POSIX has a weird requirement that the scale of result be
+"if x >= 0 min(b * x, max(scale, b)) if x < 0 scale".
+AFAIK, no popular impl honors this,
+so I don't care, lol
+*/
+define pow(b, x) {
+	auto s
+	if (is_int(x)) return(b ^ x)
+	s = scale
+	scale = scale * 2 + 4*5
+	x = e(x * l(b))
+	scale = s
+	return(round_to_scale(x))
+}
+
+/** see body for unimplemented things */
+define mod_pow(b, x, m) {
+	auto s, r
+	s = scale
+	if (x < 0) {
+		"exponent must be unsigned"
+		err()
+	}
+	if (is_int(x) == 0) {
+		"exponent must be an integer"
+		err()
+	}
+	if (x == 0) return(rem(1, m))
+	if (b < 0) {
+		"base must be unsigned"
+		err()
+	}
+	b = rem(b, m)
+	if ((b == 0) + (b == 1)) return(b)
+	r = 1
+	scale = 0
+	while (x > 0) {
+		if (x % 2) {r = (r*b) % m}
+		b = (b*b) % m
+		x /= 2
+	}
+	scale = s
+	return(r)
+}
+
+define cbrt(x) {
+	auto t, s
+	if (x == 0) return(0)
+	/* sign */
+	s = 1
+	if (x < 0) s = -1
+	/* abs */
+	x *= s
+	t = e(l(x) / 3)
+	/* Newton's Method is the GOAT */
+	return((x / t^2 + t+t) / 3 * s)
+}
+
+/* so cursed 💀 */
+define e1() {
+	e = e(1)
+	return(e)
+}
+e=e(1)
+define exp(x) {
+	return(e(x))
+}
+define ln(x) {
+	return(l(x))
+}
+define log_b(x, b) {
+	scale += 4*5
+	x = l(x) / l(b)
+	scale -= 4*5
+	return(round_to_scale(x))
+}
+define log2(x) {
+	return(log_b(x, 2))
+}
+/** binary logarithm */
+define lb(x) {
+	return(log_b(x, 2))
+}
+define log10(x) {
+	return(log_b(x, 2*5))
+}
+/** decimal logarithm */
+define lg(x) {
+	return(log_b(x, 2*5))
+}
+/* ld is ambiguous: "logarithmus "...
+- dualis (2)
+- decimalis (10)
+- decadis (10)
+*/
+
+define pi() {
+	scale += 1
+	pi = 4 * a(1)
+	scale -= 1
+	pi = round_to_scale(pi)
+	return(pi)
+}
+pi=pi()
+define tau() {
+	scale += 1
+	tau = 8 * a(1)
+	scale -= 1
+	tau = round_to_scale(tau)
+	return(tau)
+}
+tau=tau()
+define sin(x) {
+	return(s(x))
+}
+define cos(x) {
+	return(c(x))
+}
+define tan(x) {
+	auto s
+	s = scale
+	scale = scale * 2 + 4*5
+	x = s(x) / c(x)
+	scale = s
+	return(round_to_scale(x))
+}
+define atan(x) {
+	return(a(x))
+}
+
+define phi() {
+	phi = (1 + sqrt(5)) / 2
+	return(phi)
+}
+phi=phi()
+
+define factorial(n) {
+	auto t
+	if (n < 0) {
+		"n must be unsigned"
+		err()
+	}
+	t = 1
+	/* TO-DO:
+	http://www.luschny.de/math/factorial/FastFactorialFunctions.htm
+	py uses bin-split:
+	https://github.com/python/cpython/blob/0023d5b23df09f18425fea9b9c54a37ba050d5cf/Modules/mathintegermodule.c#L499-L500
+	*/
+	while (n > 1) {t *= n--}
+	return(t)
+}
+
+define gcd(a,b) {
+	auto s, t
+	s = scale
+	scale = 0
+	a = abs(a)
+	b = abs(b)
+	while (b) {
+		t = a
+		a = b
+		b = t % b
+	}
+	scale = s
+	return(a)
+}
+
+define lcm(a,b) {
+	if ((a == 0) * (b == 0)) return(0)
+	return(abs(a) / gcd(a,b) * abs(b))
+}

@@ -1,0 +1,30 @@
+. ~/.config/sh/rc
+
+# interactive
+if [[ -n ${PS1:-} ]]; then
+	# `-H` obsoleted by `inputrc`,
+	# and `"\!"` being "\!" instead of "!" is annoying
+	set +H
+	shopt -s histappend autocd globstar nullglob
+
+	alias ha='history -a'
+
+	\. ~/.bash_prompt
+
+	bc=/usr/share/bash-completion
+
+	[[ -z ${BASH_COMPLETION_VERSINFO:-} && -f $bc/bash_completion ]] && \
+		\. $bc/bash_completion
+
+	if ! declare -F __git_complete &>/dev/null; then
+		[[ -f $bc/completions/git ]] && \. $bc/completions/git
+	fi
+	declare -F __git_complete &>/dev/null && __git_complete g __git_main
+
+	unset bc
+fi
+
+# assert readable
+if [[ -s ~/.bash_ext ]]; then
+	\. ~/.bash_ext
+fi

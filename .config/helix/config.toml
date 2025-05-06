@@ -1,0 +1,90 @@
+# https://github.com/helix-editor/helix/discussions/10281
+theme = "everforest_dark"
+#theme = "everforest_light"
+
+[editor]
+gutters.layout = ["diagnostics", "spacer", "diff"]
+whitespace.render = { nbsp = "all", nnbsp = "all" }
+cursorline = true
+# I know `<space>b`, but I want to "punish" myself
+# for having too many buffers
+bufferline = "multiple"
+color-modes = true
+
+# why not show `mode` via `cursor-shape` instead of status-line?
+# gnome-term renders thin lines
+
+[editor.statusline]
+mode = { normal = "^", insert = "i", select = "v" }
+# `total-line-numbers` is an alt for `position-percentage`.
+# Despite my love for fractions, "%" is complementary
+# (presentation-wise, not information-wise)
+# and it's always short.
+# TO-DO: replace by [scrollbar](https://github.com/helix-editor/helix/pull/5749)
+# when merged.
+right = [
+	"diagnostics",
+	"selections",
+	"register",
+	"position-percentage",
+	"position",
+	"file-encoding",
+]
+
+[editor.lsp]
+# prevent auto-{exec,start}
+# TO-DO: replace by https://github.com/helix-editor/helix/pull/12085
+enable = false
+display-inlay-hints = true
+inlay-hints-length-limit = 32 # half ~70char
+display-progress-messages = true
+
+[keys.normal]
+"+" = "increment"
+"-" = "decrement"
+# EMACS certified
+"C-k" = "kill_to_line_end"
+"A-k" = ["extend_to_line_bounds", "delete_selection"]
+[keys.normal.backspace]
+# for global search
+h = ":toggle file-picker.hidden"
+# toggle line-numbers;
+# I now understand why Scheme is better than TOML:
+# https://github.com/helix-editor/helix/issues/8853
+l = """
+:toggle gutters.layout \
+[\"diagnostics\", \"spacer\", \"line-numbers\", \"spacer\", \"diff\"] \
+[\"diagnostics\", \"spacer\", \"diff\"]
+"""
+# useful even for hard-wrapped prose,
+# and to reveal malware hidden outside the view-port
+w = ":toggle soft-wrap.enable"
+s.s = ["save_selection", "split_selection_on_newline", ":sort", "jump_backward"]
+s.i = [
+	"save_selection",
+	"split_selection_on_newline",
+	":sort -i",
+	"jump_backward",
+]
+# arithmetic evaluation
+"=" = ":! bcl << DEADBEEF-EOF\n%{selection}\nDEADBEEF-EOF"
+# balance between easy-switch and prompting
+p.e = ":toggle lsp.enable"
+p.r = ":lsp-restart"
+p.s = ":lsp-stop"
+p.i = ":toggle lsp.display-inlay-hints"
+[keys.select]
+"+" = "increment"
+"-" = "decrement"
+"C-k" = "kill_to_line_end"
+"A-k" = ["extend_to_line_bounds", "delete_selection"]
+[keys.select.backspace]
+# `|bcl` is too short for a keybind
+"=" = ":echo %sh{bcl << DEADBEEF-EOF\n%{selection}\nDEADBEEF-EOF}"
+p.e = ":toggle lsp.enable"
+p.r = ":lsp-restart"
+p.s = ":lsp-stop"
+p.i = ":set lsp.display-inlay-hints false"
+[keys.insert]
+"C-k" = "kill_to_line_end"
+"A-k" = ["extend_to_line_bounds", "delete_selection"]
