@@ -1,0 +1,82 @@
+#!/bin/sh
+#shellcheck disable=SC2155
+
+color_support=n
+
+case "$TERM" in
+	xterm-color|*-256color) color_support=y;;
+esac
+
+_tput_b_path="${TERMUX__PREFIX:-/usr}/bin/tput"
+
+if "$_tput_b_path" setaf 1 >/dev/null 2>&1; then
+	color_support=y
+	"$_tput_b_path" sgr0
+	RESET=$("$_tput_b_path" sgr0)
+	BOLD=$("$_tput_b_path" bold)
+	RED=$("$_tput_b_path" setaf 9)
+elif [ $color_support = y ]; then
+	RESET="\e[0m"
+	BOLD="\e[1m"
+	RED="\e[31m"
+fi
+
+unset _tput_b_path
+
+last_exit() {
+	local e=$?
+	[ $e -ne 0 ] && \
+		printf "${1:-}%02x${2:-} " $e
+	return $e
+}
+
+# https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
+
+PS1=''
+if [ $color_support = y ]; then
+	PS1="$PS1\[${BOLD}\]"
+	PS1="$PS1\$(last_exit \"\[${RED}\]\" \"\[${RESET}\]\[${BOLD}\]\")"
+else
+	PS1="$PS1\$(last_exit)"
+fi
+PS1="$PS1\w"
+
+if command -v git >/dev/null; then
+	branch_stat() {
+		git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
+
+		local branch_name="$(\
+			git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+			git describe --all --exact-match HEAD 2> /dev/null || \
+			git rev-parse --short HEAD 2> /dev/null || \
+			echo '(?)' \
+		)"
+
+		local s=''
+
+		git diff --quiet --ignore-submodules --cached \
+		|| s="$s+" # uncommitted
+
+		git diff-files --quiet --ignore-submodules -- \
+		|| s="$s!" # unstaged
+
+		[ -n "$(git ls-files --others --exclude-standard)" ] \
+		&& s="$s?" # untracked
+
+		git rev-parse --verify refs/stash >/dev/null 2>&1 \
+		&& s="$s\$" # stashed
+
+		[ -n "$s" ] && s=" $s"
+
+		# "//" unambiguously delimits paths and branches,
+		# because it should never be a substr of either
+		echo " // ${branch_name}${s}"
+	}
+
+	PS1="$PS1\$(branch_stat)"
+fi
+
+# common suffix
+PS1="$PS1 > "
+[ $color_support = y ] && PS1="$PS1\[${RESET}\]"
+unset color_support
