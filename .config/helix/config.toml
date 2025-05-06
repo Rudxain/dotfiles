@@ -1,0 +1,13 @@
+# https://github.com/helix-editor/helix/discussions/10281
+theme = "everforest_dark"
+#theme = "everforest_light"
+
+[editor]
+gutters.layout = ["diagnostics", "spacer", "diff"]
+statusline.mode = { normal = "(0)", insert = " >_", select = "[v]" }
+word-completion = { enable = true, trigger-length = 3 }
+
+[editor.lsp]
+display-inlay-hints = true
+inlay-hints-length-limit = 16
+display-progress-messages = true
