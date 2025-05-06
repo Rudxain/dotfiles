@@ -1,0 +1,14 @@
+#!/bin/sh
+[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
+
+PATH="$PATH:$HOME/.local/bin"
+
+# Rust
+[ -f "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
+
+# NodeJS & NPM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
