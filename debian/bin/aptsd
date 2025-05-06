@@ -1,0 +1,20 @@
+#!/bin/sh
+set -euf
+
+dep="${1:-}"
+case "$dep" in
+d) dep=depends ;;
+r) dep=recommends ;;
+s) dep=suggests ;;
+*) ;;
+esac
+
+pack="${2:-}"
+
+i="${3:-}"
+case "$i" in
+i | install | installed) i=' ~i' ;;
+*) i='' ;;
+esac
+
+aptitude search "~D${dep}:${pack}${i}" --disable-columns -F%p
