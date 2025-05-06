@@ -1,0 +1,57 @@
+[core]
+	untrackedCache = true # speed
+
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	name = Rudxain
+	email = 76864299+Rudxain@users.noreply.github.com
+	signingkey = 0DAC837DDEF8E96C
+
+[init]
+	# solves racism across the entirety of space-time (/s):
+	# https://sfconservancy.org/news/2020/jun/23/gitbranchname
+	defaultBranch = main
+
+[remote "origin"]
+	prune = true
+
+[merge]
+	# summarize commits
+	log = true
+
+[branch]
+	sort = -committerdate # recent 1st
+
+[color "branch"]
+	current = reverse green
+	local = green
+	remote = yellow
+
+[diff]
+	renames = copies
+[diff "bin"]
+	textconv = hexdump -v -C
+
+[alias]
+	aliases = config --get-regexp alias
+	copy = clone --depth=1 # shallow
+	c = commit
+	cs = commit -S
+	ca = commit -av
+	cas = commit -avS
+	l = log --pretty=oneline --graph --abbrev-commit
+	s = status -s
+	ss = status --show-stash
+	statuses = branch -vv
+	branches = branch -a
+	tags = tag -l
+	remotes = remote -v
+	contributors = shortlog --summary --numbered
+	# "GC"
+	bdm = "!git branch --merged | grep -v '\\*' | xargs -rn1 git branch -d"
+	rbi = "!r() { git rebase -i HEAD~$1; }; r"

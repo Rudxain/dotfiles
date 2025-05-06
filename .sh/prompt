@@ -1,0 +1,42 @@
+#!/bin/sh
+#shellcheck disable=SC2155
+
+case "$TERM" in
+	xterm-color|*-256color) color_support=y;;
+	*) color_support=n;;
+esac
+
+last_exit() {
+	local e=$?
+	[ $e -ne 0 ] && \
+		printf "${1:-}%02x${2:-} " $e
+	return $e
+}
+
+if [ $color_support = y ]; then
+	# all bold, red exit-code
+	PS1="\n\[\e[1m\]\$(last_exit \"\[\e[31m\]\" \"\[\e[0m\]\[\e[1m\]\")"
+else
+	PS1="\n\$(last_exit)"
+fi
+PS1="$PS1\w"
+
+if command -v git >/dev/null; then
+	git_b_name() {
+		git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
+		# "//" unambiguously delimits paths and branches,
+		# because it should never be a substr of either
+		echo " // $(\
+			git symbolic-ref --quiet --short HEAD 2>/dev/null || \
+			git describe --all --exact-match HEAD 2>/dev/null || \
+			git rev-parse --short HEAD 2>/dev/null || \
+			echo '(?)' \
+		)"
+	}
+	PS1="$PS1\$(git_b_name)"
+fi
+
+# common suffix
+PS1="$PS1\nΔ "
+[ $color_support = y ] && PS1="$PS1\[\e[0m\]"
+unset color_support
