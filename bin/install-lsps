@@ -1,0 +1,3 @@
+#!/bin/sh
+set -f
+pnpm i -g bash-language-server typescript-language-server typescript
