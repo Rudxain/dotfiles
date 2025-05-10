@@ -1,0 +1,23 @@
+#!/bin/sh
+set -euf
+
+if [ -n "${TERMUX_VERSION:-}" ]; then
+	pkg i nodejs
+	# https://github.com/termux/termux-packages/issues/13293
+	npm i -g corepack
+else
+	set +euf
+	# NVM should be installed manually
+	. "$NVM_DIR/nvm.sh"
+	nvm install node || exit $?
+	nvm alias default node || exit $?
+	set -euf
+	npm i -g npm corepack
+fi
+
+corepack enable pnpm
+corepack use pnpm
+pnpm i -g \
+	bash-language-server \
+	typescript-language-server \
+	typescript
