@@ -1,0 +1,5 @@
+#!/bin/sh
+set -euf
+cargo i taplo-cli
+taplo completions bash > \
+	"$HOME/.local/share/bash-completion/completions/taplo"
