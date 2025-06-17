@@ -1,16 +1,27 @@
 #!/usr/bin/bash
 #shellcheck disable=SC2016
 set -eufo pipefail
+# NixOS: "Look what they need to mimic a fraction of my power"
 
-readonly HELP='$1 must be a path to a file
-that contains old output from:
-`apt-mark showmanual`
+readonly HELP='Setup Debian-like distro.
+
+`$1` must be a path to a file formatted like
+`apt-mark showmanual` output.
+
+This is idempotent,
+so it can be safely ran repeatedly.
 '
 
 if [[ $# -lt 1 ]]
 then
 	printf %s "$HELP"
 	exit 1
+fi
+
+if [[ $1 = help ]]
+then
+	printf %s "$HELP"
+	exit 0
 fi
 
 pack_ls="$(cat -- "$1")"
