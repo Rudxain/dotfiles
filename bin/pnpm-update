@@ -1,5 +1,0 @@
-#!/bin/sh
-set -euf
-corepack use pnpm
-pnpm completion bash > \
-	"$HOME/.local/share/bash-completion/completions/pnpm"
