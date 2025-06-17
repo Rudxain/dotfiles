@@ -5,8 +5,7 @@ alias reload='exec ${SHELL} -l'
 
 alias paths='echo "$PATH" | sed "s/:/\n/g"'
 
-# the only thing MS did right /j
-alias cls=clear
+alias c=clear
 
 # raw strs
 alias say="printf '%s\n'"
