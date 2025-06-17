@@ -20,4 +20,4 @@ corepack use pnpm
 pnpm i -g \
 	bash-language-server \
 	typescript-language-server \
-	typescript
+	typescript@next
