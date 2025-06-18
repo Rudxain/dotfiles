@@ -21,3 +21,19 @@ fs() {
 		du -sbh -- .[!.]* ./* | sort -hr
 	fi
 }
+
+loc1() {
+	grep -rv '^\s*$' -- "$1" 2>/dev/null | wc -l
+}
+
+loc() {
+	if [ $# -gt 0 ]; then
+		for p in "$@"; do
+			echo "$(loc1 "$p") $p"
+		done
+	else
+		for p in .[!.]* ./*; do
+			echo "$(loc1 "$p") $p"
+		done | sort -nr
+	fi
+}
