@@ -1,0 +1,19 @@
+#!/bin/sh
+set -euf
+
+readonly f="${HOME}/.config/helix/themes/dl.toml"
+
+case "${1:-}" in
+	d) t=everforest_dark;;
+	l) t=everforest_light;;
+	*) t="${1:-}";;
+esac
+readonly t
+
+if [ -n "$t" ]; then
+	mkdir -p "$(dirname "$f")"
+	echo "inherits = \"$t\"" > "$f"
+	pkill -USR1 -x hx 2>/dev/null || true
+else
+	cut -d\" -f2 -- "$f"
+fi
