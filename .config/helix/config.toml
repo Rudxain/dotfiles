@@ -1,6 +1,5 @@
 # https://github.com/helix-editor/helix/discussions/10281
-theme = "everforest_dark"
-#theme = "everforest_light"
+theme = "dl"
 
 [editor]
 gutters.layout = ["diagnostics", "spacer", "diff"]
