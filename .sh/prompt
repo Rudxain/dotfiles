@@ -23,6 +23,8 @@ fi
 PS1="$PS1\w"
 
 # common suffix
-PS1="$PS1\nΔ "
+PS1="$PS1\n\[\e[1m\]Δ "
+# re-bold because terminals struggle styling across lines:
+# https://github.com/mathiasbynens/dotfiles/issues/930
 [ $color_support = y ] && PS1="$PS1\[\e[0m\]"
 unset color_support
