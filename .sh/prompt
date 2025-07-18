@@ -36,6 +36,9 @@ if command -v git >/dev/null; then
 fi
 
 # common suffix
-PS1="$PS1\nΔ "
+PS1="$PS1\n\[\e[1m\]Δ "
+# re-bolding shouldn't be necessary,
+# but terminals struggle styling across lines:
+# https://github.com/mathiasbynens/dotfiles/issues/930
 [ $color_support = y ] && PS1="$PS1\[\e[0m\]"
 unset color_support
