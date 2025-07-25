@@ -1,0 +1,8 @@
+{
+"$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+"workspace.library": [
+	"~/Downloads/luaCATS-love2d-def",
+	"~/Downloads/kristal-lua-docs",
+	"~/Downloads/Kristal/luadoc_meta"
+]
+}
