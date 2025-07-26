@@ -22,6 +22,19 @@ alias ..='cd ..'
 alias ~='cd ~'
 alias -- -='cd -'
 
+if [ -n "${TERMUX_VERSION:-}" ]; then
+	# I hate Samsung, but dex is a good short name
+	alias cdex="cd $EXTERNAL_STORAGE" #/sdcard
+
+	alias cbg=termux-clipboard-get
+	alias cbs=termux-clipboard-set
+else
+	alias cdex='cd ~/Desktop'
+
+	alias cbg=wl-paste
+	alias cbs=wl-copy
+fi
+
 f='--color=auto'
 alias l="\ls $f" ls="ls $f -p" dir="dir $f -p" vdir="vdir $f"
 alias grep="grep $f"

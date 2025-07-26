@@ -11,13 +11,13 @@ if [[ -n ${PS1:-} ]]; then
 	# assert readable file
 	[[ -s ~/.bash_aliases ]] && \. ~/.bash_aliases
 
-	bc=/usr/share/bash-completion
+	bc="${TERMUX__PREFIX:-/usr}/share/bash-completion"
 
 	[[ -z ${BASH_COMPLETION_VERSINFO:-} && -f $bc/bash_completion ]] && \
-		\. $bc/bash_completion
+		\. "$bc/bash_completion"
 
 	[[ $(type -t __git_complete) != function && -f $bc/completions/git ]] && \
-		\. $bc/completions/git
+		\. "$bc/completions/git"
 	[[ $(type -t __git_complete) = function ]] && __git_complete g __git_main
 
 	unset bc
