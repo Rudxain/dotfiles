@@ -4,10 +4,19 @@
 [ -z "${__rxdf_exported:-}" ] && \. "$HOME/.sh/exports"
 
 # interactive
-[ -n "${PS1:-}" ] && \
+if [ -n "${PS1:-}" ]; then
 	for f in aliases fns prompt; do
 		\. "$HOME/.sh/$f"
 	done
+
+	# GNU Privacy Guard Agent
+	if GPG_TTY="$(tty)"; then
+		export GPG_TTY
+	else
+		unset GPG_TTY
+		echo '⚠️ GPG_TTY unset'
+	fi
+fi
 
 # assert readable file
 [ -s "$HOME/.sh/ext" ] && \. "$HOME/.sh/ext"
