@@ -21,3 +21,5 @@ else
 	unset GPG_TTY
 	echo '⚠️ GPG_TTY unset'
 fi
+
+export TAPLO_CONFIG="$HOME/.config/taplo.toml"
