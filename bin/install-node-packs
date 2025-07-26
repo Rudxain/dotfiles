@@ -15,7 +15,11 @@ else
 	npm i -g npm corepack
 fi
 
-npm i -g \
+corepack enable pnpm
+corepack use pnpm
+pnpm completion bash > \
+	"$HOME/.local/share/bash-completion/completions/pnpm"
+pnpm i -g \
 	bash-language-server \
 	typescript-language-server \
 	typescript@next
