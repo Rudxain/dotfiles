@@ -1,0 +1,56 @@
+#!/bin/sh
+
+# if login didn't export,
+# do it each interactive session
+[ -z "${__RXDF_EXPORTED:-}" ] && \. "$HOME/.sh/exports"
+
+# interactive
+[ -n "${PS1:-}" ] && \. "$HOME/.sh/aliases"
+# see ShellCheck 2262
+if [ -n "${PS1:-}" ]; then
+	paths() {
+		set -f
+		old_ifs="$IFS"
+		IFS=:
+		#shellcheck disable=2086
+		printf '%s\n' $PATH | sed "s:^$HOME:~:g"
+		IFS="$old_ifs"
+		unset old_ifs
+		set +f
+	}
+
+	cdl() { cd -- "$1" && l; }
+	cdla() { cd -- "$1" && la; }
+	mkcd() { mkdir -p -- "$1" && cd -- "$1"; }
+
+	# parent dirs
+	p() {
+		local d=./ i="${1:-1}"
+		# assert int
+		printf %d "$i" >/dev/null 2>&1 || return $?
+		[ "$i" -gt 256 ] && i=256
+		# no clobber `OLDPWD`
+		while [ "$i" -gt 0 ]; do
+			i=$((i-1))
+			d=$d../
+		done
+		cd "$d"
+	}
+
+	# GNU Disk Usage
+	fs() {
+		if [ "$#" -gt 0 ]; then
+			du -sb --si -- "$@"
+		else
+			# works poorly with `failglob`
+			du -sb --si -- .[!.]* ./* | sort -hr
+		fi
+	}
+
+	# ANSI esc-codes aren't part of POSIX :(
+	PS1='$? $(printf %s "$PWD" | sed "s:^$HOME:~:") Δ '
+fi
+
+# assert readable file
+[ -s "$HOME/.sh/ext" ] && \. "$HOME/.sh/ext"
+:
