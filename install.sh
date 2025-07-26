@@ -4,6 +4,8 @@ git pull --rebase origin main
 
 do_it() {
 	local a=()
+	[[ -z ${TERMUX_VERSION:-} ]] && \
+		a+=(--exclude .termux --exclude bin/termux-\*)
 	a+=(
 		--exclude .git/ \
 		--exclude .gitattributes \
