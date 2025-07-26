@@ -18,13 +18,13 @@ done
 unset f
 
 # is all of this correct?
-if [[ -r /etc/profile.d/bash_completion.sh ]]; then
-	export BASH_COMPLETION_COMPAT_DIR=/etc/bash_completion.d
-	\. /etc/profile.d/bash_completion.sh
+if [[ -r ${TERMUX__PREFIX:-}/etc/profile.d/bash_completion.sh ]]; then
+	export BASH_COMPLETION_COMPAT_DIR="${TERMUX__PREFIX:-}/etc/bash_completion.d"
+	\. "${TERMUX__PREFIX:-}/etc/profile.d/bash_completion.sh"
 elif ! shopt -oq posix; then
-	if [[ -f /usr/share/bash-completion/bash_completion ]]; then
-		\. /usr/share/bash-completion/bash_completion
-	elif [[ -f /etc/bash_completion ]]; then
-		\. /etc/bash_completion
+	if [[ -f ${TERMUX__PREFIX:-/usr}/share/bash-completion/bash_completion ]]; then
+		\. "${TERMUX__PREFIX:-/usr}/share/bash-completion/bash_completion"
+	elif [[ -f ${TERMUX__PREFIX:-}/etc/bash_completion ]]; then
+		\. "${TERMUX__PREFIX:-}/etc/bash_completion"
 	fi
 fi

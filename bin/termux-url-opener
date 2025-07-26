@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -o "$HOME/downloads/$(basename -- "$1")" -- "$1"
