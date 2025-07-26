@@ -20,4 +20,6 @@ export PAGER='less -S'
 # Helix
 export EDITOR=hx VISUAL=hx
 
+export TAPLO_CONFIG="$HOME/.config/taplo.toml"
+
 export __rxdf_exported=1
