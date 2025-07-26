@@ -12,6 +12,9 @@
 [user]
 	name = Rudxain
 	email = 76864299+Rudxain@users.noreply.github.com
+	# NOTE: `git config commit.gpgSign true`
+	# in repos that I don't own
+	signingkey = 0DAC837DDEF8E96C
 
 [help]
 	autoCorrect = prompt
@@ -20,7 +23,9 @@
 	aliases = config --get-regexp alias
 	copy = clone --depth=1 # shallow
 	c = commit
+	cs = commit -S
 	ca = commit -av
+	cas = commit -avS
 	l = log --pretty=oneline --graph --abbrev-commit
 	s = status -s
 	ss = status
