@@ -1,0 +1,81 @@
+# TIP: `update-index --test-untracked-cache`
+# if OK, then
+# `config set --{global,system} core.untrackedCache true`
+
+# TIP: `config feature.manyFiles true` where appropriate
+# TIP: `sparse-checkout` as a last resort
+
+[user]
+	name = Rudxain
+	email = rudxain@localhost.localdomain
+
+[help]
+	autoCorrect = prompt
+
+[alias]
+	aliases = "!git config --get-regexp alias | cut -c 7-"
+	# https://github.blog/open-source/git/get-up-to-speed-with-partial-clone-and-shallow-clone
+	# TIP: `backfill` when appropriate
+	# TIP: `rebase branch --reapply-cherry-picks`
+	clone-lazy = clone --filter=blob:none
+	# inspired by Rust 🦀
+	# ⚠️ WARN: DO NOT AMEND GRAFTED COMMITS!
+	copy = clone --depth=1 --filter=tree:0 # shallow with sparse fetch
+	co = checkout
+	bn = checkout -b # new branch
+	cb = switch # change branch
+	c = commit
+	ca = commit -av
+	l = log --pretty=oneline --graph --abbrev-commit
+	o = show --name-only
+	oo = show
+	d = diff --name-only
+	dd = diff
+	s = status -s
+	ss = status
+	statuses = branch -vv
+	b = branch
+	ba = branch -a
+	tags = tag -l
+	remotes = remote -v
+	contributors = shortlog --summary --numbered
+	# "GC"
+	bdm = "!git branch --merged | grep -v '\\*' | xargs -rn1 git branch -d"
+	rbi = "!r() { git rebase -i HEAD~$1; }; r"
+	push-force = push --force-with-lease
+
+[init]
+	# solves racism across the entirety of space-time (/s):
+	# https://sfconservancy.org/news/2020/jun/23/gitbranchname
+	defaultBranch = main
+
+[branch]
+	sort = -committerdate # recent 1st
+
+[color "branch"]
+	current = reverse green
+	local = green
+
+[remote "origin"]
+	prune = true
+
+[status]
+	showStash = true
+
+[diff]
+	renames = copies
+[diff "bin"]
+	textconv = hexdump -v -C
+
+[log]
+	date = iso
+
+[merge]
+	# summarize commits
+	log = true
+	conflictStyle = zdiff3
+
+[rebase]
+	missingCommitsCheck = error
+	# for `fixup`s
+	autoSquash = true
