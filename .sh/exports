@@ -1,10 +1,16 @@
 #!/bin/sh
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 
-export PATH="$HOME/bin:$PATH"
+PATH="$HOME/bin:$PATH"
 
 # Rust
 [ -f "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
+
+# NodeJS & NPM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+export PATH
 
 export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
@@ -16,6 +22,10 @@ export PAGER='less -S'
 
 # Helix
 export EDITOR=hx VISUAL=hx
+
+# NodeJS
+export NODE_REPL_HISTORY_SIZE="$((HISTSIZE >> 2))"
+export NODE_REPL_MODE=strict
 
 # GNU Privacy Guard
 if GPG_TTY=$(tty); then
