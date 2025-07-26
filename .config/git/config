@@ -1,0 +1,63 @@
+[core]
+	# TIP: `git config feature.manyFiles true`
+	# where appropriate
+	untrackedCache = true # speed
+
+[user]
+	name = Rudxain
+	email = rudxain@localhost.localdomain
+
+[help]
+	autoCorrect = prompt
+
+[alias]
+	aliases = config --get-regexp alias
+	copy = clone --depth=1 # shallow
+	c = commit
+	ca = commit -av
+	l = log --pretty=oneline --graph --abbrev-commit
+	s = status -s
+	ss = status
+	statuses = branch -vv
+	branches = branch -a
+	tags = tag -l
+	remotes = remote -v
+	contributors = shortlog --summary --numbered
+	# "GC"
+	bdm = "!git branch --merged | grep -v '\\*' | xargs -rn1 git branch -d"
+	rbi = "!r() { git rebase -i HEAD~$1; }; r"
+
+[init]
+	# solves racism across the entirety of space-time (/s):
+	# https://sfconservancy.org/news/2020/jun/23/gitbranchname
+	defaultBranch = main
+
+[branch]
+	sort = -committerdate # recent 1st
+
+[color "branch"]
+	current = reverse green
+	local = green
+	remote = yellow
+
+[remote "origin"]
+	prune = true
+
+[status]
+	showStash = true
+
+[diff]
+	renames = copies
+[diff "bin"]
+	textconv = hexdump -v -C
+
+[log]
+	date = iso
+
+[merge]
+	# summarize commits
+	log = true
+	conflictStyle = zdiff3
+
+[rebase]
+	missingCommitsCheck = error
