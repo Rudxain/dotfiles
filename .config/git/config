@@ -14,6 +14,9 @@
 [user]
 	name = Rudxain
 	email = 76864299+Rudxain@users.noreply.github.com
+	# NOTE: `git config commit.gpgSign true`
+	# in repos that I don't own
+	signingKey = 0DAC837DDEF8E96C
 
 [help]
 	autoCorrect = prompt
@@ -31,7 +34,9 @@
 	bn = checkout -b # new branch
 	cb = switch # change branch
 	c = commit
+	cs = commit -S
 	ca = commit -av
+	cas = commit -avS
 	l = log --pretty=oneline --graph --abbrev-commit
 	o = show --name-only
 	oo = show
