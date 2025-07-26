@@ -50,3 +50,5 @@ command -v hd >/dev/null || alias hd='hexdump -C'
 
 # intuitive map fn
 alias map='xargs -rn1'
+
+alias g=git

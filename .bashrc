@@ -17,5 +17,14 @@ do
 done
 unset f
 
-[[ -f /usr/share/bash-completion/bash_completion ]] && \
-	\. /usr/share/bash-completion/bash_completion
+bc=/usr/share/bash-completion
+
+[[ -f $bc/bash_completion ]] && \
+	\. $bc/bash_completion
+
+if [[ -f $bc/completions/git ]]; then
+	\. $bc/completions/git
+	__git_complete g __git_main
+fi
+
+unset bc

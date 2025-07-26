@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eufo pipefail
+
+case $# in
+0)
+	git config get \
+		--all --show-names \
+		--regexp '^alias\.' \
+	| cut -c 7-
+	exit 0;;
+1)
+	git config get "alias.$1"
+	exit 0;;
+*)
+	git config set "alias.$1" "$2";;
+esac
+
