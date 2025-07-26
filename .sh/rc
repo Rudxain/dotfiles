@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# login-ish
+[ -z "${__rxdf_exported:-}" ] && \. "$HOME/.sh/exports"
+
+# interactive
+[ -n "${PS1:-}" ] && \
+	for f in aliases fns prompt; do
+		\. "$HOME/.sh/$f"
+	done
+
+# assert readable file
+[ -s "$HOME/.sh/ext" ] && \. "$HOME/.sh/ext"

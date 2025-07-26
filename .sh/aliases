@@ -1,0 +1,32 @@
+#!/bin/sh
+#shellcheck disable=SC2139
+
+alias reload='exec ${SHELL} -l'
+
+alias c=clear
+
+# raw strs
+alias say="printf '%s\n'"
+
+# safety
+alias cp='cp -i'
+alias mv='mv -i'
+alias ln='ln -i'
+alias rm='rm -i'
+
+# emulate Busybox
+alias nuke='rm -rf --'
+
+# extend `autocd`
+alias ..='cd ..'
+alias ~='cd ~'
+alias -- -='cd -'
+
+f='--color=auto'
+alias l="\ls $f" ls="ls $f -p" dir="dir $f -p" vdir="vdir $f"
+alias grep="grep $f"
+unset f
+
+alias la='ls -A' ll='ls -l' lal='ls -alF'
+
+alias map='xargs -rn1'

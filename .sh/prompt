@@ -1,0 +1,28 @@
+#!/bin/sh
+
+case "$TERM" in
+	xterm-color|*-256color) color_support=y;;
+	*) color_support=n;;
+esac
+
+last_exit() {
+	local e=$?
+	[ $e -ne 0 ] && \
+		printf "${1:-}%02x${2:-} " $e
+	return $e
+}
+
+if [ $color_support = y ]; then
+	# WARN: not POSIX! this assumes Bash
+	# FIXME: it looks horrible in Dash
+	# all bold, red exit-code
+	PS1="\n\[\e[1m\]\$(last_exit \"\[\e[31m\]\" \"\[\e[0m\]\[\e[1m\]\")"
+else
+	PS1="\n\$(last_exit)"
+fi
+PS1="$PS1\w"
+
+# common suffix
+PS1="$PS1\nΔ "
+[ $color_support = y ] && PS1="$PS1\[\e[0m\]"
+unset color_support

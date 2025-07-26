@@ -1,0 +1,47 @@
+#!/bin/sh
+
+mkcd() {
+	#shellcheck disable=SC2164
+	mkdir -p -- "$1" && cd -- "$1"
+}
+
+cdls() {
+	cd -- "$1" && ls
+}
+cdla() {
+	cd -- "$1" && ls -A
+}
+
+# parent dirs
+p() {
+	local d=./ i="${1:-1}"
+	# assert int
+	printf %d "$i" >/dev/null 2>&1 || return $?
+	[ "$i" -gt 256 ] && i=256
+	# no clobber `OLDPWD`
+	while [ "$i" -gt 0 ]; do
+		i=$((i-1))
+		d=$d../
+	done
+	cd "$d"
+}
+
+fs() {
+	if [ "$#" -gt 0 ]; then
+		du -sbh -- "$@"
+	else
+		# works poorly with `failglob`
+		du -sbh -- .[!.]* ./* | sort -hr
+	fi
+}
+
+paths() {
+	set -f
+	old_ifs="$IFS"
+	IFS=:
+	#shellcheck disable=2086
+	printf '%s\n' $PATH | sed "s:^$HOME:~:g"
+	IFS="$old_ifs"
+	unset old_ifs
+	set +f
+}
