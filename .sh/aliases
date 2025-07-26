@@ -30,3 +30,5 @@ unset f
 alias la='ls -A' ll='ls -l' lal='ls -alF'
 
 alias map='xargs -rn1'
+
+alias g=git
