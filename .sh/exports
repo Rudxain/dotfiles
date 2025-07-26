@@ -10,3 +10,11 @@ export HISTFILESIZE="$HISTSIZE"
 export HISTCONTROL=ignoreboth:erasedups
 
 export PAGER='less -S'
+
+# GNU Privacy Guard
+if GPG_TTY=$(tty); then
+	export GPG_TTY
+else
+	unset GPG_TTY
+	echo '⚠️ GPG_TTY unset'
+fi
