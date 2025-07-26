@@ -1,0 +1,8 @@
+#!/bin/sh
+set -euf
+#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup update
+rustup completions bash > \
+	"$HOME/.local/share/bash-completion/completions/rustup"
+rustup completions bash cargo > \
+	"$HOME/.local/share/bash-completion/completions/cargo"
