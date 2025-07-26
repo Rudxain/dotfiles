@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for f in exports aliases fns prompt ext
+do
+	f="$HOME/.sh/$f"
+	[ -f "$f" ] && \. "$f"
+done
+unset f
