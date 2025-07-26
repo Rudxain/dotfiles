@@ -9,6 +9,23 @@ last_exit() {
 }
 
 # bold; red exit
-PS1='\n\[\e[1m\]$(last_exit "\[\e[31m\]" "\[\e[0;1m\] ")\w\n\[\e[1m\]Δ \[\e[0m\]'
+PS1='\n\[\e[1m\]$(last_exit "\[\e[31m\]" "\[\e[0;1m\] ")\w'
+
+if command -v git >/dev/null; then
+	git_b_name() {
+		git rev-parse --is-inside-work-tree &>/dev/null || return
+		# "//" unambiguously delimits paths and branches,
+		# because it should never be a substr of either
+		echo " // $(\
+			git symbolic-ref --quiet --short HEAD 2>/dev/null || \
+			git describe --all --exact-match HEAD 2>/dev/null || \
+			git rev-parse --short HEAD 2>/dev/null || \
+			echo '(?)' \
+		)"
+	}
+	PS1+='$(git_b_name)'
+fi
+
+PS1+='\n\[\e[1m\]Δ \[\e[0m\]'
 # terminals struggle styling across lines:
 # https://github.com/mathiasbynens/dotfiles/issues/930
