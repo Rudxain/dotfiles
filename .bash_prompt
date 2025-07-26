@@ -20,6 +20,21 @@ else
 fi
 PS1="$PS1\w"
 
+if command -v git >/dev/null; then
+	git_b_name() {
+		git rev-parse --is-inside-work-tree &>/dev/null || return
+		# "//" unambiguously delimits paths and branches,
+		# because it should never be a substr of either
+		echo " // $(\
+			git symbolic-ref --quiet --short HEAD 2>/dev/null || \
+			git describe --all --exact-match HEAD 2>/dev/null || \
+			git rev-parse --short HEAD 2>/dev/null || \
+			echo '(?)' \
+		)"
+	}
+	PS1="$PS1\$(git_b_name)"
+fi
+
 # re-bold because terminals struggle styling across lines:
 # https://github.com/mathiasbynens/dotfiles/issues/930
 PS1="$PS1\n\[\e[1m\]Δ "
