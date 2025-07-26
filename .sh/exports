@@ -17,6 +17,10 @@ export PAGER='less -S'
 # Helix
 export EDITOR=hx VISUAL=hx
 
+# NodeJS
+export NODE_REPL_HISTORY_SIZE="$((HISTSIZE >> 2))"
+export NODE_REPL_MODE=strict
+
 # GNU Privacy Guard
 if GPG_TTY=$(tty); then
 	export GPG_TTY
