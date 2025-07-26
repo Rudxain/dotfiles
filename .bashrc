@@ -21,6 +21,9 @@ if [[ -n ${PS1:-} ]]; then
 	[[ $(type -t __git_complete) = function ]] && __git_complete g __git_main
 
 	unset bc
+
+	# NodeJS & NPM
+	[[ -s $NVM_DIR/bash_completion ]] && \. "$NVM_DIR/bash_completion"
 fi
 
 # assert readable file

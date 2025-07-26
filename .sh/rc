@@ -16,6 +16,9 @@ if [ -n "${PS1:-}" ]; then
 		unset GPG_TTY
 		echo '⚠️ GPG_TTY unset'
 	fi
+
+	# NodeJS & NPM
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 fi
 
 # assert readable file
