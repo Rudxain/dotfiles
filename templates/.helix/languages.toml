@@ -1,0 +1,4 @@
+[[language]]
+name = "rust"
+language-servers = []
+formatter = { command = "rustfmt", args = ["--edition", "2024"] }
