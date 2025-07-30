@@ -1,0 +1,16 @@
+[package]
+name = ""
+version = "0.1.0"
+edition = "2024"
+
+[lints.clippy]
+undocumented_unsafe_blocks = "forbid"
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -2 }
+
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = "fat"
+strip = true
+panic = "abort"
