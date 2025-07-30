@@ -5,9 +5,16 @@ theme = "dl"
 # rm `line-numbers`, because statusline is enough
 gutters.layout = ["diagnostics", "spacer", "diff"]
 word-completion = { enable = true, trigger-length = 3 }
+cursor-shape = { normal = "block", insert = "bar", select = "underline" }
 
 [editor.statusline]
-mode = { normal = "(0)", insert = " >_", select = "[v]" }
+# no "mode"
+left = [
+	"spinner",
+	"file-name",
+	"read-only-indicator",
+	"file-modification-indicator",
+]
 # `total-line-numbers` is an alt for `position-percentage`.
 # Despite my love for fractions, "%" is complementary
 # (presentation-wise, not information-wise)
