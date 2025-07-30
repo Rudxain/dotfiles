@@ -1,0 +1,12 @@
+[[language]]
+name = "markdown"
+# https://github.com/helix-editor/helix/issues/12594
+# https://github.com/helix-editor/helix/pull/9018
+soft-wrap.enable = true
+
+[[language]]
+name = "rust"
+# RA is bloated:
+# https://github.com/rust-lang/rust-analyzer/issues/19402
+language-servers = [] # rm rust-analyzer
+formatter = { command = "rustfmt", args = ["--edition", "2024"] }
