@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- lowercase, for compression -->
+<html lang=en-us>
+
+<head>
+	<!--
+	Order is important for performance reasons!
+	https://dev.to/richarddillman/head-tags-organized-1c7p
+	See also:
+	https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/dns-prefetch
+	https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preconnect
+	https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/HTML
+	-->
+	<meta charset=utf-8>
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<!--<link rel=stylesheet href=main.css>-->
+	<style>
+		html {
+			font-family: sans-serif;
+			text-align: center;
+		}
+	</style>
+	<meta name=color-scheme content="light dark">
+	<!--<link rel=icon type=image/xml+svg href=i.svg>-->
+	<title>🏠 Home</title>
+	<meta name=description content="Example page">
+	<!--<link rel=canonical href=https://example.org>-->
+	<!--<link rel=manifest href=m.webmanifest>-->
+	<!-- Remember OpenGraph for public-facing pages: https://ogp.me/ -->
+</head>
+
+<body>
+	<!--<script src=main.js></script>-->
+	<script>
+		"use strict"
+		// mock the user (and myself) behind their back, lol
+		console.log("JS enabled. NPC detected.")
+	</script>
+	<header>
+		<!--<nav></nav>-->
+	</header>
+
+	<main>
+		<h1>Title</h1>
+		<p>Hello world!</p>
+		<noscript>
+			<p>You disabled JS! Based 🗿</p>
+		</noscript>
+	</main>
+
+	<footer>
+		<p style=font-family:monospace>
+			@<span style=color:red>Rud</span><span style=color:cyan>xain</span>
+		</p>
+		<p>
+			<a href=https://rudxain.github.io>My website</a>
+		</p>
+	</footer>
+</body>
