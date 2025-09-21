@@ -32,6 +32,8 @@
 	# inspired by Rust 🦀
 	# ⚠️ WARN: DO NOT AMEND GRAFTED COMMITS!
 	copy = clone --depth=1 --filter=tree:0 # shallow with sparse fetch
+	# https://stackoverflow.com/a/47402413
+	cp = !cp "$@" && git add . && :
 	co = checkout
 	bc = switch -c
 	cb = switch # change branch
