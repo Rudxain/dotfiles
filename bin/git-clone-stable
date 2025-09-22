@@ -1,0 +1,42 @@
+#!/bin/sh
+set -eufo pipefail
+
+# emulate `fetch --unshallow` but gradually
+
+cd "$(
+	git clone --depth=1 --filter=blob:none "$@" | \
+	# -E useless?
+	grep -E "^Cloning into '[^']+'...$" | \
+	# this could be optimized by slicing
+	grep -o "'[^']+'" | \
+	grep -o "[^']+"
+)"
+
+i=1
+# exponential, like binary search
+while git fetch --depth=$i
+do
+	i=$((i+i))
+done
+
+[ $i -gt 1 ] && i=$((i>>1))
+
+if [ $i -gt 1 ]; then
+	m=$((i>>1))
+else
+	m=1
+fi
+
+# linear and/or quadratic
+while true; do
+	i=$((i+m))
+	if git fetch --depth=$i
+	then
+		m=$((m+1))
+	else
+		i=$((i-1))
+		m=$((m-1))
+		[ $i -le 1 ] && break
+	fi
+done
+# this requires the user to interrupt manually
