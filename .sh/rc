@@ -55,9 +55,6 @@ if [ -n "${PS1:-}" ]; then
 		echo '⚠️ GPG_TTY unset'
 	fi
 
-	# NodeJS & NPM
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
 	# ANSI esc-codes aren't part of POSIX :(
 	PS1='$? $(printf %s "$PWD" | sed "s:^$HOME:~:") Δ '
 fi
