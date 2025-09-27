@@ -11,8 +11,12 @@ esac
 # Rust
 [ -f "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
 
-# NodeJS Version Manager
-export NVM_DIR="$HOME/.nvm"
+# NodeJS & NPM
+FNM_PATH="$HOME/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+	export PATH="$FNM_PATH:$PATH"
+	eval "$(fnm env)"
+fi
 
 export PATH
 
