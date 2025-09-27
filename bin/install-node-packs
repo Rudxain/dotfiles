@@ -5,12 +5,8 @@ if [ -n "${TERMUX_VERSION:-}" ]; then
 	pkg i nodejs
 	# https://github.com/termux/termux-packages/issues/13293
 else
-	set +euf
-	# NVM should be installed manually
-	. "$NVM_DIR/nvm.sh"
-	nvm install node --reinstall-packages=node || exit $?
-	nvm alias default node || exit $?
-	set -euf
+	# FNM should be installed manually
+	fnm install --latest
 	npm i -g npm
 fi
 
