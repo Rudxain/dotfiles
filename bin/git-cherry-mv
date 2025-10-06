@@ -1,0 +1,14 @@
+#!/bin/sh
+set -euf
+
+# Move commit `$3` from branch `$1` to branch `$2`,
+# assuming a common base,
+# typically `main`/`master`.
+# This might be unsafe if done automatically,
+# so check the result!
+
+git switch -c -- "$2"
+git cherry-pick -- "$3"
+git switch -- "$1"
+# avoid interactive `drop`
+git rebase --onto -- "$3"^ "$3"
