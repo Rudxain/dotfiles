@@ -93,6 +93,8 @@
 
 [diff]
 	renames = copies
+	wordRegex = "[[:alnum:]]+|[^[:space:]]"
+
 [diff "bin"]
 	textconv = hexdump -v -C
 
