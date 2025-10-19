@@ -1,0 +1,16 @@
+$include /etc/inputrc
+
+# smart up/down
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+
+set completion-prefix-display-length 3
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set completion-query-items 128
+set colored-stats on
+set visible-stats on
+set mark-symlinked-directories on
+set match-hidden-files off
+set page-completions off
+set skip-completed-text on
