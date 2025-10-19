@@ -5,6 +5,7 @@ theme = "dl"
 # rm `line-numbers`, because statusline is enough
 gutters.layout = ["diagnostics", "spacer", "diff"]
 word-completion = { enable = true, trigger-length = 3 }
+cursorline = true
 cursor-shape = { normal = "block", insert = "bar", select = "underline" }
 
 [editor.statusline]
