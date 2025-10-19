@@ -44,3 +44,9 @@ command = "clippy"
 workspace = false
 [language-server.rust-analyzer.config.cachePriming]
 enable = false
+
+
+[[language]]
+name = "html"
+# rm vscode
+language-servers = ["superhtml"]
