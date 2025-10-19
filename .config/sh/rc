@@ -20,6 +20,9 @@ export LANG=C.UTF-8
 # https://github.com/rust-lang/rustup/issues/4532
 export RUSTUP_AUTO_INSTALL=0
 
+# JS/TS
+[ -f "$HOME/.deno/env" ] && . "$HOME/.deno/env"
+
 export HISTSIZE="$((1 << 16))"
 export HISTFILESIZE="$HISTSIZE"
 export HISTCONTROL=ignoreboth:erasedups
