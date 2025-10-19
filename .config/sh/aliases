@@ -37,5 +37,7 @@ alias nuke='rm -rf --'
 
 alias map='xargs -rn1'
 
-# I don't need ripgrep, `hx` global-search and `git` are enough
+# I don't need ripgrep, `hx` global-search and `g` are enough
 alias rgrep='grep -rn --color'
+
+alias g=git
