@@ -44,3 +44,8 @@ command = "clippy"
 workspace = false
 [language-server.rust-analyzer.config.cachePriming]
 enable = false
+
+
+[[language]]
+name = "markdown"
+word-completion.trigger-length = 1

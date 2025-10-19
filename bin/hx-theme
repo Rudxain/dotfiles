@@ -5,8 +5,8 @@ readonly d="${HOME}/.config/helix/themes/"
 readonly f="${d}dl.toml"
 
 case "${1:-}" in
-	d) t=everforest_dark;;
-	l) t=everforest_light;;
+	d) t=omicron_dark;;
+	l) t=omicron_light;;
 	*) t="${1:-}";;
 esac
 readonly t
