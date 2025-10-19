@@ -10,6 +10,7 @@ do_it() {
 		--exclude install.sh \
 		--exclude README\* \
 		--exclude LICENSE \
+		--exclude prompt.svg \
 		-avh --no-perms . ~
 	)
 	rsync "${a[@]}"
