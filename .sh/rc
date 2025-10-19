@@ -20,6 +20,14 @@ if [ -n "${PS1:-}" ]; then
 		fi
 	}
 
+	# GNU Privacy Guard Agent
+	if GPG_TTY="$(tty)"; then
+		export GPG_TTY
+	else
+		unset GPG_TTY
+		echo '⚠️ GPG_TTY unset'
+	fi
+
 	# ANSI esc-codes aren't POSIX
 	PS1='$? $(printf %s "$PWD" | sed "s:^$HOME:~:") Δ '
 fi

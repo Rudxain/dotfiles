@@ -16,6 +16,9 @@
 [user]
 	name = Rudxain
 	email = 76864299+Rudxain@users.noreply.github.com
+	# NOTE: `config set commit.gpgSign true`
+	# in repos that I don't own
+	signingKey = 0DAC837DDEF8E96C
 
 [help]
 	autoCorrect = prompt
@@ -44,7 +47,9 @@
 	# IDC if default ever becomes `soft`.
 	uncommit = reset HEAD~
 	c = commit
+	cs = commit -S
 	ca = commit -av
+	cas = commit -avS
 	l = log --oneline
 	lg = log --oneline --graph
 	ll = log --name-only
