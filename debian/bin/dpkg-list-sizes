@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eufo pipefail
+dpkg-query -Wf '${Installed-size}\t${Package}\n' | \
+	sort -rn | pager
