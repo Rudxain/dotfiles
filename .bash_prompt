@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# assume terminal supports ANSI esc-codes
+
+last_exit() {
+	local e=$?
+	# inlining args breaks the prompt
+	[ $e -ne 0 ] && printf "${1:-}%02x${2:-}" $e
+	return $e
+}
+
+# bold; red exit
+PS1='\n\[\e[1m\]$(last_exit "\[\e[31m\]" "\[\e[0;1m\] ")\w\nΔ \[\e[0m\]'
