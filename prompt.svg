@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 16 8" xmlns="http://www.w3.org/2000/svg">
+<style>
+	* {font: bold 1px monospace}
+	@media(prefers-color-scheme: dark){text{fill:white}}
+	@keyframes m {50% {transform: translateX(-3ch)}}
+	<!-- `visibility:hidden` un-syncs -->
+	@keyframes a {50% {opacity: 0}}
+</style>
+<text x="0" y="2" style="animation: m 2s infinite step-start alternate">
+	<tspan style="fill:red; animation: a 2s infinite step-start alternate">01</tspan>
+	<tspan style="fill:blue">~/dotfs</tspan>
+	<tspan style="fill:yellow">main</tspan>
+</text>
+<text x="0" y="3">Δ </text>
+</svg>
