@@ -18,6 +18,9 @@ export LANG=C.UTF-8
 [ -f "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
 export RUSTUP_AUTO_INSTALL=0
 
+# JS/TS
+[ -f "$HOME/.deno/env" ] && \. "$HOME/.deno/env"
+
 export HISTSIZE="$((1 << 16))"
 export HISTFILESIZE="$HISTSIZE"
 export HISTCONTROL=ignoreboth:erasedups
