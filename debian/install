@@ -29,30 +29,51 @@ readonly pack_ls
 
 # to reduce time between auto-marking & installing,
 # we must config now
-cp etc/apt.conf /etc/apt/apt.conf
+cp etc/apt.conf "${TERMUX__PREFIX:-}/etc/apt/apt.conf"
 
 echo '`auto`-`mark`ing...'
 # cleanup
 apt-mark auto \* >/dev/null
 echo 'Marked all packs as auto!'
 
-apt-get update
+# https://wiki.termux.com/wiki/Package_Management#Using_the_package_manager
+if command -v pkg >/dev/null; then
+	echo '`pkg` found'
+	pkg i -y -- $pack_ls
 
-apt-get install -y -- $pack_ls
+	apt-get autopurge
 
-apt-get autopurge
+	pkg upgrade -y
+else
+	echo '`pkg` not found'
+	apt-get update
 
-apt-get upgrade -y
+	apt-get install -y -- $pack_ls
+
+	apt-get autopurge
+
+	apt-get upgrade -y
+fi
+
+readonly USR=${TERMUX__PREFIX:-/usr}
 
 set +f
 shopt -s failglob
 
-mkdir -p /usr/local/sbin/
-install -- sbin/* /usr/local/sbin/
-mkdir -p /usr/local/bin/
-install -- bin/* /usr/local/bin/
+mkdir -p "$USR/local/sbin/"
+install -- sbin/* "$USR/local/sbin/"
+mkdir -p "$USR/local/bin/"
+install -- bin/* "$USR/local/bin/"
 
 set -f
+
+if [ -n "${TERMUX__PREFIX:-}" ]; then
+	path=$'PATH="$TERMUX__PREFIX/local/bin:$PATH"\n'
+	path+=$'PATH="$TERMUX__PREFIX/local/sbin:$PATH"\n'
+	# Android
+	path+=$'export PATH="$PATH:/system/bin"'
+	echo "$path" > "$TERMUX__PREFIX/etc/profile.d/path.sh"
+fi
 
 # assume AA is set-up
 # https://wiki.debian.org/AppArmor/HowToUse#Enable_AppArmor
