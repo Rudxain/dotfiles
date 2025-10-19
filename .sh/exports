@@ -9,12 +9,7 @@ export LANG=C.UTF-8
 [ -f "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
 export RUSTUP_AUTO_INSTALL=0
 
-# NodeJS & NPM
-FNM_PATH="$HOME/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-	export PATH="$FNM_PATH:$PATH"
-	eval "$(fnm env)"
-fi
+[ -f "$HOME/.deno/env" ] && \. "$HOME/.deno/env"
 
 export HISTSIZE=$((1 << 16))
 export HISTFILESIZE=$HISTSIZE
@@ -24,10 +19,6 @@ export PAGER='less -S'
 
 # Helix
 export EDITOR=hx VISUAL=hx
-
-# NodeJS
-export NODE_REPL_HISTORY_SIZE="$((HISTSIZE >> 4))"
-export NODE_REPL_MODE=strict
 
 export TAPLO_CONFIG="$HOME/.config/taplo.toml"
 

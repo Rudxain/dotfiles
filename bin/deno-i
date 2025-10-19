@@ -1,0 +1,5 @@
+#!/bin/sh
+deno i -gf --config "$HOME/deno.json" --allow-read="$HOME" npm:typescript@next/bin/tsc -n tsc
+deno i -gf --config "$HOME/deno.json" --allow-read="$HOME" npm:typescript@next/bin/tsserver -n tsserver
+deno i -gf --config "$HOME/deno.json" -A npm:typescript-language-server
+deno i -gf --config "$HOME/deno.json" -A npm:bash-language-server
