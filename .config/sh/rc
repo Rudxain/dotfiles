@@ -26,6 +26,8 @@ export PAGER='less -S'
 # Helix
 export EDITOR=hx VISUAL=hx
 
+export TAPLO_CONFIG="$HOME/.config/taplo.toml"
+
 [ -n "${PS1:-}" ] && \. "$HOME/.config/sh/aliases"
 # SC2262
 if [ -n "${PS1:-}" ]; then
