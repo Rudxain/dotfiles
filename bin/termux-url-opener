@@ -1,0 +1,3 @@
+#!/bin/sh
+# https://github.com/termux/termux-app/issues/329
+curl -LOJ --clobber --output-dir "$HOME/downloads" -- "$1"
