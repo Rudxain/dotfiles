@@ -1,0 +1,69 @@
+#!/bin/sh
+set -eufo pipefail
+
+# for big repos and/or bad network connection
+
+cd "$(
+	# TO-DO: use `tee` to make output visible to user
+	git clone --depth=1 --filter=blob:none "$@" 2>&1 | \
+	# `-n` is not needed if we rm `/p`
+	sed -En "s/Cloning into (bare repository )?'(.+)'.../\2/p"
+)"
+
+is_done() {
+	[ "$(git rev-parse --is-shallow-repository)" = false ]
+}
+
+# emulate `fetch --unshallow`, gradually
+
+# assume commit_count > 1
+i=2
+echo 'Begin exponential fetch...'
+# "binary search"
+while git fetch --depth=$i; do
+	i=$((i+i))
+	is_done && exit || :
+done
+
+echo 'Fail: roll-back to last successful depth...'
+
+i=$((i>>1))
+
+if [ $i -gt 1 ]; then
+	m=$((i>>1))
+else
+	m=1
+fi
+
+echo 'Begin linear/quadratic-ish fetch...'
+
+max_fail="${GIT_FETCH_LIN_MAX_FAIL:-}"
+
+# https://github.com/koalaman/shellcheck/issues/3067#issuecomment-3359293981
+is_uint() {
+	printf %d "$1" >/dev/null 2>&1 && [ "$1" -ge 0 ]
+}
+
+if ! is_uint "$max_fail"; then
+	max_fail=4
+fi
+
+readonly max_fail
+
+fails=0
+while ! is_done; do
+	i=$((i+m))
+	if git fetch --depth=$i; then
+		# speed-up
+		m=$((m+1))
+	else
+		fails=$((fails+1))
+		[ $fails -ge "$max_fail" ] && exit 3
+		# rollback to last successful depth
+		i=$((i-m))
+		# back off a little
+		m=$((m-1))
+		# avoid re-shallowing
+		[ $m -le 0 ] && break
+	fi
+done
