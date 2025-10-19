@@ -1,0 +1,14 @@
+#!/bin/sh
+set -euf
+
+readonly p="$HOME/.termux/"
+
+case "${1:-}" in
+	d) t=dark;;
+	l) t=light;;
+	*) t="$1";;
+esac
+readonly t
+
+ln -sfT "${p}${t}.properties" "${p}colors.properties"
+termux-reload-settings

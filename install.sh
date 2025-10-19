@@ -4,6 +4,8 @@ git pull -r
 
 do_it() {
 	local a=()
+	[[ -z ${TERMUX_VERSION:-} ]] && \
+		a+=(--exclude .termux --exclude bin/termux-\* --exclude .local/bin/termux-\*)
 	a+=(
 		--exclude .git/ \
 		--exclude .gitattributes \
