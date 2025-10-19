@@ -1,5 +1,9 @@
 [[language]]
 name = "toml"
+# https://github.com/tamasfe/taplo/issues/580#issuecomment-2004174721
+roots = ["."]
+language-servers = ["taplo"]
+formatter = { command = "taplo", args = ["format", "-"] }
 auto-format = true
 
 [[language]]
