@@ -3,7 +3,8 @@
 # interactive
 if [[ -n ${PS1:-} ]]; then
 	# `-H` obsoleted by `inputrc`,
-	# and `"\!"` being "\!" instead of "!" is annoying
+	# and `"\!"` being "\!" instead of "!" is annoying;
+	# see `./debian/bin`
 	set +H
 	shopt -s checkwinsize histappend autocd globstar nullglob
 
