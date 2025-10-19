@@ -1,0 +1,5 @@
+#!/bin/sh
+deno i -gfr --allow-read="$HOME" npm:typescript@next/bin/tsc -n tsc
+deno i -gfr --allow-read="$HOME" npm:typescript@next/bin/tsserver -n tsserver
+deno i -gfr -A npm:typescript-language-server
+deno i -gfr -A npm:bash-language-server
