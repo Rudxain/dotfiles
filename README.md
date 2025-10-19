@@ -43,7 +43,7 @@ Non-Termux:
 cd
 wget -qO- https://github.com/Rudxain/dotfiles/tarball/main |
 tar -xzv --strip-components 1 \
-	--exclude={.termux,bin/termux-\*,.local/bin/termux-\*,.gitattributes,install.sh,README\*,LICENSE,prompt.svg} \
+	--exclude={.termux,bin/termux-\*,.local/bin/termux-\*,.gitattributes,debian,install.sh,README\*,LICENSE,prompt.svg} \
 && \. .profile
 ```
 
@@ -52,7 +52,7 @@ Termux:
 cd
 curl -#L https://github.com/Rudxain/dotfiles/tarball/main |
 tar -xzv --strip-components 1 \
-	--exclude={.gitattributes,install.sh,README\*,LICENSE,prompt.svg} \
+	--exclude={.gitattributes,debian,install.sh,README\*,LICENSE,prompt.svg} \
 && \. .profile
 ```
 

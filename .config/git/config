@@ -1,6 +1,6 @@
 # TIP: `update-index --test-untracked-cache`
 # if OK, then
-# `config set --{global,system} core.untrackedCache true`
+# `config set --global core.untrackedCache true`
 
 # TIP: `config set feature.manyFiles true` where appropriate
 
