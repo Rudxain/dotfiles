@@ -1,0 +1,32 @@
+# https://github.com/helix-editor/helix/discussions/10281
+theme = "everforest_dark"
+#theme = "everforest_light"
+
+[editor]
+# rm `line-numbers`, because statusline is enough
+gutters.layout = ["diagnostics", "spacer", "diff"]
+word-completion = { enable = true, trigger-length = 3 }
+cursorline = true
+
+# why not show `mode` via `cursor-shape` instead of status-line?
+# gnome-term renders thin lines
+
+[editor.statusline]
+mode = { normal = "(0)", insert = " >_", select = "[v]" }
+# `total-line-numbers` is an alt for `position-percentage`.
+# Despite my love for fractions, "%" is complementary
+# (presentation-wise, not information-wise)
+# and it's always short
+right = [
+	"diagnostics",
+	"selections",
+	"register",
+	"position-percentage",
+	"position",
+	"file-encoding",
+]
+
+[editor.lsp]
+display-inlay-hints = true
+inlay-hints-length-limit = 16
+display-progress-messages = true
