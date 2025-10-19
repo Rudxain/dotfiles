@@ -51,3 +51,5 @@ alias map='xargs -rn1'
 alias rgrep='grep -rIn --color'
 
 alias g=git
+
+alias js='deno repl'
