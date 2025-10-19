@@ -1,0 +1,29 @@
+#!/bin/sh
+# if login didn't export, do it each interactive session
+[ -z "${__RXDF_EXPORTED:-}" ] && \. "$HOME/.sh/exports"
+
+# interactive
+[ -n "${PS1:-}" ] && \. "$HOME/.sh/aliases"
+# see ShellCheck 2262
+if [ -n "${PS1:-}" ]; then
+	cdl() { cd -- "$1" && l; }
+	cdla() { cd -- "$1" && la; }
+	mkcd() { mkdir -p -- "$1" && cd -- "$1"; }
+
+	# GNU Disk Usage
+	fs() {
+		if [ "$#" -gt 0 ]; then
+			du -sb --si -- "$@"
+		else
+			# works poorly with `failglob`
+			du -sb --si -- .[!.]* ./* | sort -hr
+		fi
+	}
+
+	# ANSI esc-codes aren't POSIX
+	PS1='$? $(printf %s "$PWD" | sed "s:^$HOME:~:") Δ '
+fi
+
+# assert readable file
+[ -s "$HOME/.sh/ext" ] && \. "$HOME/.sh/ext"
+:

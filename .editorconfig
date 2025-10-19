@@ -1,0 +1,28 @@
+root = true
+
+[*]
+charset = UTF-8
+end_of_line = lf
+indent_style = tab
+indent_size = 4
+trim_trailing_whitespace = true
+
+# POSIX compliance
+# https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html#tag_03_185
+[.sh/*]
+insert_final_newline = true
+
+# https://github.com/editorconfig/editorconfig/issues/528#issuecomment-3123821780
+#[*.{,ba,b,da,k,mk,z}sh]
+[*.sh]
+insert_final_newline = true
+[*.{ba,b,da,k,mk,z}sh]
+insert_final_newline = true
+
+[.bashrc]
+insert_final_newline = true
+[.bash_*]
+insert_final_newline = true
+
+[bin/*]
+insert_final_newline = true

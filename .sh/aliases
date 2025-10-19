@@ -1,0 +1,38 @@
+#!/bin/sh
+#shellcheck disable=2139
+if command -v rlwrap >/dev/null; then
+	alias sh="rlwrap -c -g '^ ' -s$HISTSIZE sh"
+	alias dash="rlwrap -c -g '^ ' -s$HISTSIZE dash"
+fi
+
+alias reload='exec "$SHELL" -l'
+
+alias c=clear
+
+# raw strs
+alias e="printf '%s\n'"
+
+#shellcheck disable=2139
+if command ls --color >/dev/null 2>&1; then
+	f='--color=auto'
+	alias l="\ls $f" ls="ls $f -p" dir="dir $f -p" vdir="vdir $f"
+	alias grep="grep $f"
+	unset f
+fi
+alias la='ls -A' ll='ls -l' lal='ls -alF'
+
+# extend `autocd`
+alias ..='cd ..' ~='cd ~'
+# `--` is literal in POSIX
+alias -- -='cd -' 2>/dev/null
+
+# safety
+alias cp='cp -i'
+alias mv='mv -i'
+alias ln='ln -i'
+alias rm='rm -i'
+
+# emulate Busybox
+alias nuke='rm -rf --'
+
+alias map='xargs -rn1'

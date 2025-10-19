@@ -1,0 +1,14 @@
+#!/bin/sh
+export ENV="$HOME/.sh/rc"
+
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
+export LANG=C.UTF-8
+
+export HISTSIZE=$((1 << 16))
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoreboth:erasedups
+
+export PAGER='less -S'
+
+export __RXDF_EXPORTED=1
