@@ -1,6 +1,10 @@
 # Rudxain's .files
 Based on [this](https://github.com/mathiasbynens/dotfiles)
 
+Here's how my `.bash_prompt` looks like:
+
+![](prompt.svg)
+
 You can use `~/.config/sh/ext` ([POSIX](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html)) and `~/.bash_ext` to:
 - add custom cmds without forking this entire repo
 - add private data
@@ -39,7 +43,7 @@ Non-Termux:
 cd
 wget -qO- https://github.com/Rudxain/dotfiles/tarball/main | \
 tar -xzv --strip-components 1 \
-'--exclude={.termux,bin/termux-*,.local/bin/termux-*,.gitattributes,debian,install.sh,README*,LICENSE}' \
+'--exclude={.termux,bin/termux-*,.local/bin/termux-*,.gitattributes,debian,install.sh,README*,LICENSE,prompt.svg}' \
 && \. .profile
 ```
 
@@ -47,7 +51,7 @@ Termux:
 ```sh
 cd
 curl -#L https://github.com/Rudxain/dotfiles/tarball/main | \
-tar -xzv --strip-components 1 --exclude={.gitattributes,debian,install.sh,README\*,LICENSE} \
+tar -xzv --strip-components 1 --exclude={.gitattributes,debian,install.sh,README\*,LICENSE,prompt.svg} \
 && \. .profile
 ```
 
