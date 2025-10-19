@@ -27,6 +27,19 @@ alias ~='cd ~'
 # `--` is literal in POSIX
 alias -- -='cd -' 2>/dev/null
 
+if [ -n "${TERMUX_VERSION:-}" ]; then
+	# I hate Samsung, but dex is a good short name
+	alias cdex="cd $EXTERNAL_STORAGE" #/sdcard
+
+	alias cbg=termux-clipboard-get
+	alias cbs=termux-clipboard-set
+else
+	alias cdex='cd ~/Desktop'
+
+	alias cbg=wl-paste
+	alias cbs=wl-copy
+fi
+
 # safety
 alias cp='cp -i'
 alias mv='mv -i'
