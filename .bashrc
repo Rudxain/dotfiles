@@ -11,9 +11,17 @@ if [[ -n ${PS1:-} ]]; then
 
 	\. ~/.bash_prompt
 
-	#shellcheck external-sources=false
-	[[ -z ${BASH_COMPLETION_VERSINFO:-} && -f /usr/share/bash-completion/bash_completion ]] && \
-		\. /usr/share/bash-completion/bash_completion
+	bc=/usr/share/bash-completion
+
+	[[ -z ${BASH_COMPLETION_VERSINFO:-} && -f $bc/bash_completion ]] && \
+		\. $bc/bash_completion
+
+	if ! declare -F __git_complete &>/dev/null; then
+		[[ -f $bc/completions/git ]] && \. $bc/completions/git
+	fi
+	declare -F __git_complete &>/dev/null && __git_complete g __git_main
+
+	unset bc
 fi
 
 # assert readable
