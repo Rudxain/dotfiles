@@ -8,6 +8,8 @@ export LANG=C.UTF-8
 # Rust
 [ -f "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
 
+[ -f "$HOME/.deno/env" ] && \. "$HOME/.deno/env"
+
 export HISTSIZE=$((1 << 16))
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoreboth:erasedups
