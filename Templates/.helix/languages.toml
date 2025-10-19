@@ -1,0 +1,13 @@
+[[language]]
+name = "markdown"
+# https://github.com/helix-editor/helix/issues/12594
+# https://github.com/helix-editor/helix/pull/9018
+soft-wrap.enable = true
+
+[[language]]
+name = "rust"
+# RA is bloated and insecure:
+# https://github.com/rust-lang/rust-analyzer/issues/19402
+# https://shnatsel.medium.com/do-not-run-any-cargo-commands-on-untrusted-projects-4c31c89a78d6
+language-servers = [] # rm rust-analyzer
+formatter = { command = "rustfmt", args = ["--edition", "2024"] }
