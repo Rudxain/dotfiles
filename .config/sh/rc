@@ -1,0 +1,49 @@
+#!/bin/sh
+#set -x
+# support early debug in interactive mode
+if [ -n "${PS1:-}" ]; then
+	PS4='+ $LINENO '
+	[ -n "${BASH_VERSION:-}" ] && \
+		PS4='+ ${BASH_SOURCE[0]} ${FUNCNAME[0]} $LINENO '
+fi
+
+export ENV="$HOME/.config/sh/rc"
+case ":${PATH}:" in
+	*:"$HOME/.local/bin":*);;
+	*) export PATH="$HOME/.local/bin:$PATH";;
+esac
+
+export LANG=C.UTF-8
+
+export HISTSIZE="$((1 << 16))"
+export HISTFILESIZE="$HISTSIZE"
+export HISTCONTROL=ignoreboth:erasedups
+
+export INPUTRC="$HOME/.config/inputrc"
+
+export PAGER='less -S'
+
+[ -n "${PS1:-}" ] && \. "$HOME/.config/sh/aliases"
+# SC2262
+if [ -n "${PS1:-}" ]; then
+	cdl() { cd -- "$1" && l; }
+	cdla() { cd -- "$1" && la; }
+	mkcd() { mkdir -p -- "$1" && cd -- "$1"; }
+
+	fs() {
+		# depends on GNU Disk Usage
+		if [ "$#" -gt 0 ]; then
+			du -sb --si -- "$@"
+		else
+			du -abd1 --si | sort -hr
+		fi
+	}
+
+	# ANSI esc-codes aren't POSIX
+	PS1='$? $(printf %s "$PWD" | sed "s:^$HOME:~:") Δ '
+fi
+
+# assert readable
+if [ -s "$HOME/.config/sh/ext" ]; then
+	\. "$HOME/.config/sh/ext"
+fi
