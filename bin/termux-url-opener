@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -LOJ --clobber --output-dir "$HOME/downloads" -- "$1"

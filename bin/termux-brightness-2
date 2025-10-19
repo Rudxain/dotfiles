@@ -1,0 +1,22 @@
+#!/bin/sh
+set -euf
+
+usage='Usage: termux-brightness-2 brightness
+Set the screen brightness between 0 and 8'
+
+if [ $# -ne 1 ]; then
+	echo "$usage"
+	exit 0
+fi
+
+case "$1" in [012345678]);;
+*)
+	printf '%s\n%s' 'ERROR: Arg must be an integer between 0 - 8 !' "$usage"
+	exit 1;;
+esac
+
+readonly arg="$1"
+
+# indirectly call `termux-api`,
+# for forwards-compatibility
+termux-brightness "$((~(-1 << arg)))"
