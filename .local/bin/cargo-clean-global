@@ -1,0 +1,27 @@
+#!/bin/sh
+set -eufo pipefail
+IFS='
+'
+
+# see also: cargo-sweep
+
+# if cargo was installed via `rustup`,
+# assume nightly (my pref),
+# otherwise default (Termux)
+export RUSTUP_TOOLCHAIN=nightly
+
+# Assume no paths contain "\n".
+# `find -print0 | xargs -0` is safer,
+# but it'd require either:
+# - exec `sh` for each path (slow),
+# - passing all paths as args to `sh` (a bit more mem)
+# - using bash's `read`, which supports null-split
+find "$HOME" -maxdepth 3 -type f -name Cargo.toml |
+	while read -r dir; do
+		# faster than `dirname`
+		dir="${dir%??????????}"
+		cd "$dir"
+		printf '%s\n' "cleaning $dir"
+		# use `cd` cause `-C` is nightly-only
+		cargo clean || true
+	done
