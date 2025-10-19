@@ -1,0 +1,12 @@
+[alias]
+# https://github.com/rust-lang/cargo/issues/4150#issuecomment-2127056008
+i = ["install", "--config", "build.rustflags=\"-C target-cpu=native\""]
+# build-fast
+bf = "build --profile dev-fast"
+
+# https://github.com/rust-lang/cargo/issues/15931
+[profile.dev-fast]
+inherits = "dev"
+debug = 0 # better than `strip`
+opt-level = 0
+incremental = true
