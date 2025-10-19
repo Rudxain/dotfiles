@@ -9,6 +9,7 @@ do_it() {
 	a+=(
 		--exclude .git/ \
 		--exclude .gitattributes \
+		--exclude debian \
 		--exclude install.sh \
 		--exclude README\* \
 		--exclude LICENSE \

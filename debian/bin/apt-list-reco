@@ -1,0 +1,2 @@
+#!/bin/sh
+aptitude search '~i ~M ~Rrecommends:~i !~Rdepends:~i !~E !~prequired' --disable-columns -F%p
