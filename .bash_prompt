@@ -9,4 +9,6 @@ last_exit() {
 }
 
 # bold; red exit
-PS1='\n\[\e[1m\]$(last_exit "\[\e[31m\]" "\[\e[0;1m\] ")\w\nΔ \[\e[0m\]'
+PS1='\n\[\e[1m\]$(last_exit "\[\e[31m\]" "\[\e[0;1m\] ")\w\n\[\e[1m\]Δ \[\e[0m\]'
+# terminals struggle styling across lines:
+# https://github.com/mathiasbynens/dotfiles/issues/930
