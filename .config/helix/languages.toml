@@ -54,6 +54,10 @@ enable = false
 
 
 [[language]]
+name = "markdown"
+word-completion.trigger-length = 1
+
+[[language]]
 name = "html"
 # rm vscode
 language-servers = ["superhtml"]
