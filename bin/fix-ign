@@ -1,0 +1,10 @@
+#!/bin/sh
+set -euf
+
+readonly wd="${1:-./}"
+
+if [ -d "$wd/.git/" ]; then
+	mv -fT .ignore .gitignore
+else
+	mv -iT .gitignore .ignore
+fi
