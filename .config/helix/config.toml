@@ -1,8 +1,14 @@
-# https://github.com/helix-editor/helix/discussions/10281
-theme = "dl"
+# https://github.com/helix-editor/helix/pull/14356
+[theme]
+# https://github.com/helix-editor/helix/pull/14809
+light = "omicron_light"
+dark = "omicron_dark"
+fallback = "dl" # for Termux
 
 [editor]
 gutters.layout = ["diagnostics", "spacer", "diff"]
+# https://github.com/helix-editor/helix/pull/13206
+word-completion = { enable = true, trigger-length = 1 }
 cursorline = true
 # I know `<space>b`, but I want to "punish" myself
 # for having too many buffers
@@ -41,6 +47,18 @@ display-progress-messages = true
 [keys.normal.backspace]
 # for global search
 h = ":toggle file-picker.hidden"
+# zen-mode
+# bug: https://github.com/helix-editor/helix/issues/13187
+#z = [
+#	":set gutters.layout []",
+#	":set cursorline false",
+#	":set whitespace.render none",
+#	":set lsp.display-inlay-hints false",
+#	":set inline-diagnostics.cursor-line disable",
+#	":set end-of-line-diagnostics disable",
+#	":set statusline.diagnostics []",
+#	":set statusline.workspace-diagnostics []",
+#]
 # toggle line-numbers;
 # I now understand why Scheme is better than TOML:
 # https://github.com/helix-editor/helix/issues/8853
@@ -49,6 +67,7 @@ l = """
 [\"diagnostics\", \"spacer\", \"line-numbers\", \"spacer\", \"diff\"] \
 [\"diagnostics\", \"spacer\", \"diff\"]
 """
+c = ":toggle word-completion.trigger-length 3 1"
 # useful even for hard-wrapped prose;
 # also for collapsing suspiciously-long lines
 w = ":toggle soft-wrap.enable"
