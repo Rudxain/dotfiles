@@ -1,0 +1,53 @@
+[package]
+name = ""
+version = "0.1.0"
+edition = "2024"
+
+# https://rust-lang.github.io/rust-clippy/stable
+[lints.clippy]
+allow_attributes_without_reason = "warn"
+undocumented_unsafe_blocks = "forbid"
+
+arithmetic_side_effects = "warn"
+default_numeric_fallback = "warn"
+unseparated_literal_suffix = "warn"
+non_zero_suggestions = "deny"
+legacy_numeric_constants = "forbid"
+decimal_literal_representation = "deny"
+host_endian_bytes = "warn"
+
+# floats are a plague!
+# https://github.com/you-dont-need/You-Dont-Need/issues/13
+cast_nan_to_int = "deny"
+cast_precision_loss = "deny"
+excessive_precision = "deny"
+lossy_float_literal = "deny"
+float_arithmetic = "deny"
+imprecise_flops = "deny"
+suboptimal_flops = "deny"
+unused_rounding = "forbid"
+float_cmp = "deny"
+float_cmp_const = "deny"
+float_equality_without_abs = "deny"
+manual_is_finite = "forbid"
+manual_is_infinite = "forbid"
+neg_cmp_op_on_partial_ord = "deny"
+while_float = "deny"
+zero_divided_by_zero = "forbid"
+
+infinite_loop = "deny"
+panic_in_result_fn = "warn"
+unwrap_used = "warn"
+large_include_file = "warn"
+same_name_method = "deny"
+shadow_unrelated = "warn"
+redundant_test_prefix = "deny"
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -2 }
+
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = "fat"
+strip = true
+panic = "abort"
