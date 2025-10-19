@@ -1,61 +1,41 @@
-#!/usr/bin/env node
-//@ts-check
-import assert from 'node:assert/strict'
-import { argv } from 'node:process'
+#!/usr/bin/env bash
+set -eufo pipefail
 
-// ideally, there should be a cache
+# https://en.wikipedia.org/wiki/Binary_prefix
+readonly units='KMGTPEZYRQ'
 
-for (const arg of argv.slice(2)) {
-	// UX
-	const user_repo = (() => {
-		const a = arg.trim()
-		return a.slice(
-			+(a[0] == '/'),
-			//@ts-expect-error 2550
-			a.at(-1) == '/' ? -1 : undefined
-		)
-	})()
-
-	// regex is permissive, to be future-proof
-	if (!/^[^\x00-\x0a/\s]+\/[^\x00-\x0a/\s]+$/.test(user_repo)) {
-		console.error(`${user_repo} malformed`)
-		continue
-	}
-
-	// https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28
-	const r = await fetch('https://api.github.com/repos/' + user_repo)
-	if (!r.ok) {
-		console.error(`${user_repo} ${r.status} ${r.statusText}`)
-		continue
-	}
-	// full `JSON.parse` is overkill (bad perf),
-	// but it's guaranteed to be reliable,
-	// and asserts that the response is valid JSON
-	const kilobytes = (await r.json()).size
-
-	assert(
-		// TS `any` narrowing
-		typeof kilobytes == 'number' &&
-		// in theory, a number-literal can parse as `Infinity`!
-		// in practice, that'll never happen... right? 👀😅
-		Number.isInteger(kilobytes) &&
-		kilobytes >= 0,
-		'API broken'
-	)
-
-	// 1024 is for kibibytes
-	const bytes = kilobytes * 1e3
-
-	// floor (`toUint32`) logarithm base 1000
-	const i = Math.log10(bytes) / 3 >>> 0
-
-	// formatted like `du -h`, for `sort -h`
-	console.log(
-		(bytes / 1e3 ** i).toFixed(1) +
-		// https://en.wikipedia.org/wiki/Binary_prefix
-		// 1QB ≅ 2^99B,
-		// therefore the OOB index is practically impossible
-		('KMGTPEZYRQ'[i - 1] || '') +
-		'\t' + user_repo
-	)
+# https://mywiki.wooledge.org/BashProgramming/05#Arithmetic_Expansion
+is_uint() {
+	printf %d "$1" &>/dev/null && [[ $1 -ge 0 ]]
 }
+
+for r in "$@"; do
+	# trim spaces and "/", for better UX
+	r="${r#"${r%%[!/[:space:]]*}"}"
+	r="${r%"${r##*[!/[:space:]]}"}"
+
+	if ! kilobytes="$(gh api "repos/$r" --jq .size --cache 1h)";
+	then
+		printf 'error\t%s\n' "$r"
+		continue
+	fi
+
+	if ! is_uint "$kilobytes"; then
+		printf %s "assertion failed: size must be unsigned integer, but got $kilobytes" 1>&2
+		exit 128
+	fi
+	# TO-DO: handle exponential notation
+
+	len="${#kilobytes}"
+
+	if [[ $len -eq 0 ]]; then
+		echo 'assertion failed: empty numeral' 1>&2
+		exit 128
+	fi
+
+	i="$(((len - 1) / 3))"
+	len="$(((len - 1) % 3 + 1))"
+
+	# formatted like `du -h`, for `sort -h`
+	printf "${kilobytes::len}${units:i:1}\t%s\n" "$r"
+done
