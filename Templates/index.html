@@ -1,0 +1,90 @@
+<!doctype html>
+<!-- lowercase, for compression -->
+<html lang=en>
+
+<head>
+	<!--
+	Order is important for performance reasons!
+	https://dev.to/richarddillman/head-tags-organized-1c7p
+	See also:
+	https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/dns-prefetch
+	https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/preconnect
+	https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/HTML
+	-->
+	<meta charset=utf-8>
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<!--<link rel=stylesheet href=main.css>-->
+	<!--
+	You should only place "critical CSS" in `<style>`,
+	to ensure minimal reflows and no layout shifts.
+
+	However, if the critical-CSS is smaller (in bytes) than
+	the byte-distance between the above tag and the `<body>`,
+	and we assume that the browser will download this doc and `main.css` in parallel,
+	it's pretty much guaranteed that there won't be useless reflows and shifts,
+	as the critical-CSS would already be loaded by the time the HTML parser
+	reaches the `<body>`.
+
+	You should be optimizing network bandwidth rather than CPU usage anyways.
+	A shared ("centralized") stylesheet is more cache-friendly.
+	-->
+	<style>
+		/* https://www.joshwcomeau.com/css/interactive-guide-to-flexbox */
+		/* https://defensivecss.dev/tip/flexbox-min-content-size */
+		* {
+			min-width: 0;
+		}
+
+		html {
+			/* I like 'em CHUNKY */
+			font: 150% sans-serif;
+			text-align: center;
+		}
+	</style>
+	<meta name=color-scheme content="light dark">
+	<!--<link rel=icon type=image/xml+svg href=i.svg>-->
+	<!-- I won't support corp-specific stuff (icons, cards, etc...) -->
+	<title>🏠 Home</title>
+	<meta name=description content="Example page">
+	<!--<link rel=canonical href=https://example.org>-->
+	<!--<link rel=manifest href=m.webmanifest>-->
+	<!--
+	Remember OpenGraph for public-facing pages: https://ogp.me/
+
+	Yes, I know it's made by Meta/FB, but it's "open".
+
+	I hate that some redundancy is mandatory:
+	Why do we need `og:url` if `rel=canonical` serves that purpose?
+	-->
+</head>
+
+<body>
+	<!--<script src=main.js></script>-->
+	<script>
+		"use strict"
+		// mock the user (and myself) behind their back, lol
+		console.log("🚨 JS enabled. 🤖 NPC detected.")
+	</script>
+	<header>
+		<!--<nav></nav>-->
+	</header>
+
+	<main>
+		<h1>Title</h1>
+		<p>Hello world!</p>
+		<noscript>
+			<p>You disabled JS! Based 🗿</p>
+		</noscript>
+	</main>
+
+	<footer>
+		<p style=font-family:monospace>
+			@<span style=color:red>Rud</span><span style=color:cyan>xain</span>
+		</p>
+		<p>
+			<a href=https://rudxain.github.io>My website</a>
+		</p>
+	</footer>
+</body>
+
+</html>
