@@ -1,0 +1,75 @@
+#!/usr/bin/bash
+#shellcheck disable=SC2016
+set -eufo pipefail
+# NixOS: "Look what they need to mimic a fraction of my power"
+
+readonly HELP='Setup Debian-like distro.
+
+`$1` must be a path to a file formatted like
+`apt-mark showmanual` output.
+
+This is idempotent,
+so it can be safely ran repeatedly.
+'
+
+if [[ $# -lt 1 ]]
+then
+	printf %s "$HELP"
+	exit 1
+fi
+
+if [[ $1 = help ]]
+then
+	printf %s "$HELP"
+	exit 0
+fi
+
+pack_ls="$(cat -- "$1")"
+readonly pack_ls
+
+# to reduce time between auto-marking & installing,
+# we must config now
+cp etc/apt.conf /etc/apt/apt.conf
+
+echo '`auto`-`mark`ing...'
+# cleanup
+apt-mark auto \* >/dev/null
+echo 'Marked all packs as auto!'
+
+apt-get update
+
+apt-get install -y -- $pack_ls
+
+apt-get autopurge
+
+apt-get upgrade -y
+
+set +f
+shopt -s failglob
+
+mkdir -p /usr/local/sbin/
+install -- sbin/* /usr/local/sbin/
+mkdir -p /usr/local/bin/
+install -- bin/* /usr/local/bin/
+
+set -f
+
+# assume AA is set-up
+# https://wiki.debian.org/AppArmor/HowToUse#Enable_AppArmor
+
+# https://wiki.debian.org/nftables#nftables_in_Debian_the_easy_way
+if dpkg -s nftables &>/dev/null; then
+	cp etc/nftables.conf /etc/nftables.conf
+	systemctl enable nftables.service
+fi
+
+if dpkg -s git &>/dev/null; then
+	# avoid `mktemp` because `/tmp` mount options could be diff
+	mkdir tmp
+	cd tmp
+	git init
+	git update-index --test-untracked-cache && \
+	git config set --system core.untrackedCache true
+	cd -
+	rm -rf tmp
+fi
