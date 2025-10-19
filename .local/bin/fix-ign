@@ -1,0 +1,12 @@
+#!/bin/sh
+set -euf
+
+# https://github.com/helix-editor/helix/issues/6909#issuecomment-3540431768
+
+readonly wd="${1:-./}"
+
+if [ -d "$wd/.git/" ]; then
+	mv -fT .ignore .gitignore
+else
+	mv -iT .gitignore .ignore
+fi
