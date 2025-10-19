@@ -1,0 +1,65 @@
+# https://github.com/helix-editor/helix/discussions/10281
+theme = "everforest_dark"
+#theme = "everforest_light"
+
+[editor]
+gutters.layout = ["diagnostics", "spacer", "diff"]
+cursorline = true
+# I know `<space>b`, but I want to "punish" myself
+# for having too many buffers
+bufferline = "multiple"
+
+# why not show `mode` via `cursor-shape` instead of status-line?
+# gnome-term renders thin lines
+
+[editor.statusline]
+mode = { normal = "^", insert = "i", select = "v" }
+# `total-line-numbers` is an alt for `position-percentage`.
+# Despite my love for fractions, "%" is complementary
+# (presentation-wise, not information-wise)
+# and it's always short.
+# TO-DO: replace by [scrollbar](https://github.com/helix-editor/helix/pull/5749)
+# when merged.
+right = [
+	"diagnostics",
+	"selections",
+	"register",
+	"position-percentage",
+	"position",
+	"file-encoding",
+]
+
+[editor.lsp]
+display-inlay-hints = true
+inlay-hints-length-limit = 32 # half ~70char
+display-progress-messages = true
+
+[keys.normal]
+"+" = "increment"
+"-" = "decrement"
+[keys.normal.backspace]
+# toggle line-numbers;
+# I now understand why Scheme is better than TOML:
+# https://github.com/helix-editor/helix/issues/8853
+l = """
+:toggle gutters.layout \
+[\"diagnostics\", \"spacer\", \"line-numbers\", \"spacer\", \"diff\"] \
+[\"diagnostics\", \"spacer\", \"diff\"]
+"""
+# useful even for hard-wrapped prose;
+# also for collapsing suspiciously-long lines
+w = ":toggle soft-wrap.enable"
+# debug insidious Unicode shenanigans;
+# also reveal malware hidden outside the view-port
+s = ":toggle whitespace.render all none"
+# arithmetic evaluation
+e = ":! printf %%s '%{selection}' | bc -l"
+i = ":toggle lsp.display-inlay-hints"
+[keys.select]
+"+" = "increment"
+"-" = "decrement"
+[keys.select.backspace]
+s = ":toggle whitespace.render all none"
+# `|bc` is too short for a keybind
+e = ":echo %sh{printf %%s '%{selection}' | bc -l}"
+i = ":set lsp.display-inlay-hints false"

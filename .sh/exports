@@ -11,4 +11,7 @@ export HISTCONTROL=ignoreboth:erasedups
 
 export PAGER='less -S'
 
+# Helix
+export EDITOR=hx VISUAL=hx
+
 export __RXDF_EXPORTED=1
