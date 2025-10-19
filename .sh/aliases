@@ -36,3 +36,5 @@ alias rm='rm -i'
 alias nuke='rm -rf --'
 
 alias map='xargs -rn1'
+
+alias g=git
