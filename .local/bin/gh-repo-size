@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -eufo pipefail
+IFS='
+'
+export LC_ALL=C
+
+# https://en.wikipedia.org/wiki/Binary_prefix
+# I'd prefer base2 exp-notation,
+# but this is consistent with `du --si`
+readonly units=KMGTPE
+
+for r in "$@"; do
+	# trim spaces and "/", for better UX
+	r="${r#"${r%%[!/[:space:]]*}"}"
+	r="${r%"${r##*[!/[:space:]]}"}"
+
+	case "$r" in */*/*|*.*)
+		printf 'invalid name\t%s\n' "$r"
+		continue;;
+	esac
+
+	if ! kilobytes="$(gh api "repos/$r" --jq .size --cache 1h)";
+	then
+		printf 'error\t%s\n' "$r"
+		continue
+	fi
+
+	# it seems exp-notation is never used
+	case "$kilobytes" in ''|*[![:digit:]]*)
+		echo "assert fail: size must be decimal unsigned integer, but got $kilobytes" 1>&2
+		exit 127
+	esac
+
+	len=${#kilobytes}
+	# 64bit overflow prevention
+	if [ $len -gt 19 ]; then
+		echo "$r too big! $kilobytes" 1>&2
+		continue
+	fi
+
+	i=$(((len - 1) / 3))
+	len=$(((len - 1) % 3 + 1))
+
+	# formatted like `du -h`, for `sort -h`
+	printf "${kilobytes::len}${units:i:1}\t%s\n" "$r"
+done

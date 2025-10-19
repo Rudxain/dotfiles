@@ -1,0 +1,7 @@
+version: 1
+git_protocol: https
+prompt: enabled # interactive
+aliases:
+    co: pr checkout
+# https://github.com/actions/runner/pull/4148#issuecomment-4606892861
+telemetry: disabled
