@@ -1,0 +1,3 @@
+[alias]
+# https://github.com/rust-lang/cargo/issues/4150#issuecomment-2127056008
+i = ["install", "--config", "build.rustflags=\"-C target-cpu=native\""]
