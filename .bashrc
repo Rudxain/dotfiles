@@ -10,9 +10,16 @@ if [[ -n ${PS1:-} ]]; then
 
 	\. ~/.bash_prompt
 
-	#shellcheck external-sources=false
-	[[ -z ${BASH_COMPLETION_VERSINFO:-} && -f /usr/share/bash-completion/bash_completion ]] && \
-		\. /usr/share/bash-completion/bash_completion
+	bc=/usr/share/bash-completion
+
+	[[ -z ${BASH_COMPLETION_VERSINFO:-} && -f $bc/bash_completion ]] && \
+		\. $bc/bash_completion
+
+	[[ $(type -t __git_complete) != function && -f $bc/completions/git ]] && \
+		\. $bc/completions/git
+	[[ $(type -t __git_complete) = function ]] && __git_complete g __git_main
+
+	unset bc
 fi
 
 # assert readable file
