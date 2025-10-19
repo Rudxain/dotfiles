@@ -1,0 +1,44 @@
+# https://github.com/helix-editor/helix/discussions/10281
+theme = "everforest_dark"
+#theme = "everforest_light"
+
+[editor]
+# rm `line-numbers`, because `statusline` is enough
+gutters.layout = ["diagnostics", "spacer", "diff"]
+word-completion = { enable = true, trigger-length = 3 }
+cursorline = true
+# I know `<space>b`, but I want to "punish" myself
+# for having too many buffers
+bufferline = "multiple"
+
+# why not show `mode` via `cursor-shape` instead of status-line?
+# gnome-term renders thin lines
+
+[editor.statusline]
+mode = { normal = "(0)", insert = " >_", select = "[v]" }
+# `total-line-numbers` is an alt for `position-percentage`.
+# Despite my love for fractions, "%" is complementary
+# (presentation-wise, not information-wise)
+# and it's always short
+right = [
+	"diagnostics",
+	"selections",
+	"register",
+	"position-percentage",
+	"position",
+	"file-encoding",
+]
+
+[editor.lsp]
+display-inlay-hints = true
+inlay-hints-length-limit = 16
+display-progress-messages = true
+
+[keys.normal]
+"C-l" = ":toggle soft-wrap.enable"
+"C-h" = ":! printf %%s '%{selection}' | od -A n -t x1"
+"C-e" = ":! printf %%s '%{selection}' | bc -l"
+[keys.select]
+"C-h" = ":echo %sh{printf %%s '%{selection}' | od -A n -t x1}"
+"C-e" = ":echo %sh{printf %%s '%{selection}' | bc -l}"
+# `|bc` is too short for a keybind
