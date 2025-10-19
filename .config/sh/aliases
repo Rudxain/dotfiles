@@ -26,6 +26,16 @@ alias ..='cd ..' ~='cd ~'
 # `--` is literal in POSIX
 alias -- -='cd -' 2>/dev/null
 
+if [ -n "${TERMUX_VERSION:-}" ]; then
+	alias cbg=termux-clipboard-get
+	alias cbs=termux-clipboard-set
+else
+	# Wayland
+	alias cbg=wl-paste
+	alias cbs=wl-copy
+	# `xclip` is irrelevant to me
+fi
+
 # safety
 alias cp='cp -i'
 alias mv='mv -i'
