@@ -7,6 +7,7 @@ export LANG=C.UTF-8
 
 # Rust
 [ -f "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
+export RUSTUP_AUTO_INSTALL=0
 
 # JS/TS
 [ -f "$HOME/.deno/env" ] && \. "$HOME/.deno/env"
