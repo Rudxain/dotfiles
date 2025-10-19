@@ -1,5 +1,8 @@
 # https://github.com/helix-editor/helix/discussions/10281
-theme = "dl"
+[theme]
+light = "everforest_light"
+dark = "everforest_dark"
+fallback = "dl" # for Termux
 
 [editor]
 # rm `line-numbers`, because statusline is enough
