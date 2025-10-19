@@ -6,6 +6,13 @@ language-servers = ["taplo"]
 formatter = { command = "taplo", args = ["format", "-"] }
 auto-format = true
 
+# `indent` controlled by `rustfmt`
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+workspace = false
+[language-server.rust-analyzer.config.cachePriming]
+enable = false
+
 [[language]]
 name = "markdown"
 # https://github.com/helix-editor/helix/issues/12594
