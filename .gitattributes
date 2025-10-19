@@ -1,1 +1,4 @@
 * text=auto
+# https://github.com/github-linguist/linguist/blob/f101af52dce8d8a8da53556d197472327d61b753/docs/overrides.md
+**/git/config linguist-language=Git-Config linguist-detectable
+*.toml linguist-detectable

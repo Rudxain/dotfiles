@@ -7,9 +7,15 @@
 [core]
 	abbrev = 4
 
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
 [user]
 	name = Rudxain
-	email = rudxain@localhost.localdomain
+	email = 76864299+Rudxain@users.noreply.github.com
 
 [help]
 	autoCorrect = prompt
@@ -82,6 +88,9 @@
 [remote "origin"]
 	# see `fetch`
 	prune = true
+
+[url "https://github.com/"]
+	insteadOf = "gh:"
 
 [add]
 	ignoreErrors = true
