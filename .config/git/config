@@ -1,0 +1,97 @@
+# TIP: `update-index --test-untracked-cache`
+# if OK, then
+# `config set --{global,system} core.untrackedCache true`
+
+# TIP: `config set feature.manyFiles true` where appropriate
+
+[core]
+	abbrev = 4
+
+[user]
+	name = Rudxain
+	email = rudxain@localhost.localdomain
+
+[help]
+	autoCorrect = prompt
+
+[alias]
+	aliases = "!git config get --all --show-names --regexp '^alias\\.' | cut -c 7-"
+	is-shallow = rev-parse --is-shallow-repository
+	# https://git-scm.com/docs/partial-clone
+	# https://github.blog/open-source/git/get-up-to-speed-with-partial-clone-and-shallow-clone
+	# TIP: `rebase branch --reapply-cherry-picks`
+	clon-lazy = clone --filter=blob:none
+	# TIP: `config set merge.stat false`
+	clon-sparse = clone --filter=blob:none --sparse
+	# name inspired by Rust 🦀
+	# ⚠️ WARN: do not amend grafted commits!
+	# https://github.com/jesseduffield/lazygit/issues/4907
+	copy = clone --depth=1 --filter=blob:none # shallow blobless fetch
+	copy-sparse = clone --depth=1 --filter=blob:none --sparse
+	co = checkout
+	bc = switch -c
+	cb = switch # change branch
+	a = add
+	nuke = rm -rf --sparse --
+	unstage = restore -S
+	# `mixed` (default) because typical usage should be commit-split,
+	# IDC if default ever becomes `soft`.
+	uncommit = reset HEAD~
+	c = commit
+	ca = commit -av
+	l = log --oneline
+	lg = log --oneline --graph
+	ls = log --stat
+	lp = log -p --color-words
+	o = show --name-only
+	os = show --stat
+	oo = show --color-words
+	d = diff --name-only
+	ds = diff --stat
+	dd = diff --color-words
+	dn = diff --no-index --color-words
+	# "both modified" status
+	unmerged = diff --name-only --diff-filter=U
+	errs = diff --check
+	s = status -s
+	ss = status
+	statuses = branch -vv
+	b = branch
+	ba = branch -a
+	remotes = remote -v
+	contributors = shortlog -sn
+	# "garbage collection"
+	bdm = "!f() { git branch --merged | grep -vF '*' | xargs -r git branch -d; }; f"
+	rbi = "!r() { git rebase -i "HEAD~$1"; }; r"
+	rbir = "!r() { git -c commit.verbose=true rebase -i --root; }; r"
+	push-force = push --force-with-lease
+	f = fetch
+
+[init]
+	# solves racism across the entirety of space-time (/s):
+	# https://sfconservancy.org/news/2020/jun/23/gitbranchname
+	defaultBranch = main
+
+[remote "origin"]
+	# see `fetch`
+	prune = true
+
+[status]
+	showStash = true
+
+[diff]
+	renames = copies
+	wordRegex = "[[:alnum:]]{1,16}|[^[:space:]]"
+
+[log]
+	date = iso
+
+[merge]
+	# summarize commits
+	log = true
+	conflictStyle = zdiff3
+
+[rebase]
+	missingCommitsCheck = error
+	# for `fixup`s
+	autoSquash = true
