@@ -32,3 +32,6 @@ right = [
 display-inlay-hints = true
 inlay-hints-length-limit = 16
 display-progress-messages = true
+
+[keys.normal]
+"C-l" = ":toggle soft-wrap.enable"
