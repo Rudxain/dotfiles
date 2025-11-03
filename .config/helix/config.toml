@@ -35,3 +35,9 @@ display-progress-messages = true
 
 [keys.normal]
 "C-l" = ":toggle soft-wrap.enable"
+"C-h" = ":! printf %%s '%{selection}' | od -A n -t x1"
+"C-e" = ":! printf %%s '%{selection}' | bc -l"
+[keys.select]
+"C-h" = ":echo %sh{printf %%s '%{selection}' | od -A n -t x1}"
+"C-e" = ":echo %sh{printf %%s '%{selection}' | bc -l}"
+# `|bc` is too short for a keybind
