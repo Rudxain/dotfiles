@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eufo pipefail
+
+# should it also get XDG?
+cache_dir="$HOME/.cache/cscript"
+
+# TO-DO: only hash if `mtime` is different
+b="$cache_dir/$(cksum -- "$1" | cut -f 1-2 -d' ')"
+
+if ! [ -f "$b" ]; then
+	mkdir -p "$cache_dir"
+	if [ '_#!' = "_$(head -c2 -- "$1")" ]; then
+		tail -n +2 -- "$1" > "$b.c"
+	else
+		cp -- "$1" "$b.c"
+	fi
+	cc -O1 -o "$b" -- "$b.c"
+	rm -- "$b.c"
+fi
+# if not executable, then error;
+# for security
+"$b"
