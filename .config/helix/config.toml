@@ -9,6 +9,9 @@ fallback = "dl" # for Termux
 gutters.layout = ["diagnostics", "spacer", "diff"]
 word-completion = { enable = true, trigger-length = 3 }
 cursorline = true
+# I know `<space>b`, but I want to "punish" myself
+# for having too many buffers
+bufferline = "multiple"
 
 # why not show `mode` via `cursor-shape` instead of status-line?
 # gnome-term renders thin lines
