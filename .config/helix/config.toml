@@ -40,6 +40,7 @@ display-progress-messages = true
 "C-l" = ":toggle soft-wrap.enable"
 "C-h" = ":! printf %%s '%{selection}' | od -A n -t x1"
 "C-e" = ":! printf %%s '%{selection}' | bc -l"
+"C-g" = ":! git blame -L%{cursor_line},%{cursor_line} -- '%{buffer_name}'"
 [keys.select]
 "C-h" = ":echo %sh{printf %%s '%{selection}' | od -A n -t x1}"
 "C-e" = ":echo %sh{printf %%s '%{selection}' | bc -l}"
