@@ -1,0 +1,4 @@
+{
+"compilerOptions": {"noUncheckedIndexedAccess": true},
+"fmt": {"useTabs": true}
+}
