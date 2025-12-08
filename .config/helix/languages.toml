@@ -10,33 +10,33 @@ auto-format = true
 name = "json"
 auto-format = false
 
-# https://github.com/helix-editor/helix/blob/81708b70e685426716999e1278b7373292e797e9/languages.toml#L196-L203
-[language-server.typescript-language-server.config.javascript.inlayHints]
-includeInlayEnumMemberValueHints = true
-includeInlayFunctionLikeReturnTypeHints = true
-includeInlayFunctionParameterTypeHints = true
-includeInlayParameterNameHints = "all"
-includeInlayParameterNameHintsWhenArgumentMatchesName = false
-includeInlayPropertyDeclarationTypeHints = true
-includeInlayVariableTypeHints = true
-includeInlayVariableTypeHintsWhenTypeMatchesName = false
-
+# https://github.com/denoland/docs/blob/732aefa4b1b5ed15b4aad8310460e3d339401e67/runtime/getting_started/setup_your_environment.md#helix
 [[language]]
 name = "typescript"
+# why no `tsconfig`?
+roots = ["deno.json", "deno.jsonc", "package.json"]
+file-types = ["ts"]
 auto-format = true
+language-servers = ["deno-lsp"]
 
-# https://github.com/typescript-language-server/typescript-language-server/blob/184c60de3308621380469d6632bdff2e10f672fd/docs/configuration.md?plain=1#L164-L172
-# https://github.com/helix-editor/helix/blob/81708b70e685426716999e1278b7373292e797e9/languages.toml#L187-L194
-[language-server.typescript-language-server.config.typescript.inlayHints]
-includeInlayEnumMemberValueHints = true
-includeInlayFunctionLikeReturnTypeHints = true
-includeInlayFunctionParameterTypeHints = true
-includeInlayParameterNameHints = "all"
-includeInlayParameterNameHintsWhenArgumentMatchesName = false
-includeInlayPropertyDeclarationTypeHints = true
-includeInlayVariableTypeHints = true
-includeInlayVariableTypeHintsWhenTypeMatchesName = false
+[[language]]
+name = "javascript"
+# why no `jsconfig`?
+roots = ["deno.json", "deno.jsonc", "package.json"]
+file-types = ["js"]
+language-servers = ["deno-lsp"]
 
+[language-server.deno-lsp]
+command = "deno"
+args = ["lsp"]
+config.deno.enable = true
+[language-server.deno-lsp.config.deno.inlayHints]
+enumMemberValues.enabled = true
+functionLikeReturnTypes.enabled = true
+parameterNames.enabled = "all"
+parameterTypes.enabled = true
+propertyDeclarationTypes.enabled = true
+variableTypes.enabled = true
 
 # `indent` controlled by `rustfmt`
 [language-server.rust-analyzer.config.check]
@@ -44,7 +44,6 @@ command = "clippy"
 workspace = false
 [language-server.rust-analyzer.config.cachePriming]
 enable = false
-
 
 [[language]]
 name = "markdown"
