@@ -35,6 +35,7 @@ right = [
 ]
 
 [editor.lsp]
+enable = false
 display-inlay-hints = true
 inlay-hints-length-limit = 32 # half ~70char
 display-progress-messages = true
@@ -72,6 +73,7 @@ w = ":toggle soft-wrap.enable"
 s = ":toggle whitespace.render all none"
 # arithmetic evaluation
 e = ":! printf %%s '%{selection}' | bc -l"
+p = ":toggle lsp.enable"
 i = ":toggle lsp.display-inlay-hints"
 [keys.select]
 "+" = "increment"

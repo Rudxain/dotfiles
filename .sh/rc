@@ -9,6 +9,8 @@ if [ -n "${PS1:-}" ]; then
 	cdl() { cd -- "$1" && l; }
 	cdla() { cd -- "$1" && la; }
 	mkcd() { mkdir -p -- "$1" && cd -- "$1"; }
+	# TO-DO: zsh cd path replacement
+	# see also: https://github.com/spencertipping/cd
 
 	# GNU Disk Usage
 	fs() {
