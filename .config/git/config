@@ -84,6 +84,9 @@
 	rbi = rebase -i
 	rbn = "!r() { git rebase -i "HEAD~$1"; }; r"
 	rbr = "!r() { git -c commit.verbose=true rebase -i --root; }; r"
+	# TO-DO: remove hashes via `--format`/`--pretty`
+	dl = "!d() { git dn <(git log "$1") <(git log "$2"); }; d"
+	dlp = "!d() { git dn <(git log -p "$1") <(git log -p "$2"); }; d"
 	push-force = push --force-with-lease
 	f = fetch
 
