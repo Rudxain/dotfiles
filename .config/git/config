@@ -40,8 +40,6 @@
 	bc = switch -c
 	cb = switch # change branch
 	a = add
-	aa = add -A # full WT
-	ac = add . # current WD
 	nuke = rm -rf --sparse --
 	c = commit
 	cs = commit -S
