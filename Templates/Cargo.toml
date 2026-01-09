@@ -3,8 +3,12 @@ name = ""
 version = "0.1.0"
 edition = "2024"
 
+# https://rust-lang.github.io/rust-clippy/stable/index.html#/float
 [lints.clippy]
 undocumented_unsafe_blocks = "forbid"
+arithmetic_side_effects = "warn"
+cast_nan_to_int = "deny"
+cast_precision_loss = "deny"
 pedantic = { level = "warn", priority = -1 }
 nursery = { level = "warn", priority = -2 }
 
