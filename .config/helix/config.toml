@@ -18,6 +18,12 @@ bufferline = "multiple"
 # gnome-term renders thin lines
 
 [editor.statusline]
+# lambda: functional;
+# delta: raw mutation;
+# capital-lambda: looks like rotated `V`;
+#mode = { normal = "λ", insert = "Δ", select = "Λ" }
+#mode = { normal = "(0)", insert = " >_", select = "[v]" }
+mode = { normal = "^", insert = "i", select = "v" }
 # `total-line-numbers` is an alt for `position-percentage`.
 # Despite my love for fractions, "%" is complementary
 # (presentation-wise, not information-wise)
