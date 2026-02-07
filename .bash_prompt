@@ -8,8 +8,8 @@ last_exit() {
 	return $e
 }
 
-# bold; red exit; blue WD to match `ls`
-PS1='\n\[\e[1m\]${ last_exit "\[\e[31m\]" "\[\e[0;1m\] "; }\[\e[34m\]\w\[\e[0;1m\]'
+# bold; red exit; magenta jobs; blue WD to match `ls`
+PS1='\n\[\e[1m\]${ last_exit "\[\e[31m\]" "\[\e[0;1m\] "; }${ [ \j -gt 0 ] && echo "\[\e[35m\]\j\[\e[0;1m\] "; }\[\e[34m\]\w\[\e[0;1m\]'
 
 if command -v git >/dev/null; then
 	# ⚡ fast O(1) commit-ish
