@@ -53,3 +53,8 @@ alias rgrep='grep -rIn --color'
 alias g=git
 
 alias js='deno repl'
+
+alias py=python3
+# `math.pow` doesn't support modulo, but built-in `pow` does...
+# wtf
+alias calc='python3 -ic "p=pow;from math import *;from cmath import *; pow=p"'
