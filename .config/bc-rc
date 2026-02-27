@@ -111,36 +111,6 @@ define pow(b, x) {
 	return(round_to_scale(x))
 }
 
-/** see body for unimplemented things */
-define mod_pow(b, x, m) {
-	auto s, r
-	s = scale
-	if (x < 0) {
-		"exponent must be unsigned"
-		err()
-	}
-	if (is_int(x) == 0) {
-		"exponent must be an integer"
-		err()
-	}
-	if (x == 0) return(rem(1, m))
-	if (b < 0) {
-		"base must be unsigned"
-		err()
-	}
-	b = rem(b, m)
-	if ((b == 0) + (b == 1)) return(b)
-	r = 1
-	scale = 0
-	while (x > 0) {
-		if (x % 2) {r = (r*b) % m}
-		b = (b*b) % m
-		x /= 2
-	}
-	scale = s
-	return(r)
-}
-
 define cbrt(x) {
 	auto t, s
 	if (x == 0) return(0)
@@ -231,39 +201,3 @@ define phi() {
 	return(phi)
 }
 phi=phi()
-
-define factorial(n) {
-	auto t
-	if (n < 0) {
-		"n must be unsigned"
-		err()
-	}
-	t = 1
-	/* TO-DO:
-	http://www.luschny.de/math/factorial/FastFactorialFunctions.htm
-	py uses bin-split:
-	https://github.com/python/cpython/blob/0023d5b23df09f18425fea9b9c54a37ba050d5cf/Modules/mathintegermodule.c#L499-L500
-	*/
-	while (n > 1) {t *= n--}
-	return(t)
-}
-
-define gcd(a,b) {
-	auto s, t
-	s = scale
-	scale = 0
-	a = abs(a)
-	b = abs(b)
-	while (b) {
-		t = a
-		a = b
-		b = t % b
-	}
-	scale = s
-	return(a)
-}
-
-define lcm(a,b) {
-	if ((a == 0) * (b == 0)) return(0)
-	return(abs(a) / gcd(a,b) * abs(b))
-}
