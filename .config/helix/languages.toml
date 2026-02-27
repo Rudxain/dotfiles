@@ -49,3 +49,7 @@ enable = false
 name = "html"
 # rm vscode
 language-servers = ["superhtml"]
+
+[[language]]
+name = "python"
+language-servers = ["basedpyright"]
