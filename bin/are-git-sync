@@ -1,0 +1,41 @@
+#!/bin/sh
+set -u
+# this script is designed to find data that isn't backed-up.
+# [That](https://github.com/fboender/multi-git-status)
+# might be better
+
+# WARN: it does not check any branches,
+# use `branch -vv`.
+# https://github.com/mathiasbynens/dotfiles/blob/c886e139233320e29fd882960ba3dd388d57afd7/.bash_prompt#L37-L50
+git_is_stat_clean() {
+	# 1st checks should be fast
+	if ! git diff --quiet --ignore-submodules --cached >/dev/null 2>&1; then
+		return 1
+	fi
+	if git rev-parse --verify refs/stash >/dev/null 2>&1; then
+		return 1
+	fi
+	# last checks should be slow
+	if ! git diff-files --quiet --ignore-submodules -- >/dev/null 2>&1; then
+		return 1
+	fi
+	if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+		return 1
+	fi
+	return 0
+}
+
+for d in ./*/
+do
+	cd "$d" || continue
+	git rev-parse --is-inside-work-tree >/dev/null 2>&1 && \
+	git_is_stat_clean && \
+		# TODO: check if every local branch has pushed everything.
+		# if local branch has no associated remote then
+		# consider it "not synced"
+		continue
+	# only print paths that are not synced
+	printf %s "$d"
+	# assert
+	cd - || exit 127
+done

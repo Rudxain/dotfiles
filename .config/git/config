@@ -67,11 +67,6 @@
 	ds = diff --stat
 	dd = diff --color-words
 	dn = diff --no-index --color-words
-	dc = diff --check
-	# try to resolve merge conflicts (if any) in unmerged ("both modified" status) files;
-	# works with any WD inside work-tree;
-	# it intentionally ignores files outside WD, to avoid overload
-	resolve = "!git diff --name-only --diff-filter=U --relative -z | xargs -0r $(git var GIT_EDITOR)"
 	s = status -s
 	ss = status
 	statuses = branch -vv
@@ -82,11 +77,18 @@
 	# pruning
 	# https://github.com/tj/git-extras/blob/main/bin/git-delete-merged-branches
 	bdm = "!f() { git branch --merged | grep -vF '*' | xargs -r git branch -d; }; f"
+	# is this better?
+	# https://github.com/tj/git-extras/blob/main/bin/git-rebase-patch
+	fix-old = "!f() { git commit --fixup="$1" && git rebase -i "${1}~" --autosquash; }; f"
+	fix-root = "!f() { git commit --fixup="ROOT" && git rbr; }; f"
 	ccp = cherry-pick # commit copy
 	rb = rebase
 	rbi = rebase -i
 	rbn = "!r() { git rebase -i "HEAD~$1"; }; r"
 	rbr = "!r() { git -c commit.verbose=true rebase -i --root; }; r"
+	# TO-DO: remove hashes via `--format`/`--pretty`
+	dl = "!d() { git dn <(git log "$1") <(git log "$2"); }; d"
+	dlp = "!d() { git dn <(git log -p "$1") <(git log -p "$2"); }; d"
 	push-force = push --force-with-lease
 	f = fetch
 	fa = fetch --all

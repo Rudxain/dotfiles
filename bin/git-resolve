@@ -1,0 +1,23 @@
+#!/bin/sh
+set -euf
+IFS=' '
+
+# https://github.com/tj/git-extras/pull/1236
+
+#shellcheck disable=SC2046
+git diff --name-only --diff-filter=U --relative -z |
+    while IFS= read -r -d '' f; do
+        if ! git diff --check -- "$f" 2>&1 >/dev/null; then
+            printf '%s\0' "$f"
+        fi
+    done |
+    xargs -0r $(git var GIT_EDITOR)
+
+git diff --name-only --diff-filter=U -z |
+    while IFS= read -r -d '' f; do
+        # WARN: `f` is relative to repo root!
+        # this might be broken
+        if git diff --check -- "$f"; then
+            git add -- "$f"
+        fi
+    done
