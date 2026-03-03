@@ -12,20 +12,33 @@ last_exit() {
 PS1='\n\[\e[1m\]${ last_exit "\[\e[31m\]" "\[\e[0;1m\] "; }${ [ \j -gt 0 ] && echo "\[\e[35m\]\j\[\e[0;1m\] "; }\[\e[34m\]\w\[\e[0;1m\]'
 
 if command -v git >/dev/null; then
-	# ⚡ fast O(1) commit-ish
-	g_c_name() {
+	# ⚡ fast commit-ish and dirty WD;
+	# NOTE: ignores index, untrackeds, stash, remotes, etc...;
+	# ASK: show sparse?
+	# "stolen" from:
+	# https://github.com/git/git/blob/795c338de725e13bd361214c6b768019fc45a2c1/contrib/completion/git-prompt.sh
+	g_p() {
+		local o
 		# WARN: undocumented behavior!
 		# exit-code is assumed to be 0, even in `.git/` (bare or not).
-		git rev-parse --is-inside-work-tree &>/dev/null || return
+		o="${ git rev-parse --is-inside-work-tree 2>/dev/null; }" || return
+		readonly o
 		echo " ${1:-}${
 			git symbolic-ref --quiet --no-recurse --short HEAD 2>/dev/null || \
 			git describe --all --exact-match HEAD 2>/dev/null || \
 			git rev-parse --short HEAD 2>/dev/null || \
 			echo '?'
+		} ${
+			if [[ $o = true ]]; then
+				# WARN: execs `fsmonitor`!
+				# https://github.com/mathiasbynens/dotfiles/issues/431#issuecomment-4241319571
+				git diff --ignore-submodules --no-ext-diff --quiet HEAD -- . 2>/dev/null || \
+				echo '*'
+			fi
 		}${2:-}"
 	}
 	# yellow, because Git is orange, and it complements blue
-	PS1+='${ g_c_name "\[\e[33m\]" "\[\e[0;1m\]"; }'
+	PS1+='${ g_p "\[\e[33m\]" "\[\e[0;1m\]"; }'
 fi
 
 PS1+='\n\[\e[1m\]Δ \[\e[0m\]'

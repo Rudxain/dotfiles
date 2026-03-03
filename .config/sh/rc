@@ -1,6 +1,7 @@
 #!/bin/sh
 #set -x
-# support early debug in interactive mode
+# support early debug in interactive mode;
+# see also https://johannes.truschnigg.info/writing/2021-12_colodebug
 if [ -n "${PS1:-}" ]; then
 	PS4='+ $LINENO '
 	[ -n "${BASH_VERSION:-}" ] && \
@@ -40,6 +41,7 @@ if [ -n "${PS1:-}" ]; then
 	cdl() { cd -- "$1" && l; }
 	cdla() { cd -- "$1" && la; }
 	mkcd() { mkdir -p -- "$1" && cd -- "$1"; }
+	# see also https://github.com/spencertipping/cd
 
 	fs() {
 		# depends on GNU Disk Usage
