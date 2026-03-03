@@ -17,8 +17,9 @@ case "$1" in [0-8]);;
 	exit 1;;
 esac
 
-readonly arg=$1
+readonly b=$((~(-1 << $1)))
 
+adb shell settings put system screen_brightness $b || \
 # indirectly call `termux-api`,
 # for forwards-compatibility
-termux-brightness $((~(-1 << arg)))
+termux-brightness $b
