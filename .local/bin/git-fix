@@ -1,0 +1,25 @@
+#!/bin/sh
+set -eufo pipefail
+IFS='
+'
+
+readonly commitish="$1"
+
+root="$(git rev-list --max-parents=0 HEAD)"
+readonly root
+
+if [ "_$commitish" = _ROOT ] || [ "_$commitish" = _TAIL ]; then
+	commitish="$root"
+fi
+
+c_hash="$(git rev-parse "$commitish^{commit}")"
+readonly c_hash
+
+# TO-DO: support `-a`
+git commit -v --fixup="$c_hash"
+
+if [ "$c_hash" = "$root" ]; then
+	git -c commit.verbose=true rebase -i --root --autosquash
+else
+	git rebase -i "$c_hash~" --autosquash
+fi
