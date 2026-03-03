@@ -1,0 +1,29 @@
+#!/bin/sh
+set -eufo pipefail
+IFS='
+'
+
+# `--locked` to avoid supply-chain attacks,
+# at the cost of unpatched vulns
+if [ -n "${TERMUX_VERSION:-}" ]; then
+	# TO-DO: `fetch` deps, internet off, VPN off, await build, VPN on, internet on.
+	# Why: because I use NetGuard, which is killed by LMKD.
+	# Disabling VPN also frees RAM.
+	# Ideally, also ensure child-proc restrictions are disabled.
+	# https://consumerrights.wiki/index.php?title=Android&oldid=62706
+	termux-wake-lock
+	# `rustup` can't download binaries for Android,
+	# because they don't (yet) exist
+	HELIX_DISABLE_AUTO_GRAMMAR_BUILD=1 cargo i --path helix-term --locked
+	strip-stat ~/.cargo/bin/hx
+	termux-wake-unlock
+else
+	# assume `rustup`-managed install
+	HELIX_DISABLE_AUTO_GRAMMAR_BUILD=1 cargo +nightly i --path helix-term --locked
+fi
+
+strip-stat ~/.cargo/bin/hx || :
+
+# TO-DO: update when merged
+# https://github.com/helix-editor/helix/pull/6633
+hx -g fetch && hx -g build
