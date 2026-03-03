@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eufo pipefail
+IFS='
+'
+
+exec bc -l "$HOME/.config/bc-rc" "$@"

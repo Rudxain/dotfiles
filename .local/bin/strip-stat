@@ -1,0 +1,10 @@
+#!/bin/sh
+set -euf
+IFS='
+'
+
+s0=$(stat -c%s -- "$1")
+# TO-DO: check cmd existence before running
+strip -- "$1" || llvm-strip -- "$1"
+s1=$(stat -c%s -- "$1")
+printf '%s\n' "$s0 -> $s1; $((s1 * 100 / s0))%"

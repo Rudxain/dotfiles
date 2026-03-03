@@ -16,6 +16,11 @@ if [[ -n ${PS1:-} ]]; then
 	[[ -z ${BASH_COMPLETION_VERSINFO:-} && -f $bc/bash_completion ]] && \
 		\. "$bc/bash_completion"
 
+	[[ $(type -t _comp_cmd_cd) != function && -f $bc/completions/git ]] && \
+		\. "$bc/completions/cd"
+	[[ $(type -t _comp_cmd_cd) = function ]] && \
+		complete -F _comp_cmd_cd -o nospace cdl cdla
+
 	[[ $(type -t __git_complete) != function && -f $bc/completions/git ]] && \
 		\. "$bc/completions/git"
 	[[ $(type -t __git_complete) = function ]] && __git_complete g __git_main
