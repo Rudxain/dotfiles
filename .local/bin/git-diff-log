@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eufo pipefail
+shopt -s failglob
+IFS='
+'
+
+# https://github.com/tj/git-extras/issues/1243
+
+# TO-DO: these should be last, not first
+a="$1"; shift
+b="$1"; shift
+
+# TO-DO: support `--color-*`
+git diff --no-index <(git log --format=%s "$@" "$a") <(git log --format=%s "$@" "$b")

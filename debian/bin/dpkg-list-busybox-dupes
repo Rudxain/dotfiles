@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 set -eufo pipefail
+IFS='
+'
 # https://wiki.debian.org/ReduceDebian#Use_busybox_built-ins_instead_of_full_packages
-
 for cmd in $(busybox --list)
 do
 	pack="$(dpkg -S "$(type -P "$cmd")" 2>/dev/null)" && \
