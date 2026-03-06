@@ -53,3 +53,7 @@ word-completion.trigger-length = 1
 name = "html"
 # rm vscode
 language-servers = ["superhtml"]
+
+[[language]]
+name = "python"
+language-servers = ["basedpyright"]
