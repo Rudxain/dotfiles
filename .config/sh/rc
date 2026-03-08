@@ -59,7 +59,12 @@ if [ -n "${PS1:-}" ]; then
 	fi
 
 	# ANSI esc-codes aren't POSIX
-	PS1='$? $(printf %s "$PWD" | sed "s:^$HOME:~:") Δ '
+	PS1='$? $(
+		case "$PWD" in
+			"$HOME"*) printf %s "~${PWD##"$HOME"}";;
+			*) printf %s "$PWD";;
+		esac
+	) Δ '
 fi
 
 # assert readable
