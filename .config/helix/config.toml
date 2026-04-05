@@ -13,6 +13,7 @@ cursorline = true
 # I know `<space>b`, but I want to "punish" myself
 # for having too many buffers
 bufferline = "multiple"
+color-modes = true
 
 # why not show `mode` via `cursor-shape` instead of status-line?
 # gnome-term renders thin lines
