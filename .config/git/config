@@ -67,11 +67,6 @@
 	ds = diff --stat
 	dd = diff --color-words
 	dn = diff --no-index --color-words
-	dc = diff --check
-	# try to resolve merge conflicts (if any) in unmerged ("both modified" status) files;
-	# works with any WD inside work-tree;
-	# it intentionally ignores files outside WD, to avoid overload
-	resolve = "!git diff --name-only --diff-filter=U --relative -z | xargs -0r $(git var GIT_EDITOR)"
 	s = status -s
 	ss = status
 	statuses = branch -vv
