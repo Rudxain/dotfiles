@@ -6,6 +6,7 @@ dark = "omicron_dark"
 fallback = "dl" # for Termux
 
 [editor]
+auto-save.focus-lost = true
 gutters.layout = ["diagnostics", "spacer", "diff"]
 # https://github.com/helix-editor/helix/pull/13206
 word-completion = { enable = true, trigger-length = 1 }
