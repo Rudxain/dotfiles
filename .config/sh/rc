@@ -51,6 +51,43 @@ if [ -n "${PS1:-}" ]; then
 		fi
 	}
 
+	_loc() {
+		# GNU grep
+		grep -rIhc '[^[:space:]]' -- "$1" | awk '{s += $1} END {print s+0}'
+	}
+	loc() {
+		if [ "$#" -gt 0 ]; then
+			for p in "$@"; do
+				echo "$(_loc "$p") $p"
+			done
+		else
+			for p in .[!.]* ./* ; do
+				# emulate `nullglob`
+				[ -e "$p" ] && echo "$(_loc "$p") $p"
+			done | sort -rn
+		fi
+	}
+
+	# absolute frequencies, AKA "histogram"
+	counts() { sort | uniq -c | sort -nr; }
+	# allow `-z`?
+
+	fr3() {
+		# word-like pattern;
+		# doesn't recognize alt representations
+		# such as HTML entities
+		fr3_re="[[:alnum:]_'’]\{2,\}"
+		# GNU grep
+		if [ "$#" -gt 0 ]; then
+			grep -oh "$@"
+		elif [ -t 0 ]; then
+			grep -rIoh "$fr3_re" .
+		else
+			grep -oh "$fr3_re" -
+		fi | counts
+		unset fr3_re
+	}
+
 	fd() {
 		fd_type="${2:-}"
 		# "smart"
