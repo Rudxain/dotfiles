@@ -98,6 +98,8 @@
 	f = fetch
 	fa = fetch --all
 	greph = grep --break --heading
+	# useful for sparse
+	fd = "!f() { git ls-files | grep -e "$1"; }; f"
 
 [init]
 	# solves racism across the entirety of space-time (/s):
