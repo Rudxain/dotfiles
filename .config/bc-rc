@@ -1,0 +1,162 @@
+/**
+Extended standard library for `bc`.
+
+Works with any `ibase` and `scale`.
+
+The `bc` implementation must allow multi-char names
+(non-POSIX, for now)
+
+See also:
+https://x-bc.sourceforge.net/extensions_bc.html
+*/
+
+/**
+ternary op: `c ? t : f`.
+WARNING: not short-circuiting!
+all args are eagerly evaluated.
+*/
+define if3(c, t, f) {if (c) {return t} else {return f}}
+
+/** poor person's `panic` */
+define err() {1/0}
+
+define min(a,b) {return if3(a < b, a, b)}
+define max(a,b) {return if3(a < b, b, a)}
+/*
+Gavin Howard's impl already has this,
+which triggers parse errs
+unless `-r`
+*/
+define abs(x) {return max(x, -x)}
+
+/** trunc remainder */
+define rem(n, d) {
+	auto t, r
+	t = scale
+	/* bad practice? */
+	scale = 0
+	r = n % d
+	scale = t
+	return r
+}
+/** floor remainder, (standard math modulo) */
+define mod(n, d) {return rem(rem(n, d) + d, d)}
+
+/* which is default when decreasing scale? */
+define trunc(x) {return x - rem(x, 1)}
+define floor(x) {
+	auto r
+	r = rem(x, 1)
+	return if3(r < 0, x - r - 1, x - r)
+}
+define ceil(x) {
+	auto r
+	r = rem(x, 1)
+	return if3(r > 0, x - r + 1, x - r)
+}
+/*
+TO-DO:
+define round(x) {}
+*/
+
+define pow(b, x) {
+	if (rem(x, 1)) return e(x * l(b))
+	/*
+	POSIX: "If exponent is not integer, behavior is undefined"
+	*/
+	return b ^ x
+}
+
+define mod_pow(b, x, m) {
+	auto r
+	if (x < 0 || rem(x, 1)) {err()}
+	if (x == 0) {return rem(1, m)}
+	if (b < 0) {
+		"unimplemented
+"
+		err()
+	}
+	b = rem(b, m)
+	if (b == 0 || b == 1) {return b}
+	r = 1
+	while (x > 0) {
+		if (rem(x, 2)) {r = rem(r*b, m)}
+		b = rem(b*b, m)
+		x = trunc(x / 2)
+	}
+	return r
+}
+
+/* cursed */
+e=e(1)
+define exp(x) {return e(x)}
+define ln(x) {return l(x)}
+define log2(x) {return l(x) / l(2)}
+/** binary logarithm */
+define lb(x) {return log2(x)}
+define log10(x) {return l(x) / l(2*5)}
+/** decimal logarithm */
+define lg(x) {return log10(x)}
+
+define pi() {
+	auto p
+	scale+=1
+	p=4*a(1)
+	scale-=1
+	p/=1 /* round to scale */
+	return p
+}
+pi=pi()
+define sin(x) {return s(x)}
+define cos(x) {return c(x)}
+define tan(x) {return s(x) / c(x)}
+define atan(x) {return a(x)}
+
+define factorial(n) {
+	auto out
+	if (n < 0) {
+		"n must be unsigned
+"
+		err()
+	}
+	out = 1
+	while (n > 1) {out *= n--}
+	return out
+}
+
+define gcd(a, b) {
+	auto t
+	a = abs(a)
+	b = abs(b)
+	while (b) {
+		t = a
+		a = b
+		b = rem(t, b)
+	}
+	return a
+}
+
+define lcm(a, b) {
+	if (a == 0 && b == 0) return 0
+	return abs(a) / gcd(a,b) * abs(b)
+}
+
+/*
+intended to be faster than `factor`,
+and to avoid depending on non-POSIX tools
+such as `openssl prime`
+*/
+define is_prime(n) {
+	auto rt, d
+	if (rem(n, 1)) {return 0}
+	n = abs(n)
+	if (rem(n, 2) == 0) {return n == 2}
+	rt = sqrt(n)
+	d = 3
+	/* TO-DO: replace by optimal algorithm */
+	while (d <= rt) {
+		if (rem(n, d) == 0) {return 0}
+		d += 2
+	}
+	return 1
+}

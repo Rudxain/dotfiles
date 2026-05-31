@@ -77,7 +77,7 @@ w = ":toggle soft-wrap.enable"
 # also reveal malware hidden outside the view-port
 s = ":toggle whitespace.render all none"
 # arithmetic evaluation
-"=" = ":! printf %%s '%{selection}' | bc -l"
+"=" = ":! printf %%s '%{selection}' | bcl"
 # balance between easy-switch and prompting
 p.e = ":toggle lsp.enable"
 p.r = ":lsp-restart"
@@ -89,7 +89,7 @@ p.i = ":toggle lsp.display-inlay-hints"
 [keys.select.backspace]
 s = ":toggle whitespace.render all none"
 # `|bc` is too short for a keybind
-"=" = ":echo %sh{printf %%s '%{selection}' | bc -l}"
+"=" = ":echo %sh{printf %%s '%{selection}' | bcl}"
 p.e = ":toggle lsp.enable"
 p.r = ":lsp-restart"
 p.s = ":lsp-stop"
