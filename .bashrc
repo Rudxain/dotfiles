@@ -16,6 +16,12 @@ if [[ -n ${PS1:-} ]]; then
 	[[ -z ${BASH_COMPLETION_VERSINFO:-} && -f $bc/bash_completion ]] && \
 		\. "$bc/bash_completion"
 
+	# ASK: is this stable?
+	{ ! declare -F _comp_cmd_cd &>/dev/null; } && [[ -f $bc/completions/cd ]] && \
+		\. "$bc/completions/cd"
+	declare -F _comp_cmd_cd &>/dev/null && \
+		complete -F _comp_cmd_cd -o nospace cdl cdla
+
 	if ! declare -F __git_complete &>/dev/null; then
 		[[ -f $bc/completions/git ]] && \. "$bc/completions/git"
 	fi
