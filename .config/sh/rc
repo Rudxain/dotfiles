@@ -34,6 +34,9 @@ export PAGER='less -S'
 # Helix
 export EDITOR=hx VISUAL=hx
 
+# WARN: https://github.com/Seeker14491/opener/issues/40
+export BROWSER=elinks
+
 [ -n "${PS1:-}" ] && . "$HOME/.config/sh/aliases"
 # SC2262
 if [ -n "${PS1:-}" ]; then
