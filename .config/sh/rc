@@ -127,6 +127,24 @@ if [ -n "${PS1:-}" ]; then
 		unset fd_type fd_case fd_name fd_query
 	}
 
+	# See also `git.joeyh.name/moreutils/combine`,
+	# for alts that preserve order
+	to_proper_set() { sort -u -- "$1"; }
+	# union
+	set_or() { sort -u -- "$1" "$2"; }
+	# intersection (common elements).
+	# WARN: if A or B have dupes (malformed sets),
+	# this will print them
+	set_and() { sort -- "$1" "$2" | uniq -d; }
+	# difference / except / subtraction / NIMPLY gate.
+	# WARN: if A has dupes (malformed set),
+	# this will not print them
+	set_minus() { sort -- "$1" "$2" "$2" | uniq -u; }
+	# symmetric difference: (A-B)|(B-A), (A|B)-(A&B).
+	# WARN: if A or B have dupes (malformed sets),
+	# this will not print them
+	set_xor() { sort -- "$1" "$2" | uniq -u; }
+
 	# GNU Privacy Guard Agent
 	if GPG_TTY="$(tty)"; then
 		export GPG_TTY
