@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -euo pipefail
+shopt -s failglob
+IFS='
+'
+
+eprint() { printf '%s\n' "$1" 1>&2; }
+
+# get version from 1st line
+current="${ gh --version | head -1 | cut -d' ' -f3; }"
+# alt: get tag from 2nd line
+#current="${ gh --version | tail -1 | xargs -rn1 basename; }"
+if ! [[ $current =~ ^2\.[0-9]+\.[0-9]+$ ]]; then
+	eprint "expected semver, found $current"
+	exit 2
+fi
+
+latest="${ gh release view -R cli/cli --json tagName --jq .tagName; }"
+# tag -> version
+latest="${latest#v}"
+readonly latest
+
+if [[ $current = "$latest" ]]; then
+	echo 'already updated'
+	exit 0
+fi
+
+dl_path="${ mktemp -d; }"
+readonly dl_path
+cd "$dl_path"
+# easier asset recovery after failed update
+echo "dl_path: $dl_path"
+
+case "${ uname -m; }" in
+	*x86*|*x64*|*amd64*|*AMD64*|*[Ii]ntel64*) arch=amd;;
+	*arm*|*ARM*|*aarch*) arch=arm;;
+esac
+
+gh release download -R cli/cli \
+	-p 'gh_2.*_checksums.txt' \
+	-p "gh_2.*_linux_${arch}64.tar.gz" \
+
+echo 'verifying...'
+# INVARIANT: non-0 exit if "no file was verified",
+# also fail if not v2
+sha256sum -c ./*checksum* --ignore-missing
+
+echo 'extracting and copying...'
+tar -xzf ./*.tar.gz
+# `mv` would fail to overwrite
+cp -rT gh_2.*_linux_*/ ~/.local/opt/gh_2/
+echo 'updating bash completions...'
+gh completion -s bash > ~/.local/share/bash-completion/completions/gh
+echo 'update success!'
+
+echo "removing $dl_path ..."
+rm -rf "$dl_path"
+echo 'cleanup success'
