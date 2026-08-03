@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -eufo pipefail
+IFS='
+'
+export LC_ALL=C
+
+# kinda future-proof
+case "$1" in -*|*-|*[![:alnum:]_-]*)
+	echo 'invalid name' 1>&2
+	exit 1;;
+esac
+
+readonly user="$1"
+
+# newline-separated list
+repos="$(
+	# w/o paginate:
+	#gh api "users/$user/repos?per_page=128&sort=updated&direction=desc"
+	gh api "users/$user/repos" \
+	--paginate \
+	--jq '.[] | select(
+		.fork == false and
+		.archived == false and
+		.disabled == false and
+		.is_template == false and
+		.mirror_url == null
+	) | .name' \
+	--cache 3h
+)"
+readonly repos
+
+declare -A lang_bytes
+
+while read -r repo; do
+	[ -n "$repo" ] || continue
+
+	while IFS=$'\t' read -r lang bytes; do
+		[ -n "${lang:-}" ] || continue
+		[ -n "${bytes:-}" ] || continue
+		lang_bytes["$lang"]=$(( ${lang_bytes["$lang"]:-0} + bytes ))
+	done < <( # can't pipe, because of implicit subshell
+		gh api "repos/$user/$repo/languages" \
+			--jq 'to_entries[] | .key + "\t" + (.value|tostring)' \
+			--cache 12h || true # ignore 404
+	)
+done <<EOF
+$repos
+EOF
+
+for lang in "${!lang_bytes[@]}"; do
+	printf '%s\t%s\n' "${lang_bytes[$lang]}" "$lang"
+done | sort -rn
