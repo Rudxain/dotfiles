@@ -105,6 +105,7 @@
 	defaultBranch = main
 
 [commit]
+	verbose = true
 	template = ~/.config/git/c-m
 
 #[push]
