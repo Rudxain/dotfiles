@@ -9,6 +9,8 @@ edition = "2024"
 [lints.clippy]
 allow_attributes_without_reason = "warn"
 undocumented_unsafe_blocks = "forbid"
+unnecessary_safety_comment = "warn"
+unnecessary_safety_doc = "warn"
 
 arithmetic_side_effects = "warn"
 default_numeric_fallback = "warn"
@@ -38,12 +40,18 @@ while_float = "deny"
 zero_divided_by_zero = "forbid"
 
 infinite_loop = "deny"
-panic_in_result_fn = "warn"
+exit = "forbid"
 unwrap_used = "warn"
+unwrap_in_result = "deny"
+indexing_slicing = "warn"
+string_slice = "deny"
 large_include_file = "warn"
 same_name_method = "deny"
 shadow_unrelated = "warn"
 redundant_test_prefix = "deny"
+rc_mutex = "warn"
+precedence = "deny"
+precedence_bits = "deny"
 pedantic = { level = "warn", priority = -1 }
 nursery = { level = "warn", priority = -2 }
 
