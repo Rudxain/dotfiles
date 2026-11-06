@@ -3,11 +3,7 @@ set -euf
 IFS='
 '
 
-if [ -n "${TERMUX_VERSION:-}" ]; then
-	readonly dir=$HOME/downloads/hx
-else
-	readonly dir=$HOME/Downloads/hx
-fi
+readonly dir=$HOME/Downloads/hx
 
 # don't `git fetch` in any way (e.g. `clone`),
 # I want to update manually and review changes before rebuild
@@ -22,23 +18,9 @@ cd $dir
 
 export HELIX_DISABLE_AUTO_GRAMMAR_BUILD=1
 
-# `--locked` to avoid supply-chain attacks, at the cost of unpatched vulns
-if [ -n "${TERMUX_VERSION:-}" ]; then
-	# TO-DO: `cargo fetch`, internet off, VPN off, await build, VPN on, internet on.
-	# Why: because I use NetGuard, which is killed by LMKD.
-	# Disabling VPN also frees RAM.
-	# Ideally, also ensure child-proc restrictions are disabled.
-	# https://consumerrights.wiki/index.php?title=Android&oldid=62706
-	termux-wake-lock
-	# `rustup` can't download binaries for Android,
-	# because they don't (yet) exist
-	cargo i --path helix-term --locked
-	strip-stat ~/.cargo/bin/hx
-	termux-wake-unlock
-else
-	# assume `rustup`-managed install
-	cargo +nightly i --path helix-term --locked
-fi
+# assume `rustup`-managed install
+cargo +nightly i --path helix-term \
+	--locked # avoid supply-chain attacks, at the cost of unpatched vulns
 
 strip-stat $HOME/.cargo/bin/hx || :
 
