@@ -1,0 +1,19 @@
+#!/bin/sh
+set -eufo pipefail
+IFS='
+'
+export LC_ALL=C
+
+amm="$(apt-mark showmanual)"
+count=$(printf %s'\n' "$amm" | wc -l)
+i=0
+# TO-DO: try `xargs -P` for speed
+for pm in $amm; do
+	printf %s "$pm "
+	# NOTE: assumes `autoremove` has already done its job
+	for p in $(apt-get --autoremove -s remove $pm | awk '/^Remv / {print $2}'); do
+		dpkg -s $p | awk '/^Installed-Size: / {print $2}'
+	done | awk '{s += $1} END {print s+0}'
+	i=$((i+1))
+	printf %s'\n' "$i/$count" >&2
+done | sort -nr -k2
